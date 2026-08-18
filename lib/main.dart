@@ -1,4 +1,4 @@
-﻿import 'dart:convert';
+import 'dart:convert';
 
 import 'dart:io';
 
@@ -33,8 +33,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import 'package:image_picker/image_picker.dart';
-
-import 'package:lottie/lottie.dart';
 
 import 'package:shimmer/shimmer.dart';
 
@@ -82,344 +80,401 @@ pw.Text pdfText(String text, {pw.TextStyle? style}) =>
 
 // ==================== TRANSLATIONS ====================
 
-const Map<String, String> _en = {
-
-  'appTitle': 'Invoice Maker',
-
-  'invoices': 'Invoices',
-
-  'payments': 'Payments',
-
-  'products': 'Products',
-
-  'customers': 'Customers',
-
-  'statistics': 'Statistics',
-
-  'settings': 'Settings',
-
-  'newInvoice': 'New Invoice',
-
-  'darkMode': 'Dark Mode',
-
-  'enabled': 'Enabled',
-
-  'disabled': 'Disabled',
-
-  'language': 'Language',
-
-  'arabic': 'Arabic',
-
-  'english': 'English',
-
-  'search': 'Search...',
-
-  'sort': 'Sort',
-
-  'filter': 'Filter',
-
-  'all': 'All',
-
-  'paid': 'Paid',
-
-  'partial': 'Partial',
-
-  'unpaid': 'Unpaid',
-
-  'total': 'Total',
-
-  'remaining': 'Remaining',
-
-  'paid2': 'Paid',
-
-  'amount': 'Amount',
-
-  'save': 'Save',
-
-  'cancel': 'Cancel',
-
-  'delete': 'Delete',
-
-  'add': 'Add',
-
-  'confirm': 'Confirm',
-
-  'restore': 'Restore',
-
-  'apply': 'Apply',
-
-  'close': 'Close',
-
-  'share': 'Share',
-
-  'export': 'Export',
-
-  'backup': 'Backup',
-
-  'restoreBackup': 'Restore Backup',
-
-  'exportAll': 'Export all data',
-
-  'importFromAbk': 'Import from .abk file',
-
-  'exportProducts': 'Export Products CSV',
-
-  'exportCustomers': 'Export Customers CSV',
-
-  'exportInvoices': 'Export Invoices CSV',
-
-  'clearAll': 'Clear All Data',
-
-  'clearAllConfirm': 'Delete all invoices and products?',
-
-  'noInvoices': 'No Invoices',
-
-  'noProducts': 'No Products',
-
-  'noCustomers': 'No Customers',
-
-  'noPayments': 'No Payments Yet',
-
-  'startCreate': 'Start by creating a new invoice',
-
-  'addProducts': 'Add your products to start',
-
-  'addCustomers': 'Add your customers to track their invoices',
-
-  'addProduct': 'Add Product',
-
-  'addCustomer': 'Add Customer',
-
-  'productName': 'Product Name *',
-
-  'barcode': 'Barcode',
-
-  'buyPrice': 'Buy Price',
-
-  'sellPrice': 'Sell Price *',
-
-  'quantity': 'Quantity',
-
-  'category': 'Category',
-
-  'unit': 'Unit',
-
-  'customerName': 'Customer Name *',
-
-  'phone': 'Phone',
-
-  'address': 'Address',
-
-  'paymentMethod': 'Payment Method',
-
-  'cash': 'Cash',
-
-  'bankTransfer': 'Bank Transfer',
-
-  'mobileMoney': 'Mobile',
-
-  'check': 'Check',
-
-  'creditCard': 'Credit Card',
-
-  'other': 'Other',
-
-  'discount': 'Discount',
-
-  'subtotal': 'Subtotal',
-
-  'notes': 'Notes',
-
-  'dueDate': 'Due Date',
-
-  'template': 'Template',
-
-  'classic': 'Classic',
-
-  'modern': 'Modern',
-
-  'simple': 'Simple',
-
-  'corporate': 'Corporate',
-
-  'colorful': 'Colorful',
-
-  'dark': 'Dark',
-
-  'newest': 'Newest First',
-
-  'oldest': 'Oldest First',
-
-  'highest': 'Highest Amount',
-
-  'lowest': 'Lowest Amount',
-
-  'byName': 'By Customer Name',
-
-  'filterAdvanced': 'Advanced Filter',
-
-  'clearFilter': 'Clear Filter',
-
-  'fromDate': 'From Date:',
-
-  'toDate': 'To Date:',
-
-  'minAmount': 'Min Amount:',
-
-  'maxAmount': 'Max Amount:',
-
-  'sellerInfo': 'Seller Info',
-
-  'invoiceSettings': 'Invoice Settings',
-
-  'dataManagement': 'Data Management',
-
-  'nightMode': 'Night Mode',
-
-  'selectProduct': 'Select Product',
-
-  'selectCustomer': 'Select Customer',
-
-  'createInvoice': 'Create Invoice',
-
-  'editInvoice': 'Edit Invoice',
-
-  'saveInvoice': 'Save Invoice',
-
-  'shareInvoice': 'Share Invoice',
-
-  'items': 'Items',
-
-  'addItems': 'Add items first',
-
-  'enterCustomerName': 'Enter customer name',
-
-  'saved': 'Saved',
-
-  'deleted': 'Deleted',
-
-  'error': 'Error in data',
-
-  'whatsApp': 'WhatsApp',
-
-  'telegram': 'Telegram',
-
-  'copyText': 'Copy Text',
-
-  'quickPay': 'Quick Pay',
-
-  'half': 'Half',
-
-  'quarter': 'Quarter',
-
-  'third': 'Third',
-
-  'customerStatement': 'Customer Statement',
-
-  'purchase': 'Purchase',
-
-  'sale': 'Sale',
-
-  'unit2': 'Piece',
-
-  'pcs': 'pcs',
-
-  'statsTotal': 'Total Sales',
-
-  'statsInvoices': 'Invoices',
-
-  'statsPaid': 'Paid',
-
-  'statsRemaining': 'Remaining',
-
-  'statsAvg': 'Average',
-
-  'statsProducts': 'Products',
-
-  'topCustomers': 'Top Customers',
-
-  'recentInvoices': 'Recent Invoices',
-
-  'overdueInvoices': 'Overdue Invoices',
-
-  'daysOverdue': 'days overdue',
-
-  'daysLeft': 'days left',
-
-  'paidStatus': 'Paid',
-
-  'partialStatus': 'Partial',
-
-  'unpaidStatus': 'Unpaid',
-
-  'overdue': 'Overdue',
-
-  'onboardingTitle1': 'Create Invoices',
-
-  'onboardingDesc1': 'Create professional sales invoices with one tap',
-
-  'onboardingTitle2': 'Instant Sharing',
-
-  'onboardingDesc2': 'Share invoices via WhatsApp, Telegram or PDF',
-
-  'onboardingTitle3': 'Smart Tracking',
-
-  'onboardingDesc3': 'Track sales and customers with detailed statistics',
-
-  'skip': 'Skip',
-
-  'next': 'Next',
-
-  'start': 'Start',
-
-  'enterAmount': 'Enter amount',
-
-  'selectCustomer2': 'Select customer',
-
-  'paymentType': 'Payment Type',
-
-  'singleInvoice': 'Single Invoice',
-
-  'multiInvoice': 'Multi Invoice',
-
-  'advancePayment': 'Advance Payment',
-
-  'saveAdvance': 'Save Advance Payment',
-
-  'confirmPayment': 'Confirm Payment',
-
-  'confirmReceive': 'Confirm Receive',
-
-  'receive': 'Receive',
-
-  'itemsCount': 'Items',
-
-  'selectDueDate': 'Tap to select due date',
-
-  'canChangeSettings': '(can be changed in settings)',
-
-  'image': 'Image',
-
-  'deleteProduct': 'Delete Product',
-
-  'deleteCustomer': 'Delete Customer',
-
-  'areYouSureDelete': 'Are you sure you want to delete',
-
-  'priceList': 'Price List',
-
-  'overdueAlert': 'Overdue Alert',
-
-  'whatsNew': "What's New",
-
-  'done': 'Done',
-
-  'pasteBackupHere': 'Paste backup text here...',
-
-  'invoice': 'Invoice',
-
-  'payment': 'Payment',
-
+final Map<String, String> _en = {
+  'الفواتير': 'Invoices',
+  'الدفعات': 'Payments',
+  'المنتجات': 'Products',
+  'العملاء': 'Customers',
+  'الإحصائيات': 'Statistics',
+  'الإعدادات': 'Settings',
+  'فاتورة جديدة': 'New Invoice',
+  'الوضع الليلي': 'Night Mode',
+  'مفعّل': 'Enabled',
+  'معطّل': 'Disabled',
+  'اللغة': 'Language',
+  'العربية': 'Arabic',
+  'English': 'English',
+  'بحث...': 'Search...',
+  'ترتيب': 'Sort',
+  'تصفية': 'Filter',
+  'الكل': 'All',
+  'مدفوعة': 'Paid',
+  'جزئية': 'Partial',
+  'غير مدفوعة': 'Unpaid',
+  'الإجمالي': 'Total',
+  'المتبقي': 'Remaining',
+  'المدفوع': 'Paid',
+  'المبلغ': 'Amount',
+  'حفظ': 'Save',
+  'إلغاء': 'Cancel',
+  'حذف': 'Delete',
+  'إضافة': 'Add',
+  'تأكيد': 'Confirm',
+  'استرجاع': 'Restore',
+  'تطبيق': 'Apply',
+  'إغلاق': 'Close',
+  'مشاركة': 'Share',
+  'تصدير': 'Export',
+  'نسخ احتياطي': 'Backup',
+  'استرجاع نسخة احتياطية': 'Restore Backup',
+  'تصدير جميع البيانات': 'Export all data',
+  'استيراد من ملف نسخ احتياطي': 'Import from backup file',
+  'تصدير المنتجات CSV': 'Export Products CSV',
+  'تصدير العملاء CSV': 'Export Customers CSV',
+  'تصدير الفواتير CSV': 'Export Invoices CSV',
+  'مسح جميع البيانات': 'Clear All Data',
+  'هل أنت متأكد من حذف جميع الفواتير والمنتجات؟': 'Delete all invoices and products?',
+  'لا توجد فواتير': 'No Invoices',
+  'لا توجد منتجات': 'No Products',
+  'لا يوجد عملاء': 'No Customers',
+  'لا توجد دفعات بعد': 'No Payments Yet',
+  'ابدأ بإنشاء فاتورة جديدة': 'Start by creating a new invoice',
+  'أضف منتجاتك للبدء': 'Add your products to start',
+  'أضف عملاءك لتتبع فواتيرهم': 'Add your customers to track their invoices',
+  'إضافة منتج': 'Add Product',
+  'إضافة عميل': 'Add Customer',
+  'اسم المنتج *': 'Product Name *',
+  'الباركود': 'Barcode',
+  'سعر الشراء': 'Buy Price',
+  'سعر البيع *': 'Sell Price *',
+  'الكمية': 'Quantity',
+  'الفئة': 'Category',
+  'الوحدة': 'Unit',
+  'اسم العميل *': 'Customer Name *',
+  'الهاتف': 'Phone',
+  'العنوان': 'Address',
+  'طريقة الدفع': 'Payment Method',
+  'نقدي': 'Cash',
+  'تحويل بنكي': 'Bank Transfer',
+  'جوال': 'Mobile',
+  'شيك': 'Check',
+  'بطاقة ائتمان': 'Credit Card',
+  'أخرى': 'Other',
+  'خصم': 'Discount',
+  'المجموع الفرعي': 'Subtotal',
+  'ملاحظات': 'Notes',
+  'تاريخ الاستحقاق': 'Due Date',
+  'القالب': 'Template',
+  'كلاسيكي': 'Classic',
+  'عصري': 'Modern',
+  'بسيط': 'Simple',
+  'مؤسسي': 'Corporate',
+  'ملون': 'Colorful',
+  'داكن': 'Dark',
+  'الأحدث أولاً': 'Newest First',
+  'الأقدم أولاً': 'Oldest First',
+  'الأعلى مبلغاً': 'Highest Amount',
+  'الأقل مبلغاً': 'Lowest Amount',
+  'حسب اسم العميل': 'By Customer Name',
+  'تصفية متقدمة': 'Advanced Filter',
+  'مسح التصفية': 'Clear Filter',
+  'من تاريخ:': 'From Date:',
+  'إلى تاريخ:': 'To Date:',
+  'الحد الأدنى:': 'Min Amount:',
+  'الحد الأقصى:': 'Max Amount:',
+  'معلومات البائع': 'Seller Info',
+  'إعدادات الفاتورة': 'Invoice Settings',
+  'إدارة البيانات': 'Data Management',
+  'القالب الافتراضي': 'Default Template',
+  'يُستخدم تلقائياً عند إنشاء فاتورة جديدة': 'Used automatically when creating new invoice',
+  'تم تغيير القالب الافتراضي': 'Default template changed',
+  'تم الحفظ': 'Saved',
+  'تم الحذف': 'Deleted',
+  'خطأ في البيانات': 'Error in data',
+  'واتساب': 'WhatsApp',
+  'تيليجرام': 'Telegram',
+  'نسخ النص': 'Copy Text',
+  'دفع سريع': 'Quick Pay',
+  'النصف': 'Half',
+  'الربع': 'Quarter',
+  'الثلث': 'Third',
+  'كشف حساب العميل': 'Customer Statement',
+  'شراء': 'Purchase',
+  'بيع': 'Sale',
+  'قطعة': 'Piece',
+  'قطعة2': 'pcs',
+  'إجمالي المبيعات': 'Total Sales',
+  'المتوسط': 'Average',
+  'أكبر العملاء': 'Top Customers',
+  'أحدث الفواتير': 'Recent Invoices',
+  'فواتير متأخرة': 'Overdue Invoices',
+  'أيام تأخير': 'days overdue',
+  'أيام متبقية': 'days left',
+  'متأخرة': 'Overdue',
+  'إنشاء فواتير': 'Create Invoices',
+  'أنشئ فواتير مبيعات احترافية بنقرة واحدة': 'Create professional sales invoices with one tap',
+  'مشاركة فورية': 'Instant Sharing',
+  'شارك الفواتير عبر واتساب أو تيليجرام أو PDF': 'Share invoices via WhatsApp, Telegram or PDF',
+  'تتبع ذكي': 'Smart Tracking',
+  'تتبع المبيعات والعملاء بإحصائيات تفصيلية': 'Track sales and customers with detailed statistics',
+  'تخطي': 'Skip',
+  'التالي': 'Next',
+  'ابدأ': 'Start',
+  'أدخل المبلغ': 'Enter amount',
+  'اختر العميل': 'Select customer',
+  'نوع الدفعة': 'Payment Type',
+  'فاتورة واحدة': 'Single Invoice',
+  'عدة فواتير': 'Multi Invoice',
+  'دفعة مقدمة': 'Advance Payment',
+  'حفظ الدفعة المقدمة': 'Save Advance Payment',
+  'تأكيد الدفع': 'Confirm Payment',
+  'تأكيد الاستلام': 'Confirm Receive',
+  'استلام': 'Receive',
+  'العناصر': 'Items',
+  'اختر تاريخ الاستحقاق': 'Tap to select due date',
+  '(يمكن تغييره في الإعدادات)': '(can be changed in settings)',
+  'الصورة': 'Image',
+  'حذف المنتج': 'Delete Product',
+  'حذف العميل': 'Delete Customer',
+  'هل أنت متأكد من الحذف': 'Are you sure you want to delete',
+  'قائمة الأسعار': 'Price List',
+  'تنبيه التأخير': 'Overdue Alert',
+  'ما الجديد': "What's New",
+  'تم': 'Done',
+  'الصق نص النسخة الاحتياطية هنا...': 'Paste backup text here...',
+  'فاتورة': 'Invoice',
+  'دفعة': 'Payment',
+  'فواتير اليوم': 'Today Invoices',
+  'مبيعات الشهر': 'Month Sales',
+  'المتبقي الكلي': 'Total Remaining',
+  'لا توجد نتائج': 'No results',
+  'بحث بالاسم أو الفئة...': 'Search by name, category or barcode...',
+  'جميع العناصر': 'All Items',
+  'متوفر': 'In Stock',
+  'غير متوفر': 'Out of Stock',
+  'بالاسم أ-ي': 'Name A-Z',
+  'بالاسم ي-أ': 'Name Z-A',
+  'بالسعر من الأقل': 'Price Low-High',
+  'بالسعر من الأعلى': 'Price High-Low',
+  'بالكمية من الأقل': 'Qty Low-High',
+  'بالكمية من الأعلى': 'Qty High-Low',
+  'تعديل المنتج': 'Edit Product',
+  'إضافة منتج جديد': 'Add New Product',
+  'حفظ التغييرات': 'Save Changes',
+  'الرصيد': 'Balance',
+  'لديهم رصيد': 'With Balance',
+  'لديهم فواتير': 'With Invoices',
+  'بدون فواتير': 'Without Invoices',
+  'لديهم هاتف': 'With Phone',
+  'عميل': 'customers',
+  'الإشعارات': 'Notifications',
+  'نفذ من المخزون': 'Out of Stock',
+  'مخزون منخفض': 'Low Stock',
+  'لا توجد إشعارات': 'No notifications',
+  'كل شيء محدث!': 'All caught up!',
+  'لاحقاً': 'Later',
+  'عرض الكل': 'View All',
+  'ما الجديد في هذا الإصدار': "What's New in This Version",
+  'النسخ الاحتياطي': 'Backup',
+  'استيراد من نص نسخة احتياطية': 'Import from backup text',
+  'حذف جميع الفواتير والمنتجات': 'Delete all invoices and products',
+  'هل أنت متأكد؟ لا يمكن التراجع': 'Are you sure? Cannot be undone.',
+  'تأكيد الحذف': 'Confirm Delete',
+  'نعم': 'Yes',
+  'لا': 'No',
+  'اسم العنصر': 'Item Name',
+  'السعر': 'Price',
+  'الخصم': 'Discount',
+  'اختر اللغة': 'Select Language',
+  'الوضع النهاري': 'Light Mode',
+  'التوفير': 'Savings',
+  'الرصيد المقدم': 'Advance Balance',
+  'استخدام الرصيد المقدم': 'Use advance balance',
+  'تم حفظ الدفعة المقدمة': 'Advance payment saved',
+  'تم استلام الدفعة': 'Payment received',
+  'يتجاوز المتبقي': 'Exceeds remaining amount',
+  'أدخل اسم المنتج': 'Enter product name',
+  'أدخل رقم الهاتف': 'Enter phone number',
+  'أدخل العنوان': 'Enter address',
+  'طباعة الإيصال': 'Print Receipt',
+  'مبيعات يومية': 'Daily Sales',
+  'مبيعات شهرية': 'Monthly Sales',
+  'أعلى المنتجات': 'Top Products',
+  'أحدث الدفعات': 'Recent Payments',
+  'بيانات البائع': 'Seller Info',
+  'اسم البائع / المتجر': 'Seller / Shop Name',
+  'البريدي': 'Email',
+  'البريد الإلكتروني': 'Email',
+  'النموذج، العنوان، العرض، والخيارات': 'Template, layout, display & options',
+  'نسخة احتياطية': 'Backup',
+  'منتج • … عميل • … فاتورة • …': 'product • ... customer • ... invoice • ...',
+  'إلغاء': 'Cancel',
+  'الصق النص الاحتياطي هنا...': 'Paste backup text here...',
+  'تم الترحيل من نسخة احتياطية': 'Migrated from backup',
+  '-msl': '',
+  'msl-sdg': '',
+  'الإصدار': 'Version',
+  'مسح': 'Clear',
+  'الميزات الجديدة': 'New Features',
+  'إصلاحات': 'Fixes',
+  'نظام فواتير متكامل': 'Complete Invoice System',
+  'إنشاء فواتير احترافية': 'Create Professional Invoices',
+  'قم بإنشاء فواتير مبيعات احترافية بضغطة زر': 'Create professional sales invoices with one tap',
+  'شارك الفواتير عبر واتساب أو تيليجرام أو PDF': 'Share invoices via WhatsApp, Telegram or PDF',
+  'تتبع المبيعات والعملاء مع إحصائيات مفصلة': 'Track sales and customers with detailed statistics',
+  'تنبيه: فواتير متأخرة': 'Alert: Overdue Invoices',
+  'لحظة...': 'Moment...',
+  'عرض الكل': 'View All',
+  'استلام دفعة': 'Receive Payment',
+  'الزبون': 'Customer',
+  'اختر الزبون': 'Select Customer',
+  'balancecustomers': 'Customer Balance',
+  'توزيع المبلغ على الفواتير': 'Distribute amount across invoices',
+  'حفظ دفعة مقدمة': 'Save Advance Payment',
+  'توزيع على': 'Distribute to',
+  'فاتور(s)': 'invoice(s)',
+  'تأكيد الدفعة': 'Confirm Payment',
+  'تم حفظ دفعة مقدمة': 'Advance payment saved',
+  'تم استلام': 'Received',
+  'للفاتورة': 'for invoice',
+  'المبلغ يتجاوز المتبقي': 'Amount exceeds remaining',
+  'ضع الباركود داخل الإطار': 'Place barcode inside frame',
+  'مسح الباركود': 'Scan Barcode',
+  'المحصّل': 'Collected',
+  'فواتير مفتوحة': 'Open Invoices',
+  'استلام دفعة سريعة': 'Quick Payment',
+  'جميع الفواتير مدفوعة!': 'All invoices paid!',
+  'جميع الفواتير مدفوعة': 'All invoices paid',
+  'بحث في الدفعات...': 'Search payments...',
+  '💵 نقدي': '💵 Cash',
+  '🏦 بنكي': '🏦 Bank',
+  '📱 موبايل': '📱 Mobile',
+  '📄 شيك': '📄 Check',
+  '💳 ائتمان': '💳 Card',
+  'لا نتائج': 'No results',
+  'الكل': 'All',
+  'التنبيهات': 'Notifications',
+  'انتهى من المخزون': 'Out of stock',
+  'متبقي فقط': 'only left',
+  'بحث...': 'Search...',
+  'فلتر': 'Filter',
+  'ابدأ بإنشاء فاتورة جديدة': 'Start by creating a new invoice',
+  'جرّب البحث بكلمات مختلفة': 'Try different keywords',
+  'فاتورة جديدة': 'New Invoice',
+  'ترتيب حسب': 'Sort by',
+  'فلتر متقدم': 'Advanced Filter',
+  'مسح الفلتر': 'Clear Filter',
+  'اختر التاريخ': 'Select Date',
+  'الحد الأدنى:': 'Min:',
+  'الحد الأعلى:': 'Max:',
+  'اليوم': 'Today',
+  'الشهر': 'Month',
+  'تم السداد': 'Paid',
+  'تعديل السعر': 'Edit Price',
+  'سعر البيع': 'Sell Price',
+  'تعديل الكمية': 'Edit Quantity',
+  'اختر المنتج': 'Select Product',
+  'لا توجد منتجات': 'No Products',
+  'أضف أصنافاً أولاً': 'Add items first',
+  'أدخل اسم العميل': 'Enter customer name',
+  'تم حفظ الفاتورة': 'Invoice saved',
+  'الأصناف': 'Items',
+  'اضغط "إضافة" لاختيار منتج': 'Press "Add" to select a product',
+  'مشاركة الفاتورة': 'Share Invoice',
+  'اسم العميل': 'Customer Name',
+  'بيانات العميل': 'Customer Info',
+  'اختر عميل': 'Select Customer',
+  'الخصم والمجموع': 'Discount & Total',
+  'خصم %': 'Discount %',
+  'خصم مبلغ': 'Discount Amount',
+  'الإجمالي الفرعي': 'Subtotal',
+  'المجموع': 'Total',
+  'اضغط لاختيار تاريخ الاستحقاق': 'Tap to select due date',
+  'رجوع': 'Back',
+  'حفظ الفاتورة': 'Save Invoice',
+  'إضافة دفعة': 'Add Payment',
+  'رقم المرجع/المعاملة': 'Reference / Transaction #',
+  'ملاحظات (اختياري)': 'Notes (optional)',
+  'تم تسجيل دفعة': 'Payment recorded',
+  'فاتورة': 'Invoice',
+  'سجل الدفعات': 'Payment History',
+  'دفعة': 'Payment',
+  'دفعة -': 'Payment -',
+  'إيصال الدفع': 'Payment Receipt',
+  'كشف حساب': 'Statement',
+  'المشتريات': 'Purchases',
+  'المدفوعات': 'Payments',
+  'لا توجد فواتير لهذا العميل': 'No invoices for this customer',
+  'سجل المعاملات': 'Transaction History',
+  'صورة': 'Image',
+  'التصنيف': 'Category',
+  'شراء': 'Buy',
+  'بيع': 'Sell',
+  'حفظ المنتج': 'Save Product',
+  'تم إضافة المنتج': 'Product added',
+  'بحث بالاسم أو التصنيف أو الباركود...': 'Search by name, category or barcode...',
+  'متوفر': 'In Stock',
+  'نفذ': 'Out',
+  'اسم': 'Name',
+  'سعر ↑': 'Price ↑',
+  'سعر ↓': 'Price ↓',
+  'كمية ↑': 'Qty ↑',
+  'كمية ↓': 'Qty ↓',
+  'هل أنت متأكد من حذف': 'Are you sure you want to delete',
+  'تم حذف': 'Deleted',
+  'حفظ التعديلات': 'Save Changes',
+  'تم تعديل المنتج': 'Product updated',
+  'حذف العميل': 'Delete Customer',
+  'هل أنت متأكد من حذف': 'Are you sure you want to delete',
+  'تم حذف العميل': 'Customer deleted',
+  'يمكن': 'can',
+  'لديه فواتير': 'has invoices',
+  'بدون فواتير': 'without invoices',
+  'رصيد مقدم': 'Advance balance',
+  'مع هاتف': 'with phone',
+  'بحث بالاسم أو الهاتف...': 'Search by name or phone...',
+  'عدد الفواتير': 'Invoice count',
+  'الرصيد الأعلى': 'Highest balance',
+  'الإحصائيات': 'Statistics',
+  'أفضل العملاء': 'Top Customers',
+  'آخر الفواتير': 'Recent Invoices',
+  'د.ل': 'LYD',
+  'قوالب محفوظة': 'Saved Templates',
+  'تم تحميل القالب': 'Template loaded',
+  'تم حذف القالب': 'Template deleted',
+  'حفظ كقالب': 'Save as Template',
+  'حفظ القالب': 'Save Template',
+  'اسم القالب': 'Template Name',
+  ' invoices': 'invoices',
+  'الإجمالي': 'Total',
+  'الفواتير': 'Invoices',
+  'المدفوع': 'Paid',
+  'المتوسط': 'Average',
+  'المتبقي': 'Remaining',
+  'المنتجات': 'Products',
+  'العملاء': 'Customers',
+  'الإعدادات': 'Settings',
+  'مدفوع': 'Paid',
+  'جزئي': 'Partial',
+  'غير مدفوع': 'Unpaid',
+  'نقدي': 'Cash',
+  'تحويل بنكي': 'Bank Transfer',
+  'موبايل موني': 'Mobile Money',
+  'شيك': 'Check',
+  'بطاقة ائتمان': 'Credit Card',
+  'أخرى': 'Other',
+  'سعر البيع *': 'Sell Price *',
+  'الكمية': 'Quantity',
+  'تم التوزيع. متبقي': 'Distributed. Remaining',
+  'غير موزع': 'undistributed',
+  'تم توزيع': 'Distributed',
+  'على الفواتير': 'across invoices',
+  'حفظ الدفعة': 'Save Payment',
+  'فواتير': 'invoices',
+  'تعديل الفاتورة': 'Edit Invoice',
+  'مدفوع': 'Paid',
+  'جزئي': 'Partial',
+  'غير مدفوع': 'Unpaid',
+  'نقدي': 'Cash',
+  'تحويل بنكي': 'Bank Transfer',
+  'موبايل موني': 'Mobile Money',
+  'شيك': 'Check',
+  'بطاقة ائتمان': 'Credit Card',
+  'أخرى': 'Other',
+  'العميل': 'Customer',
+  'فاتورة رقم': 'Invoice #',
+  'التاريخ': 'Date',
+  'نص': 'Text',
 };
 
 String tr(String key, {bool? isEng}) {
@@ -482,7 +537,7 @@ Future<void> exportProductsCsv(List<Product> products) async {
 
 
 
-Future<void> exportCustomersCsv(List<Customer> customers) async {
+Future<void> exportCustomersCsv(List<Customer> customers, DataStore store) async {
 
   final rows = <String>[
 
@@ -490,7 +545,7 @@ Future<void> exportCustomersCsv(List<Customer> customers) async {
 
     ...customers.map((c) => _csvRow([
 
-      c.name, c.phone, c.address, c.advanceBalance.toStringAsFixed(2),
+      c.name, c.phone, c.address, store.getCustomerAdvanceBalance(c.name).toStringAsFixed(2),
 
     ])),
 
@@ -744,21 +799,21 @@ enum PaymentMethod { cash, bankTransfer, mobileMoney, check, creditCard, other }
 
 
 
-String paymentMethodName(PaymentMethod m) {
+String paymentMethodName(PaymentMethod m, {bool isEnglish = false}) {
 
   switch (m) {
 
-    case PaymentMethod.cash: return 'نقدي';
+    case PaymentMethod.cash: return tr('نقدي', isEng: isEnglish);
 
-    case PaymentMethod.bankTransfer: return 'تحويل بنكي';
+    case PaymentMethod.bankTransfer: return tr('تحويل بنكي', isEng: isEnglish);
 
-    case PaymentMethod.mobileMoney: return 'موبايل موني';
+    case PaymentMethod.mobileMoney: return tr('موبايل موني', isEng: isEnglish);
 
-    case PaymentMethod.check: return 'شيك';
+    case PaymentMethod.check: return tr('شيك', isEng: isEnglish);
 
-    case PaymentMethod.creditCard: return 'بطاقة ائتمان';
+    case PaymentMethod.creditCard: return tr('بطاقة ائتمان', isEng: isEnglish);
 
-    case PaymentMethod.other: return 'أخرى';
+    case PaymentMethod.other: return tr('أخرى', isEng: isEnglish);
 
   }
 
@@ -808,11 +863,17 @@ class Payment {
 
   String? invoiceId;
 
+  double appliedAmount;
 
 
-  Payment({required this.amount, required this.date, this.method = PaymentMethod.cash, this.receiptNumber, this.referenceNumber, this.notes, this.customerId, this.invoiceId})
+
+  Payment({required this.amount, required this.date, this.method = PaymentMethod.cash, this.receiptNumber, this.referenceNumber, this.notes, this.customerId, this.invoiceId, this.appliedAmount = 0})
 
     : id = 'PAY-${DateTime.now().millisecondsSinceEpoch}';
+
+
+
+  double get remainingAmount => amount - appliedAmount;
 
 
 
@@ -822,7 +883,7 @@ class Payment {
 
     'receiptNumber': receiptNumber, 'referenceNumber': referenceNumber, 'notes': notes,
 
-    'customerId': customerId, 'invoiceId': invoiceId,
+    'customerId': customerId, 'invoiceId': invoiceId, 'appliedAmount': appliedAmount,
 
   };
 
@@ -838,9 +899,9 @@ class Payment {
 
     } else if (rawMethod is String) {
 
-      if (rawMethod.contains('تحويل')) method = PaymentMethod.bankTransfer;
-
-      else if (rawMethod.contains('موبايل')) method = PaymentMethod.mobileMoney;
+      if (rawMethod.contains('تحويل')) {
+        method = PaymentMethod.bankTransfer;
+      } else if (rawMethod.contains('موبايل')) method = PaymentMethod.mobileMoney;
 
       else if (rawMethod.contains('شيك')) method = PaymentMethod.check;
 
@@ -859,6 +920,8 @@ class Payment {
       receiptNumber: m['receiptNumber'], referenceNumber: m['referenceNumber'], notes: m['notes'],
 
       customerId: m['customerId'], invoiceId: m['invoiceId'],
+
+      appliedAmount: (m['appliedAmount'] ?? 0).toDouble(),
 
     );
 
@@ -894,6 +957,10 @@ class Invoice {
 
   String? dueDate;
 
+  double allocatedFromAdvance;
+
+  String? advancePaymentId;
+
 
 
   Invoice({
@@ -922,6 +989,10 @@ class Invoice {
 
     this.dueDate,
 
+    this.allocatedFromAdvance = 0,
+
+    this.advancePaymentId,
+
   });
 
 
@@ -930,7 +1001,7 @@ class Invoice {
 
   double get total => subtotal - discountAmt - (subtotal * discountPct / 100);
 
-  double get totalPaid => payments.fold(0, (s, p) => s + p.amount);
+  double get totalPaid => payments.fold(0.0, (s, p) => s + p.amount) + allocatedFromAdvance;
 
   double get remaining => total - totalPaid;
 
@@ -974,6 +1045,8 @@ class Invoice {
 
     'template': template, 'dueDate': dueDate,
 
+    'allocatedFromAdvance': allocatedFromAdvance, 'advancePaymentId': advancePaymentId,
+
   };
 
 
@@ -998,6 +1071,10 @@ class Invoice {
 
     dueDate: m['dueDate'],
 
+    allocatedFromAdvance: (m['allocatedFromAdvance'] ?? 0).toDouble(),
+
+    advancePaymentId: m['advancePaymentId'],
+
   );
 
 }
@@ -1016,7 +1093,7 @@ class AppColors {
 
   static const secondary = Color(0xFF06B6D4);
 
-  static const accent = Color(0xFFF59E0B);
+  static const accent = Color(0xFF8B5CF6);
 
   static const success = Color(0xFF10B981);
 
@@ -1074,6 +1151,10 @@ class AppColors {
 
   static Color dialogBgOf(BuildContext c) => _isDark(c) ? const Color(0xFF1E293B) : Colors.white;
 
+  static Color shimmerBaseOf(BuildContext c) => _isDark(c) ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0);
+
+  static Color shimmerHighlightOf(BuildContext c) => _isDark(c) ? const Color(0xFF334155) : const Color(0xFFF1F5F9);
+
 }
 
 
@@ -1096,7 +1177,7 @@ class MainApp extends StatelessWidget {
 
       child: Consumer<DataStore>(
 
-        builder: (_, store, __) {
+        builder: (_, store, _) {
 
           return MaterialApp(
 
@@ -1105,23 +1186,113 @@ class MainApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
 
             theme: ThemeData(
-
-              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary, brightness: Brightness.light),
-
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: AppColors.primary,
+                primary: AppColors.primary,
+                secondary: AppColors.secondary,
+                error: AppColors.danger,
+                surface: Colors.white,
+                brightness: Brightness.light,
+              ),
               useMaterial3: true,
-
               scaffoldBackgroundColor: AppColors.bg,
-
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                scrolledUnderElevation: 0,
+                iconTheme: IconThemeData(color: AppColors.textPrimary),
+                titleTextStyle: TextStyle(
+                  color: AppColors.textPrimary,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              cardTheme: CardThemeData(
+                color: Colors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                margin: const EdgeInsets.only(bottom: 12),
+              ),
+              navigationBarTheme: NavigationBarThemeData(
+                backgroundColor: Colors.white,
+                elevation: 0,
+                indicatorColor: AppColors.primary.withValues(alpha: 0.12),
+                labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.selected)) {
+                    return const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 11);
+                  }
+                  return TextStyle(color: AppColors.textSecondary, fontSize: 11);
+                }),
+              ),
+              inputDecorationTheme: InputDecorationTheme(
+                border: const OutlineInputBorder(),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                filled: true,
+                fillColor: Colors.white,
+              ),
+              dialogTheme: DialogThemeData(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              ),
+              bottomSheetTheme: const BottomSheetThemeData(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+              ),
             ),
 
             darkTheme: ThemeData(
-
-              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary, brightness: Brightness.dark),
-
+              colorScheme: ColorScheme.fromSeed(
+                seedColor: AppColors.primary,
+                primary: AppColors.primaryLight,
+                secondary: AppColors.secondary,
+                error: AppColors.danger,
+                surface: const Color(0xFF1E293B),
+                brightness: Brightness.dark,
+              ),
               useMaterial3: true,
-
               scaffoldBackgroundColor: const Color(0xFF0F172A),
-
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                scrolledUnderElevation: 0,
+                iconTheme: IconThemeData(color: Colors.white),
+                titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              cardTheme: CardThemeData(
+                color: const Color(0xFF1E293B),
+                elevation: 0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                margin: const EdgeInsets.only(bottom: 12),
+              ),
+              navigationBarTheme: NavigationBarThemeData(
+                backgroundColor: const Color(0xFF1E293B),
+                elevation: 0,
+                indicatorColor: AppColors.primaryLight.withValues(alpha: 0.2),
+                labelTextStyle: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.selected)) {
+                    return const TextStyle(color: AppColors.primaryLight, fontWeight: FontWeight.w600, fontSize: 11);
+                  }
+                  return const TextStyle(color: Color(0xFF94A3B8), fontSize: 11);
+                }),
+              ),
+              inputDecorationTheme: InputDecorationTheme(
+                border: const OutlineInputBorder(),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                filled: true,
+                fillColor: const Color(0xFF334155),
+              ),
+              dialogTheme: DialogThemeData(
+                backgroundColor: const Color(0xFF1E293B),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              ),
+              bottomSheetTheme: const BottomSheetThemeData(
+                backgroundColor: Color(0xFF1E293B),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+              ),
             ),
 
             themeMode: store.isDarkMode ? ThemeMode.dark : ThemeMode.light,
@@ -1202,9 +1373,9 @@ class GlassCard extends StatelessWidget {
 
     final cardColor = isDark ? const Color(0xFF1E293B) : Colors.white;
 
-    final shadowColor = isDark ? Colors.black.withOpacity(0.3) : Colors.black.withOpacity(0.05);
+    final shadowColor = isDark ? Colors.black.withValues(alpha: 0.3) : Colors.black.withValues(alpha: 0.05);
 
-    final borderColor = isDark ? Colors.white.withOpacity(0.1) : Colors.white.withOpacity(0.3);
+    final borderColor = isDark ? Colors.white.withValues(alpha: 0.1) : Colors.white.withValues(alpha: 0.3);
 
     return GestureDetector(
 
@@ -1214,9 +1385,11 @@ class GlassCard extends StatelessWidget {
 
         margin: margin ?? const EdgeInsets.only(bottom: 12),
 
+        clipBehavior: Clip.antiAlias,
+
         decoration: BoxDecoration(
 
-          color: cardColor.withOpacity(opacity),
+          color: cardColor.withValues(alpha: opacity),
 
           borderRadius: BorderRadius.circular(20),
 
@@ -1238,43 +1411,31 @@ class GlassCard extends StatelessWidget {
 
         ),
 
-        child: ClipRRect(
+        child: Container(
 
-          borderRadius: BorderRadius.circular(20),
+          padding: padding ?? const EdgeInsets.all(16),
 
-          child: BackdropFilter(
+          decoration: BoxDecoration(
 
-            filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+            gradient: LinearGradient(
 
-            child: Container(
+              begin: Alignment.topLeft,
 
-              padding: padding ?? const EdgeInsets.all(16),
+              end: Alignment.bottomRight,
 
-              decoration: BoxDecoration(
+              colors: [
 
-                gradient: LinearGradient(
+                cardColor.withValues(alpha: 0.5),
 
-                  begin: Alignment.topLeft,
+                cardColor.withValues(alpha: 0.2),
 
-                  end: Alignment.bottomRight,
-
-                  colors: [
-
-                    cardColor.withOpacity(0.5),
-
-                    cardColor.withOpacity(0.2),
-
-                  ],
-
-                ),
-
-              ),
-
-              child: child,
+              ],
 
             ),
 
           ),
+
+          child: child,
 
         ),
 
@@ -1414,7 +1575,7 @@ class NeumorphicCard extends StatelessWidget {
 
 
 
-class GradientButton extends StatelessWidget {
+class GradientButton extends StatefulWidget {
 
   final String label;
 
@@ -1425,6 +1586,10 @@ class GradientButton extends StatelessWidget {
   final VoidCallback onPressed;
 
   final bool isExpanded;
+
+  final bool isLoading;
+
+  final bool enabled;
 
 
 
@@ -1442,7 +1607,25 @@ class GradientButton extends StatelessWidget {
 
     this.isExpanded = false,
 
+    this.isLoading = false,
+
+    this.enabled = true,
+
   });
+
+
+
+  @override
+
+  State<GradientButton> createState() => _GradientButtonState();
+
+}
+
+
+
+class _GradientButtonState extends State<GradientButton> {
+
+  bool _isPressed = false;
 
 
 
@@ -1450,59 +1633,89 @@ class GradientButton extends StatelessWidget {
 
   Widget build(BuildContext context) {
 
-    final btn = Material(
+    final btn = GestureDetector(
 
-      color: Colors.transparent,
+      onTapDown: widget.enabled ? (_) => setState(() => _isPressed = true) : null,
 
-      child: InkWell(
+      onTapUp: widget.enabled ? (_) => setState(() => _isPressed = false) : null,
 
-        onTap: onPressed,
+      onTapCancel: widget.enabled ? () => setState(() => _isPressed = false) : null,
 
-        borderRadius: BorderRadius.circular(16),
+      child: AnimatedScale(
 
-        child: Ink(
+        scale: _isPressed ? 0.95 : 1.0,
 
-          decoration: BoxDecoration(
+        duration: const Duration(milliseconds: 100),
 
-            gradient: LinearGradient(colors: gradient),
+        curve: Curves.easeInOut,
 
-            borderRadius: BorderRadius.circular(16),
+        child: Opacity(
 
-            boxShadow: [
+          opacity: widget.enabled ? 1.0 : 0.5,
 
-              BoxShadow(
+          child: Material(
 
-                color: gradient.first.withOpacity(0.4),
+            color: Colors.transparent,
 
-                blurRadius: 12,
+            child: InkWell(
 
-                offset: const Offset(0, 4),
+              onTap: widget.enabled && !widget.isLoading ? widget.onPressed : null,
+
+              borderRadius: BorderRadius.circular(16),
+
+              child: Ink(
+
+                decoration: BoxDecoration(
+
+                  gradient: LinearGradient(colors: widget.gradient),
+
+                  borderRadius: BorderRadius.circular(16),
+
+                  boxShadow: [
+
+                    BoxShadow(
+
+                      color: widget.gradient.first.withValues(alpha: 0.4),
+
+                      blurRadius: 12,
+
+                      offset: const Offset(0, 4),
+
+                    ),
+
+                  ],
+
+                ),
+
+                child: Padding(
+
+                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+
+                  child: Row(
+
+                    mainAxisSize: widget.isExpanded ? MainAxisSize.max : MainAxisSize.min,
+
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    children: [
+
+                      widget.isLoading
+
+                          ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+
+                          : Icon(widget.icon, color: Colors.white, size: 20),
+
+                      const SizedBox(width: 8),
+
+                      Text(widget.label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
+
+                    ],
+
+                  ),
+
+                ),
 
               ),
-
-            ],
-
-          ),
-
-          child: Padding(
-
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-
-            child: Row(
-
-              mainAxisSize: isExpanded ? MainAxisSize.max : MainAxisSize.min,
-
-              mainAxisAlignment: MainAxisAlignment.center,
-
-              children: [
-
-                Icon(icon, color: Colors.white, size: 20),
-
-                const SizedBox(width: 8),
-
-                Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14)),
-
-              ],
 
             ),
 
@@ -1514,7 +1727,7 @@ class GradientButton extends StatelessWidget {
 
     );
 
-    return isExpanded ? SizedBox(width: double.infinity, child: btn) : btn;
+    return widget.isExpanded ? SizedBox(width: double.infinity, child: btn) : btn;
 
   }
 
@@ -1616,7 +1829,7 @@ class _AnimatedCounterState extends State<AnimatedCounter> with SingleTickerProv
 
       animation: _animation,
 
-      builder: (_, __) => Text(
+      builder: (_, _) => Text(
 
         '${_animation.value.toStringAsFixed(2)} ${widget.suffix}',
 
@@ -1840,7 +2053,7 @@ class GradientHeader extends StatelessWidget {
 
           BoxShadow(
 
-            color: gradient.first.withOpacity(0.3),
+            color: gradient.first.withValues(alpha: 0.3),
 
             blurRadius: 20,
 
@@ -1862,7 +2075,7 @@ class GradientHeader extends StatelessWidget {
 
             const SizedBox(height: 4),
 
-            Text(subtitle!, style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14)),
+            Text(subtitle!, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 14)),
 
           ],
 
@@ -1920,11 +2133,11 @@ class StatusBadge extends StatelessWidget {
 
       decoration: BoxDecoration(
 
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
 
         borderRadius: BorderRadius.circular(20),
 
-        border: Border.all(color: color.withOpacity(0.3)),
+        border: Border.all(color: color.withValues(alpha: 0.3)),
 
       ),
 
@@ -2702,6 +2915,168 @@ class DataStore extends ChangeNotifier {
 
   }
 
+  void saveCurrentAsTemplate(String name) {
+
+    final template = {
+
+      'name': name,
+
+      'date': DateTime.now().toIso8601String(),
+
+      'primaryColor': _primaryColor,
+
+      'accentColor': _accentColor,
+
+      'useGradient': _useGradient,
+
+      'borderRadius': _borderRadius,
+
+      'accentBarHeight': _accentBarHeight,
+
+      'logoHeight': _logoHeight,
+
+      'sectionSpacing': _sectionSpacing,
+
+      'fontFamily': _fontFamily,
+
+      'fontSize': _fontSize,
+
+      'companyNameSize': _companyNameSize,
+
+      'lineHeight': _lineHeight,
+
+      'showLogo': _showLogo,
+
+      'showCompanyInfo': _showCompanyInfo,
+
+      'showSellerInfo': _showSellerInfo,
+
+      'showInfoGrid': _showInfoGrid,
+
+      'showBadge': _showBadge,
+
+      'showNotes': _showNotes,
+
+      'showQrCode': _showQrCode,
+
+      'showStamps': _showStamps,
+
+      'showTerms': _showTerms,
+
+      'showTaxNo': _showTaxNo,
+
+      'invoiceTitle': _invoiceTitle,
+
+      'invoiceSubtitle': _invoiceSubtitle,
+
+      'currencySymbol': _currencySymbol,
+
+      'footerText': _footerText,
+
+      'tableHeaderStyle': _tableHeaderStyle,
+
+      'tableRowStyle': _tableRowStyle,
+
+      'paperSize': _paperSize,
+
+      'textColor': _textColor,
+
+      'accentBorderColor': _accentBorderColor,
+
+    };
+
+    _savedTemplates.add(template);
+
+    _activeTemplate = name;
+
+    save();
+
+  }
+
+  void loadTemplate(int index) {
+
+    if (index < 0 || index >= _savedTemplates.length) return;
+
+    final t = _savedTemplates[index];
+
+    _primaryColor = t['primaryColor'] ?? '#6366F1';
+
+    _accentColor = t['accentColor'] ?? '#10B981';
+
+    _useGradient = t['useGradient'] ?? true;
+
+    _borderRadius = (t['borderRadius'] ?? 8).toDouble();
+
+    _accentBarHeight = (t['accentBarHeight'] ?? 5).toDouble();
+
+    _logoHeight = (t['logoHeight'] ?? 55).toDouble();
+
+    _sectionSpacing = (t['sectionSpacing'] ?? 14).toDouble();
+
+    _fontFamily = t['fontFamily'] ?? 'Cairo';
+
+    _fontSize = (t['fontSize'] ?? 12).toDouble();
+
+    _companyNameSize = (t['companyNameSize'] ?? 20).toDouble();
+
+    _lineHeight = (t['lineHeight'] ?? 1.5).toDouble();
+
+    _showLogo = t['showLogo'] ?? true;
+
+    _showCompanyInfo = t['showCompanyInfo'] ?? true;
+
+    _showSellerInfo = t['showSellerInfo'] ?? true;
+
+    _showInfoGrid = t['showInfoGrid'] ?? true;
+
+    _showBadge = t['showBadge'] ?? true;
+
+    _showNotes = t['showNotes'] ?? true;
+
+    _showQrCode = t['showQrCode'] ?? false;
+
+    _showStamps = t['showStamps'] ?? true;
+
+    _showTerms = t['showTerms'] ?? true;
+
+    _showTaxNo = t['showTaxNo'] ?? false;
+
+    _invoiceTitle = t['invoiceTitle'] ?? 'فاتورة مبيعات';
+
+    _invoiceSubtitle = t['invoiceSubtitle'] ?? '';
+
+    _currencySymbol = t['currencySymbol'] ?? 'د.ل';
+
+    _footerText = t['footerText'] ?? '';
+
+    _tableHeaderStyle = t['tableHeaderStyle'] ?? 'gradient';
+
+    _tableRowStyle = t['tableRowStyle'] ?? 'alternating';
+
+    _paperSize = t['paperSize'] ?? 'landscape';
+
+    _textColor = t['textColor'] ?? '#1F2937';
+
+    _accentBorderColor = t['accentBorderColor'] ?? '#E5E7EB';
+
+    _activeTemplate = t['name'] ?? '';
+
+    save();
+
+  }
+
+  void deleteTemplate(int index) {
+
+    if (index >= 0 && index < _savedTemplates.length) {
+
+      _savedTemplates.removeAt(index);
+
+      save();
+
+    }
+
+  }
+
 
 
   void toggleDarkMode() {
@@ -2718,6 +3093,8 @@ class DataStore extends ChangeNotifier {
 
     save();
 
+    notifyListeners();
+
   }
 
 
@@ -2725,6 +3102,14 @@ class DataStore extends ChangeNotifier {
   void addProduct(Product p) { products.add(p); save(); }
 
   void updateProduct(int i, Product p) { products[i] = p; save(); }
+
+  void updateProductSellPrice(String productId, double newPrice) {
+
+    final idx = products.indexWhere((p) => p.id == productId);
+
+    if (idx >= 0) { products[idx].sellPrice = newPrice; save(); }
+
+  }
 
   void deleteProduct(int i) { products.removeAt(i); save(); }
 
@@ -2738,7 +3123,31 @@ class DataStore extends ChangeNotifier {
 
   void updateInvoice(int i, Invoice inv) { invoices[i] = inv; save(); }
 
-  void deleteInvoice(int i) { invoices.removeAt(i); save(); }
+  void deleteInvoice(int i) {
+
+    final inv = invoices[i];
+
+    if (inv.allocatedFromAdvance > 0) {
+
+      final custName = inv.buyerName;
+
+      final advIdx = standalonePayments.indexWhere((p) =>
+
+        p.customerId == custName && p.invoiceId == null && p.appliedAmount > 0);
+
+      if (advIdx >= 0) {
+
+        standalonePayments[advIdx].appliedAmount = (standalonePayments[advIdx].appliedAmount - inv.allocatedFromAdvance).clamp(0.0, standalonePayments[advIdx].amount);
+
+      }
+
+    }
+
+    invoices.removeAt(i);
+
+    save();
+
+  }
 
 
 
@@ -2750,29 +3159,19 @@ class DataStore extends ChangeNotifier {
 
   double getCustomerAdvanceBalance(String customerName) {
 
-    // الدفعات المقدمة لهذا الزبون (مستقلة عن الفواتير)
-
     final advancePayments = standalonePayments
 
         .where((p) => p.customerId == customerName && p.invoiceId == null)
 
-        .fold(0.0, (s, p) => s + p.amount);
+        .fold(0.0, (s, p) => s + p.amount - p.appliedAmount);
 
-    // المبالغ التي خُصمت من الرصيد عند إنشاء فواتير
+    final usedFromAdvance = invoices
 
-    final usedFromBalance = invoices
+        .where((i) => i.buyerName == customerName && i.allocatedFromAdvance > 0)
 
-        .where((i) => i.buyerName == customerName)
+        .fold(0.0, (s, i) => s + i.allocatedFromAdvance);
 
-        .fold(0.0, (s, i) {
-
-          final balanceUsed = double.tryParse(i.notes.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0;
-
-          return s + (i.notes.contains('رصيد') ? balanceUsed : 0);
-
-        });
-
-    return advancePayments - usedFromBalance;
+    return advancePayments - usedFromAdvance;
 
   }
 
@@ -2795,6 +3194,98 @@ class DataStore extends ChangeNotifier {
     standalonePayments.add(payment);
 
     save();
+
+  }
+
+
+
+  /// إضافة دفعة لفاتورة (method مركزي آمن)
+
+  /// يُعيد true إذا تمت الإضافة بنجاح
+
+  bool addPaymentToInvoice(Invoice inv, double amount, PaymentMethod method, {String? referenceNumber, String? notes}) {
+
+    final idx = invoices.indexWhere((i) => i.id == inv.id);
+
+    if (idx == -1) return false;
+
+    final safeAmt = amount.clamp(0.0, inv.remaining);
+
+    if (safeAmt <= 0) return false;
+
+    final now = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    inv.payments.add(Payment(
+
+      amount: safeAmt,
+
+      date: now,
+
+      method: method,
+
+      customerId: inv.buyerName,
+
+      invoiceId: inv.id,
+
+      receiptNumber: 'RCP-${inv.id}-${inv.payments.length + 1}',
+
+      referenceNumber: referenceNumber,
+
+      notes: notes,
+
+    ));
+
+    updateInvoice(idx, inv);
+
+    return true;
+
+  }
+
+
+
+  /// تطبيق رصيد مقدم على فاتورة
+
+  /// يُعيد true إذا تمت العملية بنجاح
+
+  bool applyAdvanceToInvoice(String customerName, Invoice inv, double amount) {
+
+    final advance = getCustomerAdvanceBalance(customerName);
+
+    if (advance <= 0 || amount <= 0) return false;
+
+    final safeAmt = amount.clamp(0.0, advance < inv.remaining ? advance : inv.remaining).toDouble();
+
+    if (safeAmt <= 0) return false;
+
+
+
+    final invIdx = invoices.indexWhere((i) => i.id == inv.id);
+
+    if (invIdx == -1) return false;
+
+
+
+    inv.allocatedFromAdvance += safeAmt;
+
+    inv.advancePaymentId = customerName;
+
+
+
+    final advanceIdx = standalonePayments.indexWhere((p) =>
+
+      p.customerId == customerName && p.invoiceId == null && p.remainingAmount > 0);
+
+    if (advanceIdx >= 0) {
+
+      standalonePayments[advanceIdx].appliedAmount += safeAmt;
+
+    }
+
+
+
+    updateInvoice(invIdx, inv);
+
+    return true;
 
   }
 
@@ -2984,7 +3475,7 @@ class _ToastWidgetState extends State<_ToastWidget> with SingleTickerProviderSta
 
                   decoration: BoxDecoration(
 
-                    color: widget.color.withOpacity(0.2),
+                    color: widget.color.withValues(alpha: 0.2),
 
                     borderRadius: BorderRadius.circular(10),
 
@@ -3126,11 +3617,21 @@ class EmptyState extends StatelessWidget {
 
 // ==================== HELPERS ====================
 
-Future<void> shareWhatsApp(String phone, Invoice inv) async {
+Future<void> shareWhatsApp(String phone, Invoice inv, {bool sharePdf = false}) async {
 
-  final msg = '🧾 فاتورة رقم: ${inv.id}\n👤 العميل: ${inv.buyerName}\n💰 الإجمالي: ${inv.total.toStringAsFixed(2)} د.ل\n📅 التاريخ: ${inv.date}';
+  if (sharePdf) {
 
-  final url = Uri.parse('https://wa.me/$phone?text=${Uri.encodeComponent(msg)}');
+    await shareInvoicePdf(inv);
+
+    return;
+
+  }
+
+  final msg = '🧾 ${"فاتورة رقم"}: ${inv.id}\n👤 ${"العميل"}: ${inv.buyerName}\n💰 ${"الإجمالي"}: ${inv.total.toStringAsFixed(2)} د.ل\n📅 ${"التاريخ"}: ${inv.date}${inv.remaining > 0 ? '\n⏳ ${"المتبقي"}: ${inv.remaining.toStringAsFixed(2)} د.ل' : ''}';
+
+  final cleanPhone = phone.replaceAll(RegExp(r'[\s\-\+]'), '');
+
+  final url = Uri.parse('https://wa.me/${cleanPhone.isNotEmpty ? cleanPhone : ''}?text=${Uri.encodeComponent(msg)}');
 
   try {
 
@@ -3156,7 +3657,7 @@ Future<void> shareWhatsApp(String phone, Invoice inv) async {
 
 Future<void> shareTelegram(Invoice inv) async {
 
-  final msg = '🧾 فاتورة رقم: ${inv.id}\n👤 العميل: ${inv.buyerName}\n💰 الإجمالي: ${inv.total.toStringAsFixed(2)} د.ل\n📅 التاريخ: ${inv.date}';
+  final msg = '🧾 ${"فاتورة رقم"}: ${inv.id}\n👤 ${"العميل"}: ${inv.buyerName}\n💰 ${"الإجمالي"}: ${inv.total.toStringAsFixed(2)} د.ل\n📅 ${"التاريخ"}: ${inv.date}${inv.remaining > 0 ? '\n⏳ ${"المتبقي"}: ${inv.remaining.toStringAsFixed(2)} د.ل' : ''}';
 
   final url = Uri.parse('https://t.me/share/url?text=${Uri.encodeComponent(msg)}');
 
@@ -3296,9 +3797,10 @@ class InvoiceTemplate {
 
     required this.icon,
 
-  });
+    });
 
-}
+  }
+
 
 
 
@@ -3424,7 +3926,7 @@ InvoiceTemplate getTemplate(String id) {
 
 
 
-Future<void> printInvoice(Invoice inv) async {
+Future<void> printInvoice(Invoice inv, {bool isEnglish = false}) async {
 
   final pdf = pw.Document();
 
@@ -3446,13 +3948,13 @@ Future<void> printInvoice(Invoice inv) async {
 
     case 'minimal':
 
-      _buildMinimalTemplate(pdf, inv, template, font, fontBold);
+      _buildMinimalTemplate(pdf, inv, template, font, fontBold, isEnglish: isEnglish);
 
       break;
 
     case 'corporate':
 
-      _buildCorporateTemplate(pdf, inv, template, font, fontBold);
+      _buildCorporateTemplate(pdf, inv, template, font, fontBold, isEnglish: isEnglish);
 
       break;
 
@@ -3482,7 +3984,51 @@ Future<void> printInvoice(Invoice inv) async {
 
 
 
-Future<void> printPaymentReceipt(Invoice inv, Payment payment) async {
+Future<void> shareInvoicePdf(Invoice inv, {bool isEnglish = false}) async {
+
+  final pdf = pw.Document();
+
+  final font = await PdfGoogleFonts.cairoRegular();
+
+  final fontBold = await PdfGoogleFonts.cairoBold();
+
+  final template = getTemplate(inv.template);
+
+
+
+  switch (inv.template) {
+
+    case 'modern': _buildModernTemplate(pdf, inv, template, font, fontBold); break;
+
+    case 'minimal': _buildMinimalTemplate(pdf, inv, template, font, fontBold, isEnglish: isEnglish); break;
+
+    case 'corporate': _buildCorporateTemplate(pdf, inv, template, font, fontBold, isEnglish: isEnglish); break;
+
+    case 'colorful': _buildColorfulTemplate(pdf, inv, template, font, fontBold); break;
+
+    case 'dark': _buildDarkTemplate(pdf, inv, template, font, fontBold); break;
+
+    default: _buildClassicTemplate(pdf, inv, template, font, fontBold);
+
+  }
+
+
+
+  final bytes = await pdf.save();
+
+  final dir = await getTemporaryDirectory();
+
+  final file = File('${dir.path}/invoice_${inv.id}.pdf');
+
+  await file.writeAsBytes(bytes);
+
+  await SharePlus.instance.share(ShareParams(files: [XFile(file.path)], text: '🧾 ${isEnglish ? 'Invoice' : 'فاتورة'} ${inv.id}'));
+
+}
+
+
+
+Future<void> sharePaymentReceiptPdf(Invoice inv, Payment payment, {bool isEnglish = false}) async {
 
   final pdf = pw.Document();
 
@@ -3498,89 +4044,128 @@ Future<void> printPaymentReceipt(Invoice inv, Payment payment) async {
 
     build: (_) => [
 
-      pw.Header(level: 0, child: pdfText('إيصال دفع', style: pw.TextStyle(font: fontBold, fontSize: 22))),
+      pw.Header(level: 0, child: pdfText(isEnglish ? 'Payment Receipt' : 'إيصال دفع', style: pw.TextStyle(font: fontBold, fontSize: 22))),
 
       pw.Divider(),
 
       pw.SizedBox(height: 16),
 
-      _receiptRow('رقم الإيصال', payment.receiptNumber ?? 'N/A', font, fontBold),
+      _receiptRow(isEnglish ? 'Invoice' : 'رقم الفاتورة', inv.id, font, fontBold),
 
-      _receiptRow('التاريخ', payment.date, font, fontBold),
+      _receiptRow(isEnglish ? 'Customer' : 'العميل', inv.buyerName, font, fontBold),
 
-      pw.SizedBox(height: 12),
+      _receiptRow(isEnglish ? 'Date' : 'التاريخ', payment.date, font, fontBold),
 
-      pw.Divider(),
-
-      pw.SizedBox(height: 12),
-
-      _receiptRow('رقم الفاتورة', inv.id, font, fontBold),
-
-      _receiptRow('العميل', inv.buyerName, font, fontBold),
-
-      if (inv.buyerPhone.isNotEmpty) _receiptRow('الهاتف', inv.buyerPhone, font, fontBold),
-
-      pw.SizedBox(height: 12),
-
-      pw.Divider(),
-
-      pw.SizedBox(height: 12),
+      pw.SizedBox(height: 16),
 
       pw.Container(
 
         padding: const pw.EdgeInsets.all(16),
 
-        decoration: pw.BoxDecoration(
+        decoration: pw.BoxDecoration(color: PdfColor(0.07, 0.53, 0.3), borderRadius: pw.BorderRadius.circular(12)),
 
-          color: PdfColor(0.9, 0.95, 0.9),
+        child: pw.Column(children: [
 
-          borderRadius: pw.BorderRadius.circular(8),
+          pdfText(isEnglish ? 'Amount Paid' : 'المبلغ المدفوع', style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.white)),
 
-        ),
+          pw.SizedBox(height: 4),
 
-        child: pw.Column(
+          pdfText('${payment.amount.toStringAsFixed(2)} LYD', style: pw.TextStyle(font: fontBold, fontSize: 28, color: PdfColors.white)),
 
-          children: [
-
-            pdfText('المبلغ المدفوع', style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.grey700)),
-
-            pw.SizedBox(height: 4),
-
-            pdfText('${payment.amount.toStringAsFixed(2)} د.ل', style: pw.TextStyle(font: fontBold, fontSize: 28, color: PdfColor(0.07, 0.53, 0.3))),
-
-          ],
-
-        ),
+        ]),
 
       ),
 
       pw.SizedBox(height: 16),
 
-      _receiptRow('طريقة الدفع', paymentMethodIcon(payment.method) + ' ' + paymentMethodName(payment.method), font, fontBold),
+      _receiptRow(isEnglish ? 'Method' : 'طريقة الدفع', paymentMethodName(payment.method, isEnglish: isEnglish), font, fontBold),
 
-      if (payment.referenceNumber != null) _receiptRow('رقم المرجع', payment.referenceNumber!, font, fontBold),
-
-      if (payment.notes != null) _receiptRow('ملاحظات', payment.notes!, font, fontBold),
-
-      pw.SizedBox(height: 12),
-
-      pw.Divider(),
-
-      pw.SizedBox(height: 12),
-
-      _receiptRow('إجمالي الفاتورة', '${inv.total.toStringAsFixed(2)} د.ل', font, fontBold),
-
-      _receiptRow('المبلغ المدفوع', '${inv.totalPaid.toStringAsFixed(2)} د.ل', font, fontBold),
-
-      _receiptRow('المتبقي', '${inv.remaining.toStringAsFixed(2)} د.ل', font, fontBold),
+      if (payment.notes != null && payment.notes!.isNotEmpty) _receiptRow(isEnglish ? 'Notes' : 'ملاحظات', payment.notes!, font, fontBold),
 
       pw.SizedBox(height: 24),
 
-      pw.Center(child: pdfText('شكراً لتعاملكم معنا', style: pw.TextStyle(font: fontBold, fontSize: 14, color: PdfColors.grey600))),
+      pw.Center(child: pdfText(isEnglish ? 'Thank you for your business' : 'شكراً لتعاملكم معنا', style: pw.TextStyle(font: fontBold, fontSize: 14, color: PdfColors.grey600))),
 
     ],
 
   ));
+
+
+
+  final bytes = await pdf.save();
+
+  final dir = await getTemporaryDirectory();
+
+  final file = File('${dir.path}/receipt_${payment.id}.pdf');
+
+  await file.writeAsBytes(bytes);
+
+  await SharePlus.instance.share(ShareParams(files: [XFile(file.path)], text: isEnglish ? 'Payment Receipt' : 'إيصال دفع'));
+}
+
+
+
+Future<void> printPaymentReceipt(Invoice inv, Payment payment, {bool isEnglish = false}) async {
+
+  final pdf = pw.Document();
+
+  final font = await PdfGoogleFonts.cairoRegular();
+
+  final fontBold = await PdfGoogleFonts.cairoBold();
+
+
+
+  pdf.addPage(pw.MultiPage(
+
+    pageFormat: PdfPageFormat.a4,
+
+    build: (_) => [
+
+      pw.Header(level: 0, child: pdfText(isEnglish ? 'Payment Receipt' : 'إيصال دفع', style: pw.TextStyle(font: fontBold, fontSize: 22))),
+
+      pw.Divider(),
+
+      pw.SizedBox(height: 16),
+
+      _receiptRow(isEnglish ? 'Invoice' : 'رقم الفاتورة', inv.id, font, fontBold),
+
+      _receiptRow(isEnglish ? 'Customer' : 'العميل', inv.buyerName, font, fontBold),
+
+      _receiptRow(isEnglish ? 'Date' : 'التاريخ', payment.date, font, fontBold),
+
+      pw.SizedBox(height: 16),
+
+      pw.Container(
+
+        padding: const pw.EdgeInsets.all(16),
+
+        decoration: pw.BoxDecoration(color: PdfColor(0.07, 0.53, 0.3), borderRadius: pw.BorderRadius.circular(12)),
+
+        child: pw.Column(children: [
+
+          pdfText(isEnglish ? 'Amount Paid' : 'المبلغ المدفوع', style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.white)),
+
+          pw.SizedBox(height: 4),
+
+          pdfText('${payment.amount.toStringAsFixed(2)} LYD', style: pw.TextStyle(font: fontBold, fontSize: 28, color: PdfColors.white)),
+
+        ]),
+
+      ),
+
+      pw.SizedBox(height: 16),
+
+      _receiptRow(isEnglish ? 'Method' : 'طريقة الدفع', paymentMethodName(payment.method, isEnglish: isEnglish), font, fontBold),
+
+      pw.SizedBox(height: 24),
+
+      pw.Center(child: pdfText(isEnglish ? 'Thank you' : 'شكراً لتعاملكم معنا', style: pw.TextStyle(font: fontBold, fontSize: 14, color: PdfColors.grey600))),
+
+    ],
+
+  ));
+
+
 
   await Printing.layoutPdf(onLayout: (format) async => pdf.save());
 
@@ -3589,7 +4174,6 @@ Future<void> printPaymentReceipt(Invoice inv, Payment payment) async {
 
 
 pw.Widget _receiptRow(String label, String value, pw.Font font, pw.Font fontBold) {
-
   return pw.Padding(
 
     padding: const pw.EdgeInsets.symmetric(vertical: 4),
@@ -3742,7 +4326,7 @@ void _buildModernTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template
 
 
 
-void _buildMinimalTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold) {
+void _buildMinimalTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold, {bool isEnglish = false}) {
 
   pdf.addPage(pw.MultiPage(
 
@@ -3778,7 +4362,7 @@ void _buildMinimalTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
             ),
 
-            child: pdfText(_statusLabel(inv.status), style: pw.TextStyle(font: fontBold, fontSize: 10, color: PdfColor.fromHex('#EC4899'))),
+            child: pdfText(_statusLabel(inv.status, isEnglish: isEnglish), style: pw.TextStyle(font: fontBold, fontSize: 10, color: PdfColor.fromHex('#EC4899'))),
 
           ),
 
@@ -3810,7 +4394,7 @@ void _buildMinimalTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
 
 
-void _buildCorporateTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold) {
+void _buildCorporateTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold, {bool isEnglish = false}) {
 
   pdf.addPage(pw.MultiPage(
 
@@ -3850,7 +4434,7 @@ void _buildCorporateTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templ
 
               pdfText(inv.date, style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.blue100)),
 
-              pdfText(_statusLabel(inv.status), style: pw.TextStyle(font: fontBold, fontSize: 12, color: PdfColors.white)),
+              pdfText(_statusLabel(inv.status, isEnglish: isEnglish), style: pw.TextStyle(font: fontBold, fontSize: 12, color: PdfColors.white)),
 
             ]),
 
@@ -4078,7 +4662,7 @@ pw.Widget _buildItemsTable(Invoice inv, pw.Font font, pw.Font fontBold) {
 
       '${item.quantity}',
 
-      '${item.discountAmt.toStringAsFixed(2)}',
+      (item.discountAmt.toStringAsFixed(2)),
 
       fixPdfArabic('${item.lineTotal.toStringAsFixed(2)} د.ل'),
 
@@ -4174,17 +4758,57 @@ pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold) {
 
 
 
-String _statusLabel(String s) => s == 'paid' ? 'مدفوع' : (s == 'partial' ? 'جزئي' : 'غير مدفوع');
+String _statusLabel(String s, {bool isEnglish = false}) => s == 'paid' ? tr('مدفوع', isEng: isEnglish) : (s == 'partial' ? tr('جزئي', isEng: isEnglish) : tr('غير مدفوع', isEng: isEnglish));
 
 
 
 // ==================== UPDATE SYSTEM ====================
 
-const String appVersion = '1.1.0';
+const String appVersion = '1.2.0';
 
-const String appBuildNumber = '2';
+const String appBuildNumber = '1';
 
 const Map<String, Map<String, dynamic>> appChangelog = {
+
+  '1.2.0': {
+
+    'title': 'الإصدار 1.2.0',
+
+    'date': '2026-08-18',
+
+    'features': [
+
+      'إصلاح نظام إشعارات التحديث',
+
+      'نظام تسويات م红楼梦ي بالكامل',
+
+      'تتبع دقيق للرصيد المقدم',
+
+      'حماية من الدفع الزائد',
+
+      'عرض الدفعات المستقلة في شاشة الدفعات',
+
+      'خيار استخدام الرصيد عند إنشاء فاتورة',
+
+      'كشف حساب يشمل الرصيد المقدم',
+
+      'نسخة احتياطية شاملة لجميع البيانات',
+
+    ],
+
+    'fixes': [
+
+      'إصلاح حساب الرصيد المقدم الذي كان معطلاً',
+
+      'إصلاح فقدان بيانات الدفعات في النسخة الاحتياطية',
+
+      'إصلاح عدم تنظيف الرصيد عند حذف الفاتورة',
+
+      'إصلاح خطأ indexOf في الدفع',
+
+    ],
+
+  },
 
   '1.1.0': {
 
@@ -4250,7 +4874,7 @@ const Map<String, Map<String, dynamic>> appChangelog = {
 
 };
 
-void _showWhatsNewDialog(BuildContext context) {
+void _showWhatsNewDialog(BuildContext context, {VoidCallback? onDismissed}) {
 
   final changelog = appChangelog[appVersion];
 
@@ -4310,13 +4934,13 @@ void _showWhatsNewDialog(BuildContext context) {
 
             if (features.isNotEmpty) ...[
 
-              const Row(children: [
+              Row(children: [
 
                 Icon(Icons.new_releases, color: AppColors.primary, size: 18),
 
                 SizedBox(width: 6),
 
-                Text('الميزات الجديدة', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                Text(tr('الميزات الجديدة', isEng: context.read<DataStore>().isEnglish), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
 
               ]),
 
@@ -4348,13 +4972,13 @@ void _showWhatsNewDialog(BuildContext context) {
 
             if (fixes.isNotEmpty) ...[
 
-              const Row(children: [
+              Row(children: [
 
                 Icon(Icons.bug_report, color: AppColors.success, size: 18),
 
                 SizedBox(width: 6),
 
-                Text('إصلاحات', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                Text(tr('إصلاحات', isEng: context.read<DataStore>().isEnglish), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
 
               ]),
 
@@ -4404,6 +5028,8 @@ void _showWhatsNewDialog(BuildContext context) {
 
               Navigator.of(ctx).pop();
 
+              onDismissed?.call();
+
             },
 
           ),
@@ -4422,19 +5048,25 @@ void _showWhatsNewDialog(BuildContext context) {
 
 Future<void> checkForUpdate(BuildContext context) async {
 
-  final prefs = await SharedPreferences.getInstance();
+  try {
 
-  final lastSeenVersion = prefs.getString('lastSeenVersion') ?? '';
+    final prefs = await SharedPreferences.getInstance();
 
-  if (lastSeenVersion != appVersion) {
+    final lastSeenVersion = prefs.getString('lastSeenVersion') ?? '';
 
-    await prefs.setString('lastSeenVersion', appVersion);
+    if (lastSeenVersion != appVersion && context.mounted) {
 
-    if (context.mounted) {
+      _showWhatsNewDialog(context, onDismissed: () async {
 
-      _showWhatsNewDialog(context);
+        await prefs.setString('lastSeenVersion', appVersion);
+
+      });
 
     }
+
+  } catch (e) {
+
+    // تجاهل الأخطاء بهدوء
 
   }
 
@@ -4510,9 +5142,9 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
         Navigator.pushReplacement(context, PageRouteBuilder(
 
-          pageBuilder: (_, __, ___) => onboardingDone ? const HomeScreen() : const OnboardingScreen(),
+          pageBuilder: (_, _, _) => onboardingDone ? const HomeScreen() : const OnboardingScreen(),
 
-          transitionsBuilder: (_, anim, __, child) => FadeTransition(opacity: anim, child: child),
+          transitionsBuilder: (_, anim, _, child) => FadeTransition(opacity: anim, child: child),
 
           transitionDuration: const Duration(milliseconds: 800),
 
@@ -4594,7 +5226,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
                       decoration: BoxDecoration(
 
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
 
                         shape: BoxShape.circle,
 
@@ -4602,7 +5234,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
                           BoxShadow(
 
-                            color: Colors.white.withOpacity(0.3),
+                            color: Colors.white.withValues(alpha: 0.3),
 
                             blurRadius: 40,
 
@@ -4642,7 +5274,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
               opacity: _fadeAnimation,
 
-              child: Text('نظام فواتير متكامل', style: TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.8))),
+              child: Text(tr('نظام فواتير متكامل', isEng: context.read<DataStore>().isEnglish), style: TextStyle(fontSize: 16, color: Colors.white.withValues(alpha: 0.8))),
 
             ),
 
@@ -4742,7 +5374,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             colors: [
 
-              _pages[_currentPage].gradient[0].withOpacity(0.1),
+              _pages[_currentPage].gradient[0].withValues(alpha: 0.1),
 
               Colors.white,
 
@@ -4766,7 +5398,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                   onPressed: _goToHome,
 
-                  child: const Text('تخطي', style: TextStyle(color: Colors.grey)),
+                  child: Text(tr('تخطي', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(color: Colors.grey)),
 
                 ),
 
@@ -4824,7 +5456,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                                     BoxShadow(
 
-                                      color: page.gradient[0].withOpacity(0.3),
+                                      color: page.gradient[0].withValues(alpha: 0.3),
 
                                       blurRadius: 30,
 
@@ -4846,11 +5478,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                           const SizedBox(height: 48),
 
-                          Text(page.title, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                          Text(tr(page.title, isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold), textAlign: TextAlign.center),
 
                           const SizedBox(height: 16),
 
-                          Text(page.subtitle, style: TextStyle(fontSize: 16, color: Colors.grey[600]), textAlign: TextAlign.center),
+                          Text(tr(page.subtitle, isEng: context.read<DataStore>().isEnglish), style: TextStyle(fontSize: 16, color: Colors.grey[600]), textAlign: TextAlign.center),
 
                         ],
 
@@ -4902,7 +5534,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                     GradientButton(
 
-                      label: _currentPage < _pages.length - 1 ? 'التالي' : 'ابدأ',
+                      label: _currentPage < _pages.length - 1 ? tr('التالي', isEng: context.read<DataStore>().isEnglish) : tr('ابدأ', isEng: context.read<DataStore>().isEnglish),
 
                       icon: _currentPage < _pages.length - 1 ? Icons.arrow_back : Icons.check,
 
@@ -4970,9 +5602,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
       Navigator.pushReplacement(context, PageRouteBuilder(
 
-        pageBuilder: (_, __, ___) => const HomeScreen(),
+        pageBuilder: (_, _, _) => const HomeScreen(),
 
-        transitionsBuilder: (_, anim, __, child) => SlideTransition(
+        transitionsBuilder: (_, anim, _, child) => SlideTransition(
 
           position: Tween<Offset>(begin: const Offset(0, 1), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
 
@@ -5048,7 +5680,143 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
       checkForUpdate(context);
 
+      _checkOverdueInvoices(context);
+
     });
+
+  }
+
+  void _checkOverdueInvoices(BuildContext context) async {
+
+    final prefs = await SharedPreferences.getInstance();
+
+    final lastAlertDate = prefs.getString('lastOverdueAlertDate') ?? '';
+
+    final today = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    if (lastAlertDate == today) return;
+
+
+
+    final store = context.read<DataStore>();
+
+    final overdueInvoices = store.invoices.where((inv) => inv.isOverdue).toList();
+
+    if (overdueInvoices.isEmpty || !context.mounted) return;
+
+
+
+    await prefs.setString('lastOverdueAlertDate', today);
+
+    HapticFeedback.heavyImpact();
+
+
+
+    final totalRemaining = overdueInvoices.fold(0.0, (s, i) => s + i.remaining);
+
+    final maxDays = overdueInvoices.map((i) => i.daysUntilDue.abs()).reduce((a, b) => a > b ? a : b);
+
+
+
+    if (!context.mounted) return;
+
+    showDialog(
+
+      context: context,
+
+      builder: (ctx) => AlertDialog(
+
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+
+        content: Column(
+
+          mainAxisSize: MainAxisSize.min,
+
+          children: [
+
+            Container(
+
+              padding: const EdgeInsets.all(16),
+
+              decoration: BoxDecoration(
+
+                color: AppColors.danger.withValues(alpha: 0.1),
+
+                shape: BoxShape.circle,
+
+              ),
+
+              child: const Icon(Icons.warning_amber, color: AppColors.danger, size: 48),
+
+            ),
+
+            const SizedBox(height: 16),
+
+            Text(tr('تنبيه: فواتير متأخرة', isEng: store.isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+            const SizedBox(height: 8),
+
+            Text('لديك ${overdueInvoices.length} فاتورة متأخرة', style: TextStyle(color: Colors.grey[600])),
+
+            const SizedBox(height: 4),
+
+            Text('أخرها $maxDays يوم - إجمالي ${totalRemaining.toStringAsFixed(0)} د.ل', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.danger)),
+
+            const SizedBox(height: 16),
+
+            ...overdueInvoices.take(3).map((inv) => Padding(
+
+              padding: const EdgeInsets.only(bottom: 8),
+
+              child: Row(children: [
+
+                const Icon(Icons.receipt_long, size: 16, color: AppColors.danger),
+
+                const SizedBox(width: 8),
+
+                Expanded(child: Text('${inv.id} - ${inv.buyerName}', style: const TextStyle(fontSize: 13))),
+
+                Text('${inv.remaining.toStringAsFixed(0)} د.ل', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.danger)),
+
+              ]),
+
+            )),
+
+            if (overdueInvoices.length > 3)
+
+              Text('... و ${overdueInvoices.length - 3} فواتير أخرى', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+
+          ],
+
+        ),
+
+        actions: [
+
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('لاحقاً', isEng: store.isEnglish))),
+
+          GradientButton(
+
+            label: tr('عرض الكل', isEng: store.isEnglish),
+
+            icon: Icons.visibility,
+
+            gradient: AppColors.gradient1,
+
+            onPressed: () {
+
+              Navigator.pop(ctx);
+
+              setState(() => _currentIndex = 2);
+
+            },
+
+          ),
+
+        ],
+
+      ),
+
+    );
 
   }
 
@@ -5072,39 +5840,43 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     return Scaffold(
 
-      body: AnimatedSwitcher(
+      body: SafeArea(
 
-        duration: const Duration(milliseconds: 400),
+        child: AnimatedSwitcher(
 
-        transitionBuilder: (child, anim) => FadeTransition(
+          duration: const Duration(milliseconds: 400),
 
-          opacity: anim,
+          transitionBuilder: (child, anim) => FadeTransition(
 
-          child: SlideTransition(
+            opacity: anim,
 
-            position: Tween<Offset>(begin: const Offset(0.05, 0), end: Offset.zero).animate(anim),
+            child: SlideTransition(
 
-            child: child,
+              position: Tween<Offset>(begin: const Offset(0.05, 0), end: Offset.zero).animate(anim),
+
+              child: child,
+
+            ),
 
           ),
 
+          child: [
+
+            const InvoiceListScreen(),
+
+            const PaymentsScreen(),
+
+            const ProductsScreen(),
+
+            const CustomersScreen(),
+
+            const StatsScreen(),
+
+            const SettingsScreen(),
+
+          ][_currentIndex],
+
         ),
-
-        child: [
-
-          const InvoiceListScreen(),
-
-          const PaymentsScreen(),
-
-          const ProductsScreen(),
-
-          const CustomersScreen(),
-
-          const StatsScreen(),
-
-          const SettingsScreen(),
-
-        ][_currentIndex],
 
       ),
 
@@ -5116,7 +5888,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
             BoxShadow(
 
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
 
               blurRadius: 20,
 
@@ -5128,15 +5900,19 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
         ),
 
-        child: NavigationBar(
+        child: Consumer<DataStore>(
+
+          builder: (_, store, __) => NavigationBar(
 
           selectedIndex: _currentIndex,
 
           onDestinationSelected: (i) {
 
-            HapticFeedback.lightImpact();
+            HapticFeedback.selectionClick();
 
             setState(() => _currentIndex = i);
+
+            _fabController.forward();
 
             _fabController.reset();
 
@@ -5146,21 +5922,29 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
           animationDuration: const Duration(milliseconds: 400),
 
-          destinations: const [
+          height: 70,
 
-            NavigationDestination(icon: Icon(Icons.receipt_long), selectedIcon: Icon(Icons.receipt_long, color: AppColors.primary), label: 'الفواتير'),
+          backgroundColor: AppColors.cardOf(context),
 
-            NavigationDestination(icon: Icon(Icons.payments), selectedIcon: Icon(Icons.payments, color: AppColors.primary), label: 'الدفعات'),
+          elevation: 0,
 
-            NavigationDestination(icon: Icon(Icons.inventory_2), selectedIcon: Icon(Icons.inventory_2, color: AppColors.primary), label: 'المنتجات'),
+          destinations: [
 
-            NavigationDestination(icon: Icon(Icons.people), selectedIcon: Icon(Icons.people, color: AppColors.primary), label: 'العملاء'),
+            NavigationDestination(icon: const Icon(Icons.receipt_long), selectedIcon: Icon(Icons.receipt_long, color: AppColors.primary), label: tr('الفواتير', isEng: store.isEnglish)),
 
-            NavigationDestination(icon: Icon(Icons.bar_chart), selectedIcon: Icon(Icons.bar_chart, color: AppColors.primary), label: 'الإحصائيات'),
+            NavigationDestination(icon: const Icon(Icons.payments), selectedIcon: Icon(Icons.payments, color: AppColors.primary), label: tr('الدفعات', isEng: store.isEnglish)),
 
-            NavigationDestination(icon: Icon(Icons.settings), selectedIcon: Icon(Icons.settings, color: AppColors.primary), label: 'الإعدادات'),
+            NavigationDestination(icon: const Icon(Icons.inventory_2), selectedIcon: Icon(Icons.inventory_2, color: AppColors.primary), label: tr('المنتجات', isEng: store.isEnglish)),
+
+            NavigationDestination(icon: const Icon(Icons.people), selectedIcon: Icon(Icons.people, color: AppColors.primary), label: tr('العملاء', isEng: store.isEnglish)),
+
+            NavigationDestination(icon: const Icon(Icons.bar_chart), selectedIcon: Icon(Icons.bar_chart, color: AppColors.primary), label: tr('الإحصائيات', isEng: store.isEnglish)),
+
+            NavigationDestination(icon: const Icon(Icons.settings), selectedIcon: Icon(Icons.settings, color: AppColors.primary), label: tr('الإعدادات', isEng: store.isEnglish)),
 
           ],
+
+        ),
 
         ),
 
@@ -5176,9 +5960,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                 onPressed: () => Navigator.push(context, PageRouteBuilder(
 
-                  pageBuilder: (_, __, ___) => const CreateInvoiceScreen(),
+                  pageBuilder: (_, _, _) => const CreateInvoiceScreen(),
 
-                  transitionsBuilder: (_, anim, __, child) => ScaleTransition(
+                  transitionsBuilder: (_, anim, _, child) => ScaleTransition(
 
                     scale: CurvedAnimation(parent: anim, curve: Curves.easeOutBack),
 
@@ -5230,7 +6014,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                     label: Consumer<DataStore>(
 
-                      builder: (_, store, __) {
+                      builder: (_, store, _) {
 
                         final count = store.invoices.where((i) => i.remaining > 0).length;
 
@@ -5262,175 +6046,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
 
 
-  Widget _payForInvoice(Invoice inv, DataStore store) {
 
-    final amtCtrl = TextEditingController();
 
-    PaymentMethod selectedMethod = PaymentMethod.cash;
-
-    return StatefulBuilder(
-
-      builder: (_, setSheetState) => Padding(
-
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom, left: 20, right: 20, top: 20),
-
-        child: SingleChildScrollView(
-
-          child: Column(
-
-            mainAxisSize: MainAxisSize.min,
-
-            crossAxisAlignment: CrossAxisAlignment.start,
-
-            children: [
-
-              Row(children: [
-
-                const Icon(Icons.payment, color: AppColors.primary, size: 24),
-
-                const SizedBox(width: 8),
-
-                Text('استلام - ${inv.id}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-
-              ]),
-
-              const SizedBox(height: 8),
-
-              Text('العميل: ${inv.buyerName} | المتبقي: ${inv.remaining.toStringAsFixed(2)} د.ل', style: TextStyle(color: Colors.grey[600], fontSize: 13)),
-
-              const SizedBox(height: 16),
-
-              TextField(controller: amtCtrl, keyboardType: TextInputType.number, autofocus: true, decoration: const InputDecoration(labelText: 'المبلغ', border: OutlineInputBorder(), suffixText: 'د.ل')),
-
-              const SizedBox(height: 8),
-
-              Row(children: [
-
-                _homeQuickPayBtn('الكل', inv.remaining, amtCtrl, setSheetState),
-
-                const SizedBox(width: 8),
-
-                _homeQuickPayBtn('النصف', inv.remaining / 2, amtCtrl, setSheetState),
-
-              ]),
-
-              const SizedBox(height: 12),
-
-              Wrap(spacing: 8, runSpacing: 8, children: PaymentMethod.values.take(4).map((m) {
-
-                final isSel = selectedMethod == m;
-
-                return GestureDetector(
-
-                  onTap: () => setSheetState(() => selectedMethod = m),
-
-                  child: Container(
-
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-
-                    decoration: BoxDecoration(
-
-                      gradient: isSel ? LinearGradient(colors: AppColors.gradient4) : null,
-
-                      color: isSel ? null : Colors.grey.shade100,
-
-                      borderRadius: BorderRadius.circular(12),
-
-                      border: Border.all(color: isSel ? AppColors.success : Colors.grey.shade300),
-
-                    ),
-
-                    child: Text('${paymentMethodIcon(m)} ${paymentMethodName(m)}', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: isSel ? Colors.white : AppColors.textPrimaryOf(context))),
-
-                  ),
-
-                );
-
-              }).toList()),
-
-              const SizedBox(height: 16),
-
-              GradientButton(
-
-                label: 'تأكيد', icon: Icons.check, gradient: AppColors.gradient4, isExpanded: true,
-
-                onPressed: () {
-
-                  final amt = double.tryParse(amtCtrl.text) ?? 0;
-
-                  if (amt > 0) {
-
-                    inv.payments.add(Payment(amount: amt, date: DateFormat('yyyy-MM-dd').format(DateTime.now()), method: selectedMethod, receiptNumber: 'RCP-${inv.id}-${inv.payments.length + 1}', customerId: inv.buyerName, invoiceId: inv.id));
-
-                    store.updateInvoice(store.invoices.indexOf(inv), inv);
-
-                    Navigator.pop(context);
-
-                    HapticFeedback.heavyImpact();
-
-                    showAppToast(context, 'تم استلام ${amt.toStringAsFixed(2)} د.ل', icon: Icons.check_circle, color: AppColors.success);
-
-                  }
-
-                },
-
-              ),
-
-              const SizedBox(height: 20),
-
-            ],
-
-          ),
-
-        ),
-
-      ),
-
-    );
-
-  }
-
-
-
-  Widget _homeQuickPayBtn(String label, double amount, TextEditingController ctrl, StateSetter setState) {
-
-    return Expanded(
-
-      child: GestureDetector(
-
-        onTap: () { ctrl.text = amount.toStringAsFixed(2); setState(() {}); },
-
-        child: Container(
-
-          padding: const EdgeInsets.symmetric(vertical: 10),
-
-          decoration: BoxDecoration(
-
-            gradient: LinearGradient(colors: [AppColors.success.withOpacity(0.1), AppColors.success.withOpacity(0.05)]),
-
-            borderRadius: BorderRadius.circular(10),
-
-            border: Border.all(color: AppColors.success.withOpacity(0.3)),
-
-          ),
-
-          child: Column(children: [
-
-            Text(label, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold)),
-
-            const SizedBox(height: 2),
-
-            Text('${amount.toStringAsFixed(0)} د.ل', style: TextStyle(fontSize: 10, color: Colors.grey[600])),
-
-          ]),
-
-        ),
-
-      ),
-
-    );
-
-  }
 
 }
 
@@ -5470,19 +6087,27 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                width: 40, height: 4,
+                margin: const EdgeInsets.only(top: 12, bottom: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
               Row(children: [
                 const Icon(Icons.payments, color: AppColors.primary, size: 24),
                 const SizedBox(width: 8),
-                const Text('استلام دفعة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(tr('استلام دفعة', isEng: store.isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ]),
               const SizedBox(height: 16),
 
-              const Text('الزبون', style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(tr('الزبون', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               DropdownButtonFormField<String>(
-                value: selectedCustomer,
+                initialValue: selectedCustomer,
                 isExpanded: true,
-                decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'اختر الزبون'),
+                decoration: InputDecoration(border: const OutlineInputBorder(), hintText: tr('اختر الزبون', isEng: store.isEnglish)),
                 items: customerNames.map((n) => DropdownMenuItem(value: n, child: Text(n))).toList(),
                 onChanged: (v) => setState(() {
                   selectedCustomer = v;
@@ -5495,9 +6120,9 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: AppColors.success.withOpacity(0.1),
+                    color: AppColors.success.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: AppColors.success.withOpacity(0.3)),
+                    border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
                   ),
                   child: Row(children: [
                     const Icon(Icons.account_balance_wallet, color: AppColors.success, size: 18),
@@ -5509,13 +6134,13 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
               ],
 
               const SizedBox(height: 16),
-              const Text('المبلغ', style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(tr('المبلغ', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               TextField(
                 controller: amtCtrl,
                 keyboardType: TextInputType.number,
                 autofocus: true,
-                decoration: const InputDecoration(border: OutlineInputBorder(), suffixText: 'د.ل', hintText: 'أدخل المبلغ'),
+                decoration: InputDecoration(border: const OutlineInputBorder(), suffixText: 'د.ل', hintText: tr('أدخل المبلغ', isEng: store.isEnglish)),
                 onChanged: (_) => setState(() {}),
               ),
 
@@ -5529,7 +6154,7 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
               ]),
 
               const SizedBox(height: 16),
-              const Text('طريقة الدفع', style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(tr('طريقة الدفع', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,
@@ -5546,7 +6171,7 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: isSel ? AppColors.success : Colors.grey.shade300),
                       ),
-                      child: Text('${paymentMethodIcon(m)} ${paymentMethodName(m)}',
+                      child: Text('${paymentMethodIcon(m)} ${paymentMethodName(m, isEnglish: store.isEnglish)}',
                           style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: isSel ? Colors.white : AppColors.textPrimaryOf(context))),
                     ),
                   );
@@ -5555,14 +6180,14 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
 
               if (selectedCustomer != null) ...[
                 const SizedBox(height: 16),
-                const Text('نوع الدفعة', style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(tr('نوع الدفعة', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 Row(children: [
-                  _modeChip('فاتورة واحدة', 'single', unpaidInvoices.length == 1),
+                  _modeChip(tr('فاتورة واحدة', isEng: store.isEnglish), 'single', unpaidInvoices.length == 1),
                   const SizedBox(width: 8),
-                  _modeChip('عدة فواتير', 'multi', unpaidInvoices.length > 1),
+                  _modeChip(tr('عدة فواتير', isEng: store.isEnglish), 'multi', unpaidInvoices.length > 1),
                   const SizedBox(width: 8),
-                  _modeChip('دفعة مقدمة', 'advance', true),
+                  _modeChip(tr('دفعة مقدمة', isEng: store.isEnglish), 'advance', true),
                 ]),
               ],
 
@@ -5593,7 +6218,7 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
                           decoration: InputDecoration(
                             hintText: '0',
                             suffixText: 'د.ل',
-                            contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
                             isDense: true,
                             border: const OutlineInputBorder(),
                           ),
@@ -5613,10 +6238,10 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
                         child: Container(
                           padding: const EdgeInsets.all(4),
                           decoration: BoxDecoration(
-                            color: AppColors.success.withOpacity(0.1),
+                            color: AppColors.success.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: const Text('الكل', style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.success)),
+                          child: Text(tr('الكل', isEng: store.isEnglish), style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: AppColors.success)),
                         ),
                       ),
                     ]),
@@ -5641,10 +6266,11 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
   }
 
   String _getPayLabel(String mode, int count) {
+    final isEng = context.read<DataStore>().isEnglish;
     switch (mode) {
-      case 'advance': return 'حفظ دفعة مقدمة';
-      case 'multi': return 'توزيع على $count فواتير';
-      default: return 'تأكيد الدفعة';
+      case 'advance': return tr('حفظ دفعة مقدمة', isEng: isEng);
+      case 'multi': return '${tr('توزيع على', isEng: isEng)} $count ${tr('فواتير', isEng: isEng)}';
+      default: return tr('تأكيد الدفعة', isEng: isEng);
     }
   }
 
@@ -5654,9 +6280,9 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [AppColors.success.withOpacity(0.1), AppColors.success.withOpacity(0.05)]),
+          gradient: LinearGradient(colors: [AppColors.success.withValues(alpha: 0.1), AppColors.success.withValues(alpha: 0.05)]),
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: AppColors.success.withOpacity(0.3)),
+          border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
         ),
         child: Text(label, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
       ),
@@ -5691,16 +6317,14 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
     final amt = double.tryParse(amtCtrl.text) ?? 0;
     if (amt <= 0 || selectedCustomer == null) return;
 
-    final now = DateFormat('yyyy-MM-dd').format(DateTime.now());
-
     if (paymentMode == 'advance') {
       store.addAdvancePayment(selectedCustomer!, Payment(
-        amount: amt, date: now, method: selectedMethod,
+        amount: amt, date: DateFormat('yyyy-MM-dd').format(DateTime.now()), method: selectedMethod,
         receiptNumber: 'ADV-$selectedCustomer-${DateTime.now().millisecondsSinceEpoch}',
       ));
       Navigator.pop(context);
       HapticFeedback.heavyImpact();
-      showAppToast(context, 'تم حفظ دفعة مقدمة ${amt.toStringAsFixed(2)} د.ل', icon: Icons.savings, color: AppColors.success);
+      showAppToast(context, '${tr('تم حفظ دفعة مقدمة', isEng: store.isEnglish)} ${amt.toStringAsFixed(2)} د.ل', icon: Icons.savings, color: AppColors.success);
       return;
     }
 
@@ -5708,16 +6332,14 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
 
     if (paymentMode == 'single' || unpaidInvoices.length == 1) {
       final inv = unpaidInvoices.first;
-      final payAmt = amt.clamp(0.0, inv.remaining);
-      inv.payments.add(Payment(
-        amount: payAmt, date: now, method: selectedMethod,
-        customerId: selectedCustomer, invoiceId: inv.id,
-        receiptNumber: 'RCP-${inv.id}-${inv.payments.length + 1}',
-      ));
-      store.updateInvoice(store.invoices.indexOf(inv), inv);
+      final success = store.addPaymentToInvoice(inv, amt, selectedMethod);
       Navigator.pop(context);
       HapticFeedback.heavyImpact();
-      showAppToast(context, 'تم استلام ${payAmt.toStringAsFixed(2)} د.ل للفاتورة ${inv.id}', icon: Icons.check_circle, color: AppColors.success);
+      if (success) {
+        showAppToast(context, '${tr('تم استلام', isEng: store.isEnglish)} ${amt.clamp(0.0, inv.remaining).toStringAsFixed(2)} د.ل ${tr('للفاتورة', isEng: store.isEnglish)} ${inv.id}', icon: Icons.check_circle, color: AppColors.success);
+      } else {
+        showAppToast(context, tr('المبلغ يتجاوز المتبقي', isEng: store.isEnglish), icon: Icons.warning, color: AppColors.warning);
+      }
       return;
     }
 
@@ -5728,8 +6350,8 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
       Navigator.pop(context);
       HapticFeedback.heavyImpact();
       final msg = remaining > 0
-          ? 'تم التوزيع. متبقي ${remaining.toStringAsFixed(2)} د.ل غير موزع'
-          : 'تم توزيع ${amt.toStringAsFixed(2)} د.ل على الفواتير';
+          ? '${tr('تم التوزيع. متبقي', isEng: store.isEnglish)} ${remaining.toStringAsFixed(2)} د.ل ${tr('غير موزع', isEng: store.isEnglish)}'
+          : '${tr('تم توزيع', isEng: store.isEnglish)} ${amt.toStringAsFixed(2)} د.ل ${tr('على الفواتير', isEng: store.isEnglish)}';
       showAppToast(context, msg, icon: Icons.check_circle, color: remaining > 0 ? AppColors.warning : AppColors.success);
     }
   }
@@ -5790,7 +6412,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
 
       appBar: AppBar(
 
-        title: const Text('مسح الباركود', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(tr('مسح الباركود', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
         backgroundColor: Colors.black,
 
@@ -5846,7 +6468,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
 
               decoration: BoxDecoration(
 
-                border: Border.all(color: Colors.white.withOpacity(0.5), width: 3),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 3),
 
                 borderRadius: BorderRadius.circular(20),
 
@@ -5884,17 +6506,17 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
 
               decoration: BoxDecoration(
 
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withValues(alpha: 0.7),
 
                 borderRadius: BorderRadius.circular(16),
 
               ),
 
-              child: const Text(
+              child: Text(
 
-                'ضع الباركود داخل الإطار',
+                tr('ضع الباركود داخل الإطار', isEng: context.read<DataStore>().isEnglish),
 
-                style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
+                style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600),
 
                 textAlign: TextAlign.center,
 
@@ -6020,7 +6642,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
     return Consumer<DataStore>(
 
-      builder: (_, store, __) {
+      builder: (_, store, _) {
 
         final allPayments = <Map<String, dynamic>>[];
 
@@ -6034,12 +6656,27 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
               'invoice': inv,
 
+              'isAdvance': false,
+
             });
 
-  }
+          }
 
+        }
 
-}
+        for (final p in store.standalonePayments) {
+
+          allPayments.add({
+
+            'payment': p,
+
+            'invoice': null,
+
+            'isAdvance': true,
+
+          });
+
+        }
 
         allPayments.sort((a, b) => (b['payment'] as Payment).date.compareTo((a['payment'] as Payment).date));
 
@@ -6047,7 +6684,11 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
         final unpaidInvoices = store.invoices.where((i) => i.remaining > 0).toList();
 
-        final totalCollected = allPayments.fold(0.0, (s, e) => s + (e['payment'] as Payment).amount);
+        final invoicePaymentsTotal = allPayments.where((e) => !(e['isAdvance'] as bool)).fold(0.0, (s, e) => s + (e['payment'] as Payment).amount);
+
+        final advancePaymentsTotal = store.standalonePayments.fold(0.0, (s, p) => s + p.amount);
+
+        final totalCollected = invoicePaymentsTotal + advancePaymentsTotal;
 
         final totalRemaining = store.invoices.fold(0.0, (s, i) => s + i.remaining);
 
@@ -6087,7 +6728,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
           appBar: AppBar(
 
-            title: const Text('الدفعات', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(tr('الدفعات', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
             backgroundColor: Colors.transparent,
 
@@ -6105,15 +6746,15 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                 children: [
 
-                  Expanded(child: _summaryCard('المحصّل', totalCollected, AppColors.gradient4, Icons.check_circle)),
+                  Expanded(child: _summaryCard(tr('المحصّل', isEng: store.isEnglish), totalCollected, AppColors.gradient4, Icons.check_circle)),
 
                   const SizedBox(width: 8),
 
-                  Expanded(child: _summaryCard('المتبقي', totalRemaining, [AppColors.danger, AppColors.danger.withOpacity(0.7)], Icons.pending)),
+                  Expanded(child: _summaryCard(tr('المتبقي', isEng: store.isEnglish), totalRemaining, [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)], Icons.pending)),
 
                   const SizedBox(width: 8),
 
-                  Expanded(child: _summaryCard('فواتير مفتوحة', unpaidInvoices.length.toDouble(), AppColors.gradient1, Icons.receipt_long)),
+                  Expanded(child: _summaryCard(tr('فواتير مفتوحة', isEng: store.isEnglish), unpaidInvoices.length.toDouble(), AppColors.gradient1, Icons.receipt_long)),
 
                 ],
 
@@ -6153,11 +6794,11 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                             children: [
 
-                              Icon(Icons.check_circle, size: 48, color: AppColors.success.withOpacity(0.3)),
+                              Icon(Icons.check_circle, size: 48, color: AppColors.success.withValues(alpha: 0.3)),
 
                               const SizedBox(height: 8),
 
-                              Text('جميع الفواتير مدفوعة!', style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.bold)),
+                              Text(tr('جميع الفواتير مدفوعة!', isEng: store.isEnglish), style: TextStyle(color: Colors.grey[600], fontWeight: FontWeight.bold)),
 
                             ],
 
@@ -6173,7 +6814,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                         return Container(
 
-                          margin: const EdgeInsets.only(bottom: 8),
+                          margin: const EdgeInsets.only(bottom: 12),
 
                           padding: const EdgeInsets.all(12),
 
@@ -6265,7 +6906,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                   decoration: InputDecoration(
 
-                    hintText: 'بحث في الدفعات...',
+                    hintText: tr('بحث في الدفعات...', isEng: store.isEnglish),
 
                     prefixIcon: const Icon(Icons.search, color: AppColors.primary),
 
@@ -6291,17 +6932,17 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                   children: [
 
-                    _methodChip('الكل', 'all'),
+                    _methodChip(tr('الكل', isEng: store.isEnglish), 'all'),
 
-                    _methodChip('💵 نقدي', 'cash'),
+                    _methodChip(tr('💵 نقدي', isEng: store.isEnglish), 'cash'),
 
-                    _methodChip('🏦 بنكي', 'bankTransfer'),
+                    _methodChip(tr('🏦 بنكي', isEng: store.isEnglish), 'bankTransfer'),
 
-                    _methodChip('📱 موبايل', 'mobileMoney'),
+                    _methodChip(tr('📱 موبايل', isEng: store.isEnglish), 'mobileMoney'),
 
-                    _methodChip('📄 شيك', 'check'),
+                    _methodChip(tr('📄 شيك', isEng: store.isEnglish), 'check'),
 
-                    _methodChip('💳 ائتمان', 'creditCard'),
+                    _methodChip(tr('💳 ائتمان', isEng: store.isEnglish), 'creditCard'),
 
                   ],
 
@@ -6323,7 +6964,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                       const SizedBox(height: 12),
 
-                      Text(allPayments.isEmpty ? 'لا توجد دفعات بعد' : 'لا نتائج', style: TextStyle(color: Colors.grey[600])),
+                      Text(allPayments.isEmpty ? tr('لا توجد دفعات بعد', isEng: store.isEnglish) : tr('لا نتائج', isEng: store.isEnglish), style: TextStyle(color: Colors.grey[600])),
 
                     ],
 
@@ -6337,11 +6978,13 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                   final p = e['payment'] as Payment;
 
-                  final inv = e['invoice'] as Invoice;
+                  final inv = e['invoice'] as Invoice?;
+
+                  final isAdvance = e['isAdvance'] as bool;
 
                   return GlassCard(
 
-                    margin: const EdgeInsets.only(bottom: 8),
+                    margin: const EdgeInsets.only(bottom: 12),
 
                     child: Row(
 
@@ -6353,13 +6996,13 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                           decoration: BoxDecoration(
 
-                            gradient: LinearGradient(colors: AppColors.gradient4),
+                            gradient: LinearGradient(colors: isAdvance ? AppColors.gradient2 : AppColors.gradient4),
 
                             borderRadius: BorderRadius.circular(12),
 
                           ),
 
-                          child: Text(paymentMethodIcon(p.method), style: const TextStyle(fontSize: 18)),
+                          child: Text(isAdvance ? '💰' : paymentMethodIcon(p.method), style: const TextStyle(fontSize: 18)),
 
                         ),
 
@@ -6375,17 +7018,17 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                               Row(children: [
 
-                                Text(inv.id, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                Text(isAdvance ? tr('دفعة مقدمة', isEng: store.isEnglish) : (inv?.id ?? ''), style: const TextStyle(fontWeight: FontWeight.bold)),
 
                                 const SizedBox(width: 8),
 
-                                Text(inv.buyerName, style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                                Text(isAdvance ? (p.customerId ?? '') : (inv?.buyerName ?? ''), style: TextStyle(color: Colors.grey[600], fontSize: 12)),
 
                               ]),
 
                               const SizedBox(height: 4),
 
-                              Text('${p.date} | ${paymentMethodName(p.method)}${p.receiptNumber != null ? ' | #' + p.receiptNumber! : ''}', style: TextStyle(fontSize: 11, color: Colors.grey[500])),
+                              Text('${p.date} | ${paymentMethodName(p.method, isEnglish: store.isEnglish)}${p.receiptNumber != null ? ' | #${p.receiptNumber!}' : ''}', style: TextStyle(fontSize: 11, color: Colors.grey[500])),
 
                             ],
 
@@ -6405,9 +7048,9 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                             GestureDetector(
 
-                              onTap: () => printPaymentReceipt(inv, p),
+                              onTap: inv != null ? () => printPaymentReceipt(inv, p, isEnglish: store.isEnglish) : null,
 
-                              child: Icon(Icons.receipt, size: 18, color: AppColors.primary),
+                              child: Icon(Icons.receipt, size: 18, color: inv != null ? AppColors.primary : Colors.grey[400]),
 
                             ),
 
@@ -6451,7 +7094,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
         borderRadius: BorderRadius.circular(16),
 
-        boxShadow: [BoxShadow(color: gradient.first.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))],
+        boxShadow: [BoxShadow(color: gradient.first.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 4))],
 
       ),
 
@@ -6545,13 +7188,22 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
               children: [
 
+                Container(
+                  width: 40, height: 4,
+                  margin: const EdgeInsets.only(top: 12, bottom: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+
                 Row(children: [
 
                   const Icon(Icons.payment, color: AppColors.primary, size: 24),
 
                   const SizedBox(width: 8),
 
-                  Text('استلام - ${inv.id}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text('${tr('استلام', isEng: store.isEnglish)} - ${inv.id}', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
                   const Spacer(),
 
@@ -6559,7 +7211,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
 
-                    decoration: BoxDecoration(color: AppColors.danger.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+                    decoration: BoxDecoration(color: AppColors.danger.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
 
                     child: Text('المتبقي: ${inv.remaining.toStringAsFixed(2)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.danger, fontWeight: FontWeight.bold)),
 
@@ -6569,7 +7221,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                 const SizedBox(height: 12),
 
-                Text('العميل: ${inv.buyerName}', style: TextStyle(color: Colors.grey[600])),
+                Text('${tr('عميل', isEng: store.isEnglish)}: ${inv.buyerName}', style: TextStyle(color: Colors.grey[600])),
 
                 const SizedBox(height: 16),
 
@@ -6577,7 +7229,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                   controller: amtCtrl, keyboardType: TextInputType.number, autofocus: true,
 
-                  decoration: InputDecoration(labelText: 'المبلغ', border: const OutlineInputBorder(), suffixText: 'د.ل'),
+                  decoration: InputDecoration(labelText: tr('المبلغ', isEng: store.isEnglish), border: const OutlineInputBorder(), suffixText: 'د.ل'),
 
                 ),
 
@@ -6587,15 +7239,15 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                   children: [
 
-                    _quickPayBtn('الكل', inv.remaining, amtCtrl, setSheetState),
+                    _quickPayBtn(tr('الكل', isEng: store.isEnglish), inv.remaining, amtCtrl, setSheetState),
 
                     const SizedBox(width: 8),
 
-                    _quickPayBtn('النصف', inv.remaining / 2, amtCtrl, setSheetState),
+                    _quickPayBtn(tr('النصف', isEng: store.isEnglish), inv.remaining / 2, amtCtrl, setSheetState),
 
                     const SizedBox(width: 8),
 
-                    _quickPayBtn('الربع', inv.remaining / 4, amtCtrl, setSheetState),
+                    _quickPayBtn(tr('الربع', isEng: store.isEnglish), inv.remaining / 4, amtCtrl, setSheetState),
 
                   ],
 
@@ -6603,7 +7255,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                 const SizedBox(height: 12),
 
-                const Text('طريقة الدفع', style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(tr('طريقة الدفع', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                 const SizedBox(height: 8),
 
@@ -6649,7 +7301,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                             const SizedBox(width: 6),
 
-                            Text(paymentMethodName(m), style: TextStyle(
+                            Text(paymentMethodName(m, isEnglish: store.isEnglish), style: TextStyle(
 
                               fontSize: 12, fontWeight: FontWeight.bold,
 
@@ -6673,7 +7325,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                 GradientButton(
 
-                  label: 'تأكيد الاستلام',
+                  label: tr('تأكيد الاستلام', isEng: store.isEnglish),
 
                   icon: Icons.check,
 
@@ -6685,29 +7337,21 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                     if (amt > 0) {
 
-                      inv.payments.add(Payment(
-
-                        amount: amt,
-
-                        date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-
-                        method: selectedMethod,
-
-                        receiptNumber: 'RCP-${inv.id}-${inv.payments.length + 1}',
-
-                        customerId: inv.buyerName,
-
-                        invoiceId: inv.id,
-
-                      ));
-
-                      store.updateInvoice(store.invoices.indexOf(inv), inv);
+                      final success = store.addPaymentToInvoice(inv, amt, selectedMethod);
 
                       Navigator.pop(ctx);
 
                       HapticFeedback.heavyImpact();
 
-                      showAppToast(ctx, 'تم استلام ${amt.toStringAsFixed(2)} د.ل', icon: Icons.check_circle, color: AppColors.success);
+                      if (success) {
+
+                        showAppToast(ctx, '${tr('تم استلام', isEng: store.isEnglish)} ${amt.toStringAsFixed(2)} د.ل', icon: Icons.check_circle, color: AppColors.success);
+
+                      } else {
+
+                        showAppToast(ctx, tr('المبلغ يتجاوز المتبقي', isEng: store.isEnglish), icon: Icons.warning, color: AppColors.warning);
+
+                      }
 
                     }
 
@@ -6749,11 +7393,11 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
           decoration: BoxDecoration(
 
-            gradient: LinearGradient(colors: [AppColors.success.withOpacity(0.1), AppColors.success.withOpacity(0.05)]),
+            gradient: LinearGradient(colors: [AppColors.success.withValues(alpha: 0.1), AppColors.success.withValues(alpha: 0.05)]),
 
             borderRadius: BorderRadius.circular(10),
 
-            border: Border.all(color: AppColors.success.withOpacity(0.3)),
+            border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
 
           ),
 
@@ -6957,19 +7601,19 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
         const SizedBox(height: 16),
 
-        const Text('التنبيهات', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+        Text(tr('التنبيهات', isEng: store.isEnglish), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
 
         const SizedBox(height: 16),
 
         if (overdue.isNotEmpty) ...[
 
-          Row(children: [Icon(Icons.warning_amber, color: AppColors.danger, size: 20), const SizedBox(width: 8), Text('فواتير متأخرة (${overdue.length})', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.danger))]),
+          Row(children: [Icon(Icons.warning_amber, color: AppColors.danger, size: 20), const SizedBox(width: 8), Text('${tr('فواتير متأخرة', isEng: store.isEnglish)} (${overdue.length})', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.danger))]),
 
           const SizedBox(height: 8),
 
-          ...overdue.map((inv) => GlassCard(margin: const EdgeInsets.only(bottom: 8), child: ListTile(
+          ...overdue.map((inv) => GlassCard(margin: const EdgeInsets.only(bottom: 12), child: ListTile(
 
-            leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.danger.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.receipt_long, color: AppColors.danger, size: 20)),
+            leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.danger.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.receipt_long, color: AppColors.danger, size: 20)),
 
             title: Text('${inv.id} - ${inv.buyerName}', style: const TextStyle(fontWeight: FontWeight.bold)),
 
@@ -6983,13 +7627,13 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
         if (outOfStock.isNotEmpty) ...[
 
-          Row(children: [Icon(Icons.inventory, color: AppColors.danger, size: 20), const SizedBox(width: 8), Text('نفذ من المخزون (${outOfStock.length})', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.danger))]),
+          Row(children: [Icon(Icons.inventory, color: AppColors.danger, size: 20), const SizedBox(width: 8), Text('${tr('نفذ من المخزون', isEng: store.isEnglish)} (${outOfStock.length})', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.danger))]),
 
           const SizedBox(height: 8),
 
-          ...outOfStock.map((p) => GlassCard(margin: const EdgeInsets.only(bottom: 8), child: ListTile(
+          ...outOfStock.map((p) => GlassCard(margin: const EdgeInsets.only(bottom: 12), child: ListTile(
 
-            leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.danger.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.inventory_2, color: AppColors.danger, size: 20)),
+            leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.danger.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.inventory_2, color: AppColors.danger, size: 20)),
 
             title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.bold)),
 
@@ -7003,13 +7647,13 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
         if (lowStock.isNotEmpty) ...[
 
-          Row(children: [Icon(Icons.info_outline, color: AppColors.warning, size: 20), const SizedBox(width: 8), Text('مخزون منخفض (${lowStock.length})', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.warning))]),
+          Row(children: [Icon(Icons.info_outline, color: AppColors.warning, size: 20), const SizedBox(width: 8), Text('${tr('مخزون منخفض', isEng: store.isEnglish)} (${lowStock.length})', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.warning))]),
 
           const SizedBox(height: 8),
 
-          ...lowStock.map((p) => GlassCard(margin: const EdgeInsets.only(bottom: 8), child: ListTile(
+          ...lowStock.map((p) => GlassCard(margin: const EdgeInsets.only(bottom: 12), child: ListTile(
 
-            leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.warning.withOpacity(0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.inventory_2, color: AppColors.warning, size: 20)),
+            leading: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.warning.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)), child: const Icon(Icons.inventory_2, color: AppColors.warning, size: 20)),
 
             title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.bold)),
 
@@ -7027,18 +7671,18 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
             const SizedBox(height: 16),
 
-            Text('لا توجد تنبيهات', style: TextStyle(color: Colors.grey[500], fontSize: 16)),
+            Text(tr('لا توجد تنبيهات', isEng: store.isEnglish), style: TextStyle(color: Colors.grey[500], fontSize: 16)),
 
           ]))),
 
       ]),
 
     ));
-
   }
 
-  @override
 
+
+  @override
   void dispose() {
 
     _searchController.dispose();
@@ -7065,7 +7709,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
           appBar: AppBar(
 
-            title: const Text('الفواتير', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(tr('الفواتير', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
             backgroundColor: Colors.transparent,
 
@@ -7099,7 +7743,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                     decoration: InputDecoration(
 
-                      hintText: 'بحث...',
+                      hintText: tr('بحث...', isEng: store.isEnglish),
 
                       prefixIcon: const Icon(Icons.search, color: AppColors.primary),
 
@@ -7141,13 +7785,13 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                   children: [
 
-                    _filterChip('الكل', 'all'),
+                    _filterChip(tr('الكل', isEng: store.isEnglish), 'all'),
 
-                    _filterChip('مدفوعة', 'paid'),
+                    _filterChip(tr('مدفوعة', isEng: store.isEnglish), 'paid'),
 
-                    _filterChip('جزئية', 'partial'),
+                    _filterChip(tr('جزئية', isEng: store.isEnglish), 'partial'),
 
-                    _filterChip('غير مدفوعة', 'unpaid'),
+                    _filterChip(tr('غير مدفوعة', isEng: store.isEnglish), 'unpaid'),
 
                   ],
 
@@ -7177,7 +7821,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                         icon: const Icon(Icons.sort, size: 14),
 
-                        label: const Text('ترتيب'),
+                        label: Text(tr('ترتيب', isEng: store.isEnglish)),
 
                       ),
 
@@ -7187,7 +7831,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                         icon: Icon(Icons.filter_list, size: 14, color: (_dateFrom != null || _dateTo != null || _amountMin != null || _amountMax != null) ? AppColors.primary : null),
 
-                        label: Text('فلتر', style: TextStyle(color: (_dateFrom != null || _dateTo != null || _amountMin != null || _amountMax != null) ? AppColors.primary : null)),
+                        label: Text(tr('فلتر', isEng: store.isEnglish), style: TextStyle(color: (_dateFrom != null || _dateTo != null || _amountMin != null || _amountMax != null) ? AppColors.primary : null)),
 
                       ),
 
@@ -7207,13 +7851,23 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                         icon: Icons.receipt_long,
 
-                        title: store.invoices.isEmpty ? 'لا توجد فواتير' : 'لا نتائج',
+                        title: store.invoices.isEmpty ? tr('لا توجد فواتير', isEng: store.isEnglish) : tr('لا نتائج', isEng: store.isEnglish),
 
-                        subtitle: store.invoices.isEmpty ? 'ابدأ بإنشاء فاتورة جديدة' : 'جرّب البحث بكلمات مختلفة',
+                        subtitle: store.invoices.isEmpty ? tr('ابدأ بإنشاء فاتورة جديدة', isEng: store.isEnglish) : 'جرّب البحث بكلمات مختلفة',
 
-                        actionLabel: store.invoices.isEmpty ? 'فاتورة جديدة' : null,
+                        actionLabel: store.invoices.isEmpty ? tr('فاتورة جديدة', isEng: store.isEnglish) : null,
 
-                        onAction: store.invoices.isEmpty ? () => Navigator.push(context, MaterialPageRoute(builder: (_) => const CreateInvoiceScreen())) : null,
+                        onAction: store.invoices.isEmpty ? () => Navigator.push(context, PageRouteBuilder(
+                          pageBuilder: (_, _, _) => const CreateInvoiceScreen(),
+                          transitionsBuilder: (_, anim, _, child) => FadeTransition(
+                            opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+                            child: SlideTransition(
+                              position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+                              child: child,
+                            ),
+                          ),
+                          transitionDuration: const Duration(milliseconds: 400),
+                        )) : null,
 
                       )
 
@@ -7239,11 +7893,11 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                               index: actualIndex,
 
-                              onTap: () => Navigator.push(context, PageRouteBuilder(
+                              onTap: () { HapticFeedback.selectionClick(); Navigator.push(context, PageRouteBuilder(
 
-                                pageBuilder: (_, __, ___) => InvoiceDetailScreen(invoice: inv, index: actualIndex),
+                                pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: inv, index: actualIndex),
 
-                                transitionsBuilder: (_, anim, __, child) => SlideTransition(
+                                transitionsBuilder: (_, anim, _, child) => SlideTransition(
 
                                   position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
 
@@ -7251,7 +7905,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                                 ),
 
-                              )),
+                              )); },
 
                             );
 
@@ -7295,7 +7949,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
           selected: isSelected,
 
-          onSelected: (_) => setState(() => _filterStatus = value),
+          onSelected: (_) { HapticFeedback.selectionClick(); setState(() => _filterStatus = value); },
 
           selectedColor: AppColors.primary,
 
@@ -7327,25 +7981,34 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
           children: [
 
-            const Padding(
+            Container(
+              width: 40, height: 4,
+              margin: const EdgeInsets.only(top: 12, bottom: 8),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+
+            Padding(
 
               padding: EdgeInsets.all(16),
 
-              child: Text('ترتيب حسب', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(tr('ترتيب حسب', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
             ),
 
             ...[
 
-              ('date_desc', 'الأحدث أولاً', Icons.access_time),
+              ('date_desc', tr('الأحدث أولاً', isEng: context.read<DataStore>().isEnglish), Icons.access_time),
 
-              ('date_asc', 'الأقدم أولاً', Icons.history),
+              ('date_asc', tr('الأقدم أولاً', isEng: context.read<DataStore>().isEnglish), Icons.history),
 
-              ('amount_desc', 'الأعلى مبلغاً', Icons.arrow_downward),
+              ('amount_desc', tr('الأعلى مبلغاً', isEng: context.read<DataStore>().isEnglish), Icons.arrow_downward),
 
-              ('amount_asc', 'الأقل مبلغاً', Icons.arrow_upward),
+              ('amount_asc', tr('الأقل مبلغاً', isEng: context.read<DataStore>().isEnglish), Icons.arrow_upward),
 
-              ('name', 'اسم العميل', Icons.person),
+              ('name', tr('اسم العميل', isEng: context.read<DataStore>().isEnglish), Icons.person),
 
             ].map((s) => ListTile(
 
@@ -7355,7 +8018,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
               trailing: _sortBy == s.$1 ? const Icon(Icons.check, color: AppColors.primary) : null,
 
-              onTap: () { setState(() => _sortBy = s.$1); Navigator.pop(ctx); },
+              onTap: () { HapticFeedback.selectionClick(); setState(() => _sortBy = s.$1); Navigator.pop(ctx); },
 
             )),
 
@@ -7395,13 +8058,24 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
         child: StatefulBuilder(
 
-          builder: (_, setSheetState) => Column(
+          builder: (_, setSheetState) => SingleChildScrollView(
+
+            child: Column(
 
             mainAxisSize: MainAxisSize.min,
 
             crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
+
+              Container(
+                width: 40, height: 4,
+                margin: const EdgeInsets.only(top: 12, bottom: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
 
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
@@ -7431,7 +8105,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                 readOnly: true,
 
-                decoration: InputDecoration(hintText: 'اختر التاريخ', prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+                decoration: InputDecoration(hintText: 'اختر التاريخ', prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
 
                 onTap: () async {
 
@@ -7455,7 +8129,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                 readOnly: true,
 
-                decoration: InputDecoration(hintText: 'اختر التاريخ', prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+                decoration: InputDecoration(hintText: 'اختر التاريخ', prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
 
                 onTap: () async {
 
@@ -7483,7 +8157,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                     keyboardType: TextInputType.number,
 
-                    decoration: InputDecoration(hintText: '0', suffixText: 'د.ل', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+                    decoration: InputDecoration(hintText: '0', suffixText: 'د.ل', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
 
                   ),
 
@@ -7503,7 +8177,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                     keyboardType: TextInputType.number,
 
-                    decoration: InputDecoration(hintText: '∞', suffixText: 'د.ل', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10)),
+                    decoration: InputDecoration(hintText: '∞', suffixText: 'د.ل', border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
 
                   ),
 
@@ -7555,6 +8229,8 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
       ),
 
+      ),
+
     );
 
   }
@@ -7581,8 +8257,6 @@ class _DashboardSummary extends StatelessWidget {
 
     final todaySales = todayInvoices.fold(0.0, (s, inv) => s + inv.total);
 
-    final todayPaid = todayInvoices.fold(0.0, (s, inv) => s + inv.totalPaid);
-
     final monthInvoices = store.invoices.where((inv) => inv.date.startsWith(thisMonth)).toList();
 
     final monthSales = monthInvoices.fold(0.0, (s, inv) => s + inv.total);
@@ -7593,23 +8267,63 @@ class _DashboardSummary extends StatelessWidget {
 
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
 
-      child: Row(children: [
+      child: LayoutBuilder(
 
-        _dashCard(context, 'اليوم', '${todaySales.toStringAsFixed(0)} د.ل', Icons.today, AppColors.gradient1),
+        builder: (context, constraints) {
 
-        const SizedBox(width: 8),
+          final cards = [
 
-        _dashCard(context, 'فواتير', '${todayInvoices.length}', Icons.receipt_long, AppColors.gradient2),
+            _dashCard(context, tr('اليوم', isEng: store.isEnglish), '${todaySales.toStringAsFixed(0)} د.ل', Icons.today, AppColors.gradient1),
 
-        const SizedBox(width: 8),
+            _dashCard(context, tr('فواتير', isEng: store.isEnglish), '${todayInvoices.length}', Icons.receipt_long, AppColors.gradient2),
 
-        _dashCard(context, 'الشهر', '${monthSales.toStringAsFixed(0)} د.ل', Icons.calendar_month, AppColors.gradient4),
+            _dashCard(context, tr('الشهر', isEng: store.isEnglish), '${monthSales.toStringAsFixed(0)} د.ل', Icons.calendar_month, AppColors.gradient4),
 
-        const SizedBox(width: 8),
+            _dashCard(context, tr('المتبقي', isEng: store.isEnglish), '${totalRemaining.toStringAsFixed(0)} د.ل', Icons.pending, [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)]),
 
-        _dashCard(context, 'المتبقي', '${totalRemaining.toStringAsFixed(0)} د.ل', Icons.pending, [AppColors.danger, AppColors.danger.withOpacity(0.7)]),
+          ];
 
-      ]),
+          if (constraints.maxWidth > 600) {
+
+            return Row(children: [
+
+              Expanded(child: cards[0]),
+
+              const SizedBox(width: 8),
+
+              Expanded(child: cards[1]),
+
+              const SizedBox(width: 8),
+
+              Expanded(child: cards[2]),
+
+              const SizedBox(width: 8),
+
+              Expanded(child: cards[3]),
+
+            ]);
+
+          }
+
+          return Wrap(
+
+            spacing: 8,
+
+            runSpacing: 8,
+
+            children: [
+
+              for (final card in cards)
+
+                SizedBox(width: (constraints.maxWidth - 8) / 2, child: card),
+
+            ],
+
+          );
+
+        },
+
+      ),
 
     );
 
@@ -7639,7 +8353,7 @@ class _DashboardSummary extends StatelessWidget {
 
           Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11), maxLines: 1, overflow: TextOverflow.ellipsis),
 
-          Text(label, style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 9)),
+          Text(label, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 9)),
 
         ]),
 
@@ -7725,7 +8439,7 @@ class _InvoiceCard extends StatelessWidget {
 
                 const SizedBox(width: 6),
 
-                Text(invoice.buyerName.isEmpty ? 'عميل' : invoice.buyerName, style: const TextStyle(fontWeight: FontWeight.w600)),
+                Text(invoice.buyerName.isEmpty ? tr('عميل', isEng: context.read<DataStore>().isEnglish) : invoice.buyerName, style: const TextStyle(fontWeight: FontWeight.w600)),
 
                 const Spacer(),
 
@@ -7755,7 +8469,7 @@ class _InvoiceCard extends StatelessWidget {
 
                   children: [
 
-                    Text('الإجمالي', style: TextStyle(fontSize: 11, color: AppColors.textSecondaryOf(context))),
+                    Text(tr('الإجمالي', isEng: context.read<DataStore>().isEnglish), style: TextStyle(fontSize: 11, color: AppColors.textSecondaryOf(context))),
 
                     AnimatedCounter(
 
@@ -7781,7 +8495,7 @@ class _InvoiceCard extends StatelessWidget {
 
                     children: [
 
-                      Text('المتبقي', style: TextStyle(fontSize: 11, color: AppColors.textSecondaryOf(context))),
+                      Text(tr('المتبقي', isEng: context.read<DataStore>().isEnglish), style: TextStyle(fontSize: 11, color: AppColors.textSecondaryOf(context))),
 
                       Text('${invoice.remaining.toStringAsFixed(2)} د.ل', style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.danger)),
 
@@ -7803,17 +8517,17 @@ class _InvoiceCard extends StatelessWidget {
 
                     ),
 
-                    child: const Row(
+                    child: Row(
 
                       mainAxisSize: MainAxisSize.min,
 
                       children: [
 
-                        Icon(Icons.check, color: Colors.white, size: 14),
+                        const Icon(Icons.check, color: Colors.white, size: 14),
 
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
 
-                        Text('تم السداد', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
+                        Text(tr('تم السداد', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.white)),
 
                       ],
 
@@ -7876,6 +8590,8 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
   String? _selectedCustomerId;
 
   bool _saved = false;
+
+  bool _useAdvanceBalance = false;
 
   String _selectedTemplate = 'classic';
 
@@ -7991,6 +8707,82 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
   }
 
+  void _editItemPrice(int i, InvoiceItem item) {
+
+    final ctrl = TextEditingController(text: item.price.toStringAsFixed(2));
+
+    showDialog(context: context, builder: (_) => AlertDialog(
+
+      title: Text(tr('تعديل السعر', isEng: context.read<DataStore>().isEnglish)),
+
+      content: TextField(controller: ctrl, keyboardType: TextInputType.number, autofocus: true, decoration: InputDecoration(labelText: tr('سعر البيع', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder(), suffixText: 'د.ل')),
+
+      actions: [
+
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('إلغاء', isEng: context.read<DataStore>().isEnglish))),
+
+        TextButton(onPressed: () {
+
+          final newPrice = double.tryParse(ctrl.text) ?? item.price;
+
+          setState(() => _items[i] = InvoiceItem(
+
+            productId: item.productId, name: item.name, price: newPrice,
+
+            quantity: item.quantity, discountPct: item.discountPct, discountAmt: item.discountAmt,
+
+          ));
+
+          context.read<DataStore>().updateProductSellPrice(item.productId, newPrice);
+
+          Navigator.pop(context);
+
+        }, child: Text(tr('حفظ', isEng: context.read<DataStore>().isEnglish))),
+
+      ],
+
+    ));
+
+  }
+
+  void _editItemQty(int i, InvoiceItem item) {
+
+    final ctrl = TextEditingController(text: '${item.quantity}');
+
+    showDialog(context: context, builder: (_) => AlertDialog(
+
+      title: Text(tr('تعديل الكمية', isEng: context.read<DataStore>().isEnglish)),
+
+      content: TextField(controller: ctrl, keyboardType: TextInputType.number, autofocus: true, decoration: InputDecoration(labelText: tr('الكمية', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
+
+      actions: [
+
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('إلغاء', isEng: context.read<DataStore>().isEnglish))),
+
+        TextButton(onPressed: () {
+
+          final newQty = int.tryParse(ctrl.text) ?? item.quantity;
+
+          if (newQty <= 0) { _removeItem(i); Navigator.pop(context); return; }
+
+          setState(() => _items[i] = InvoiceItem(
+
+            productId: item.productId, name: item.name, price: item.price,
+
+            quantity: newQty, discountPct: item.discountPct, discountAmt: item.discountAmt,
+
+          ));
+
+          Navigator.pop(context);
+
+        }, child: Text(tr('حفظ', isEng: context.read<DataStore>().isEnglish))),
+
+      ],
+
+    ));
+
+  }
+
 
 
   void _showProductPicker() {
@@ -8019,7 +8811,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
             return Consumer<DataStore>(
 
-              builder: (_, store, __) {
+              builder: (_, store, _) {
 
                 String query = '';
 
@@ -8097,7 +8889,17 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                                 onPressed: () async {
 
-                                  final result = await Navigator.push<String>(ctx, MaterialPageRoute(builder: (_) => const BarcodeScannerScreen()));
+                                  final result = await Navigator.push<String>(ctx, PageRouteBuilder(
+                                    pageBuilder: (_, _, _) => const BarcodeScannerScreen(),
+                                    transitionsBuilder: (_, anim, _, child) => FadeTransition(
+                                      opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+                                      child: SlideTransition(
+                                        position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+                                        child: child,
+                                      ),
+                                    ),
+                                    transitionDuration: const Duration(milliseconds: 400),
+                                  ));
 
                                   if (result != null) {
 
@@ -8129,7 +8931,45 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                           child: filtered.isEmpty
 
-                              ? const Center(child: Text('لا توجد منتجات'))
+                              ? Center(
+
+                                  child: Column(
+
+                                    mainAxisSize: MainAxisSize.min,
+
+                                    children: [
+
+                                      Icon(Icons.inventory_2_outlined, size: 48, color: Colors.grey[400]),
+
+                                      const SizedBox(height: 12),
+
+                                      Text(query.isNotEmpty ? tr('لا توجد نتائج', isEng: store.isEnglish) : tr('لا توجد منتجات', isEng: store.isEnglish), style: TextStyle(color: Colors.grey[600], fontSize: 16)),
+
+                                      const SizedBox(height: 16),
+
+                                      GradientButton(
+
+                                        label: tr('إضافة منتج جديد', isEng: store.isEnglish),
+
+                                        icon: Icons.add,
+
+                                        gradient: AppColors.gradient1,
+
+                                        onPressed: () {
+
+                                          Navigator.pop(ctx);
+
+                                          _showAddProductDialog();
+
+                                        },
+
+                                      ),
+
+                                    ],
+
+                                  ),
+
+                                )
 
                               : ListView.builder(
 
@@ -8213,6 +9053,244 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
 
 
+  void _showAddProductDialog() {
+
+    final nameCtrl = TextEditingController();
+
+    final barcodeCtrl = TextEditingController();
+
+    final buyPriceCtrl = TextEditingController(text: '0');
+
+    final sellPriceCtrl = TextEditingController();
+
+    final qtyCtrl = TextEditingController(text: '1');
+
+    final categoryCtrl = TextEditingController();
+
+    final eng = context.read<DataStore>().isEnglish;
+
+    showDialog(
+
+      context: context,
+
+      builder: (ctx) => AlertDialog(
+
+        title: Row(children: [
+
+          const Icon(Icons.add_circle, color: AppColors.primary),
+
+          const SizedBox(width: 8),
+
+          Text(tr('إضافة منتج', isEng: eng), style: const TextStyle(fontWeight: FontWeight.bold)),
+
+        ]),
+
+        content: SingleChildScrollView(
+
+          child: Column(
+
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+
+              TextField(controller: nameCtrl, decoration: InputDecoration(labelText: tr('اسم المنتج *', isEng: eng), border: const OutlineInputBorder()), autofocus: true),
+
+              const SizedBox(height: 12),
+
+              TextField(controller: barcodeCtrl, decoration: InputDecoration(labelText: tr('الباركود', isEng: eng), border: const OutlineInputBorder()), keyboardType: TextInputType.number),
+
+              const SizedBox(height: 12),
+
+              TextField(controller: buyPriceCtrl, decoration: InputDecoration(labelText: tr('شراء', isEng: eng), border: const OutlineInputBorder()), keyboardType: TextInputType.number),
+
+              const SizedBox(height: 12),
+
+              TextField(controller: sellPriceCtrl, decoration: InputDecoration(labelText: tr('بيع *', isEng: eng), border: const OutlineInputBorder()), keyboardType: TextInputType.number),
+
+              const SizedBox(height: 12),
+
+              TextField(controller: qtyCtrl, decoration: InputDecoration(labelText: tr('الكمية', isEng: eng), border: const OutlineInputBorder()), keyboardType: TextInputType.number),
+
+              const SizedBox(height: 12),
+
+              TextField(controller: categoryCtrl, decoration: InputDecoration(labelText: tr('التصنيف', isEng: eng), border: const OutlineInputBorder())),
+
+            ],
+
+          ),
+
+        ),
+
+        actions: [
+
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('إلغاء', isEng: eng))),
+
+          FilledButton.icon(
+
+            onPressed: () {
+
+              if (nameCtrl.text.isEmpty || sellPriceCtrl.text.isEmpty) return;
+
+              final store = context.read<DataStore>();
+
+              final product = Product(
+
+                id: const Uuid().v4(),
+
+                name: nameCtrl.text,
+
+                barcode: barcodeCtrl.text,
+
+                buyPrice: double.tryParse(buyPriceCtrl.text) ?? 0,
+
+                sellPrice: double.tryParse(sellPriceCtrl.text) ?? 0,
+
+                quantity: int.tryParse(qtyCtrl.text) ?? 1,
+
+                category: categoryCtrl.text,
+
+                unit: 'قطعة',
+
+                imagePath: '',
+
+              );
+
+              store.addProduct(product);
+
+              Navigator.pop(ctx);
+
+              _addItem(product);
+
+              showAppToast(context, '${tr('تم إضافة المنتج', isEng: eng)}: ${product.name}', icon: Icons.check_circle, color: AppColors.success);
+
+            },
+
+            icon: const Icon(Icons.add, size: 18),
+
+            label: Text(tr('إضافة', isEng: eng)),
+
+          ),
+
+        ],
+
+      ),
+
+    );
+
+  }
+
+
+
+  void _showAddCustomerDialog() {
+
+    final nameCtrl = TextEditingController();
+
+    final phoneCtrl = TextEditingController();
+
+    final addressCtrl = TextEditingController();
+
+    final eng = context.read<DataStore>().isEnglish;
+
+    showDialog(
+
+      context: context,
+
+      builder: (ctx) => AlertDialog(
+
+        title: Row(children: [
+
+          const Icon(Icons.person_add, color: AppColors.primary),
+
+          const SizedBox(width: 8),
+
+          Text(tr('إضافة عميل', isEng: eng), style: const TextStyle(fontWeight: FontWeight.bold)),
+
+        ]),
+
+        content: SingleChildScrollView(
+
+          child: Column(
+
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+
+              TextField(controller: nameCtrl, decoration: InputDecoration(labelText: tr('اسم العميل *', isEng: eng), border: const OutlineInputBorder()), autofocus: true),
+
+              const SizedBox(height: 12),
+
+              TextField(controller: phoneCtrl, decoration: InputDecoration(labelText: tr('الهاتف', isEng: eng), border: const OutlineInputBorder()), keyboardType: TextInputType.phone),
+
+              const SizedBox(height: 12),
+
+              TextField(controller: addressCtrl, decoration: InputDecoration(labelText: tr('العنوان', isEng: eng), border: const OutlineInputBorder())),
+
+            ],
+
+          ),
+
+        ),
+
+        actions: [
+
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('إلغاء', isEng: eng))),
+
+          FilledButton.icon(
+
+            onPressed: () {
+
+              if (nameCtrl.text.isEmpty) return;
+
+              final store = context.read<DataStore>();
+
+              final customer = Customer(
+
+                id: const Uuid().v4(),
+
+                name: nameCtrl.text,
+
+                phone: phoneCtrl.text,
+
+                address: addressCtrl.text,
+
+              );
+
+              store.addCustomer(customer);
+
+              setState(() {
+
+                _buyerController.text = customer.name;
+
+                _phoneController.text = customer.phone;
+
+                _addressController.text = customer.address;
+
+                _selectedCustomerId = customer.id;
+
+              });
+
+              Navigator.pop(ctx);
+
+              showAppToast(context, '${tr('تم إضافة العميل', isEng: eng)}: ${customer.name}', icon: Icons.check_circle, color: AppColors.success);
+
+            },
+
+            icon: const Icon(Icons.person_add, size: 18),
+
+            label: Text(tr('إضافة', isEng: eng)),
+
+          ),
+
+        ],
+
+      ),
+
+    );
+
+  }
+
+
+
   void _saveInvoice() {
 
     if (_items.isEmpty) { showAppToast(context, 'أضف أصنافًا أولاً', icon: Icons.warning, color: AppColors.warning); return; }
@@ -8259,6 +9337,12 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
       store.addInvoice(inv);
 
+      if (_useAdvanceBalance && inv.total > 0) {
+
+        store.applyAdvanceToInvoice(_buyerController.text, inv, inv.total);
+
+      }
+
     }
 
 
@@ -8293,15 +9377,26 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
             children: [
 
-              const Text('مشاركة الفاتورة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Container(
+                width: 40, height: 4,
+                margin: const EdgeInsets.only(top: 12, bottom: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+
+              Text(tr('مشاركة الفاتورة', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
               const SizedBox(height: 16),
 
-              _shareOption(Icons.chat, AppColors.whatsapp, 'واتساب', () { Navigator.pop(context); shareWhatsApp(_phoneController.text, inv); }),
+              _shareOption(Icons.chat, AppColors.whatsapp, 'واتساب PDF', () { Navigator.pop(context); shareWhatsApp(_phoneController.text, inv, sharePdf: true); }),
 
-              _shareOption(Icons.send, Colors.blue, 'تيليجرام', () { Navigator.pop(context); shareTelegram(inv); }),
+              _shareOption(Icons.chat, AppColors.whatsapp, 'واتساب ${tr('نص', isEng: context.read<DataStore>().isEnglish)}', () { Navigator.pop(context); shareWhatsApp(_phoneController.text, inv); }),
 
-              _shareOption(Icons.content_copy, Colors.grey, 'نسخ النص', () {
+              _shareOption(Icons.send, Colors.blue, tr('تيليجرام', isEng: context.read<DataStore>().isEnglish), () { Navigator.pop(context); shareTelegram(inv); }),
+
+              _shareOption(Icons.content_copy, Colors.grey, tr('نسخ النص', isEng: context.read<DataStore>().isEnglish), () {
 
                 Navigator.pop(context);
 
@@ -8309,7 +9404,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               }),
 
-              _shareOption(Icons.picture_as_pdf, Colors.red, 'PDF', () { Navigator.pop(context); printInvoice(inv); }),
+              _shareOption(Icons.picture_as_pdf, Colors.red, 'PDF', () { Navigator.pop(context); shareInvoicePdf(inv, isEnglish: context.read<DataStore>().isEnglish); }),
 
             ],
 
@@ -8333,7 +9428,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
         padding: const EdgeInsets.all(10),
 
-        decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+        decoration: BoxDecoration(color: color.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)),
 
         child: Icon(icon, color: color),
 
@@ -8383,7 +9478,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
       appBar: AppBar(
 
-        title: Text(widget.editInvoice != null ? 'تعديل الفاتورة' : 'فاتورة جديدة', style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(widget.editInvoice != null ? tr('تعديل الفاتورة', isEng: context.read<DataStore>().isEnglish) : tr('فاتورة جديدة', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
         actions: [
 
@@ -8409,39 +9504,71 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               children: [
 
-                Row(children: [const Icon(Icons.person, color: AppColors.primary, size: 20), const SizedBox(width: 8), const Text('بيانات العميل', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
+                Row(children: [const Icon(Icons.person, color: AppColors.primary, size: 20), const SizedBox(width: 8), Text(tr('بيانات العميل', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
 
                 const SizedBox(height: 16),
 
                 Consumer<DataStore>(
 
-                  builder: (_, store, __) {
+                  builder: (_, store, _) {
 
-                    return DropdownButtonFormField<String>(
+                    return Row(
 
-                      initialValue: _selectedCustomerId,
+                      children: [
 
-                      decoration: const InputDecoration(labelText: 'اختر عميل', border: OutlineInputBorder()),
+                        Expanded(
 
-                      items: store.customers.map((c) => DropdownMenuItem(value: c.id, child: Text(c.name))).toList(),
+                          child: DropdownButtonFormField<String>(
 
-                      onChanged: (v) {
+                            initialValue: _selectedCustomerId,
 
-                        setState(() => _selectedCustomerId = v);
+                            decoration: InputDecoration(labelText: tr('اختر عميل', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder()),
 
-                        if (v != null) {
+                            items: store.customers.map((c) => DropdownMenuItem(value: c.id, child: Text(c.name))).toList(),
 
-                          final c = store.customers.firstWhere((c) => c.id == v);
+                            onChanged: (v) {
 
-                          _buyerController.text = c.name;
+                              setState(() => _selectedCustomerId = v);
 
-                          _phoneController.text = c.phone;
+                              if (v != null) {
 
-                          _addressController.text = c.address;
+                                final c = store.customers.firstWhere((c) => c.id == v);
 
-                        }
+                                _buyerController.text = c.name;
 
-                      },
+                                _phoneController.text = c.phone;
+
+                                _addressController.text = c.address;
+
+                              }
+
+                            },
+
+                          ),
+
+                        ),
+
+                        const SizedBox(width: 8),
+
+                        IconButton(
+
+                          onPressed: _showAddCustomerDialog,
+
+                          icon: const Icon(Icons.person_add, color: AppColors.primary),
+
+                          tooltip: tr('إضافة عميل', isEng: context.read<DataStore>().isEnglish),
+
+                          style: IconButton.styleFrom(
+
+                            backgroundColor: AppColors.primary.withValues(alpha: 0.1),
+
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+
+                          ),
+
+                        ),
+
+                      ],
 
                     );
 
@@ -8451,15 +9578,69 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                 const SizedBox(height: 12),
 
-                TextField(controller: _buyerController, decoration: const InputDecoration(labelText: 'اسم العميل *', border: OutlineInputBorder())),
+                TextField(controller: _buyerController, decoration: InputDecoration(labelText: tr('اسم العميل *', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
 
                 const SizedBox(height: 12),
 
-                TextField(controller: _phoneController, decoration: const InputDecoration(labelText: 'الهاتف', border: OutlineInputBorder()), keyboardType: TextInputType.phone),
+                TextField(controller: _phoneController, decoration: InputDecoration(labelText: tr('الهاتف', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.phone),
 
                 const SizedBox(height: 12),
 
-                TextField(controller: _addressController, decoration: const InputDecoration(labelText: 'العنوان', border: OutlineInputBorder())),
+                TextField(controller: _addressController, decoration: InputDecoration(labelText: tr('العنوان', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
+
+                Consumer<DataStore>(builder: (_, store, _) {
+
+                  final custName = _buyerController.text;
+
+                  final advance = custName.isNotEmpty ? store.getCustomerAdvanceBalance(custName) : 0.0;
+
+                  if (advance <= 0 || widget.editInvoice != null) return const SizedBox.shrink();
+
+                  final total = _subtotal - _discAmt - (_subtotal * _discPct / 100);
+
+                  final applyAmt = advance.clamp(0.0, total);
+
+                  return Column(children: [
+
+                    const SizedBox(height: 12),
+
+                    Container(
+
+                      padding: const EdgeInsets.all(12),
+
+                      decoration: BoxDecoration(
+
+                        color: AppColors.success.withValues(alpha: 0.08),
+
+                        borderRadius: BorderRadius.circular(12),
+
+                        border: Border.all(color: AppColors.success.withValues(alpha: 0.3)),
+
+                      ),
+
+                      child: Row(children: [
+
+                        Icon(Icons.account_balance_wallet, color: AppColors.success, size: 20),
+
+                        const SizedBox(width: 8),
+
+                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+
+                          Text('رصيد الزبون: ${advance.toStringAsFixed(2)} د.ل', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13, color: AppColors.success)),
+
+                          if (applyAmt > 0) Text('سيُخصم ${applyAmt.toStringAsFixed(2)} د.ل من الفاتورة', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+
+                        ])),
+
+                        Switch(value: _useAdvanceBalance, onChanged: (v) => setState(() => _useAdvanceBalance = v), activeThumbColor: AppColors.success),
+
+                      ]),
+
+                    ),
+
+                  ]);
+
+                }),
 
               ],
 
@@ -8483,7 +9664,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                     const SizedBox(width: 8),
 
-                    Text('الأصناف (${_items.length})', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text('${tr('الأصناف', isEng: context.read<DataStore>().isEnglish)} (${_items.length})', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                     const Spacer(),
 
@@ -8503,7 +9684,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                     decoration: BoxDecoration(
 
-                      color: AppColors.primary.withOpacity(0.05),
+                      color: AppColors.primary.withValues(alpha: 0.05),
 
                       borderRadius: BorderRadius.circular(16),
 
@@ -8513,11 +9694,11 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                       children: [
 
-                        Icon(Icons.shopping_cart_outlined, size: 48, color: AppColors.primary.withOpacity(0.3)),
+                        Icon(Icons.shopping_cart_outlined, size: 48, color: AppColors.primary.withValues(alpha: 0.3)),
 
                         const SizedBox(height: 8),
 
-                        Text('اضغط "إضافة" لاختيار منتج', style: TextStyle(color: AppColors.textSecondaryOf(context))),
+                        Text(tr('اضغط "إضافة" لاختيار منتج', isEng: context.read<DataStore>().isEnglish), style: TextStyle(color: AppColors.textSecondaryOf(context))),
 
                       ],
 
@@ -8527,7 +9708,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                 else
 
-                  ...List.generate(_items.length, (i) {
+                   ...List.generate(_items.length, (i) {
 
                     final item = _items[i];
 
@@ -8537,13 +9718,13 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                       child: Container(
 
-                        margin: const EdgeInsets.only(bottom: 8),
+                        margin: const EdgeInsets.only(bottom: 12),
 
                         padding: const EdgeInsets.all(12),
 
                         decoration: BoxDecoration(
 
-                          color: AppColors.primary.withOpacity(0.05),
+                          color: AppColors.primary.withValues(alpha: 0.05),
 
                           borderRadius: BorderRadius.circular(12),
 
@@ -8563,7 +9744,43 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                                   Text(item.name, style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                                  Text('${item.price.toStringAsFixed(2)} د.ل x ${item.quantity}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                                  Row(children: [
+
+                                    GestureDetector(
+
+                                      onTap: () => _editItemPrice(i, item),
+
+                                      child: Container(
+
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+
+                                        decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
+
+                                        child: Text('${item.price.toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 12, color: AppColors.primary, fontWeight: FontWeight.w600)),
+
+                                      ),
+
+                                    ),
+
+                                    Text(' x ', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+
+                                    GestureDetector(
+
+                                      onTap: () => _editItemQty(i, item),
+
+                                      child: Container(
+
+                                        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+
+                                        decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
+
+                                        child: Text('${item.quantity}', style: TextStyle(fontSize: 12, color: AppColors.primary, fontWeight: FontWeight.w600)),
+
+                                      ),
+
+                                    ),
+
+                                  ]),
 
                                 ],
 
@@ -8647,7 +9864,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               children: [
 
-                Row(children: [const Icon(Icons.calculate, color: AppColors.primary, size: 20), const SizedBox(width: 8), const Text('الخصم والمجموع', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
+                Row(children: [const Icon(Icons.calculate, color: AppColors.primary, size: 20), const SizedBox(width: 8), Text(tr('الخصم والمجموع', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
 
                 const SizedBox(height: 12),
 
@@ -8655,11 +9872,11 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                   children: [
 
-                    Expanded(child: TextField(controller: _discountPctController, decoration: const InputDecoration(labelText: 'خصم %', border: OutlineInputBorder()), keyboardType: TextInputType.number, onChanged: (_) => setState(() {}))),
+                    Expanded(child: TextField(controller: _discountPctController, decoration: InputDecoration(labelText: tr('خصم %', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number, onChanged: (_) => setState(() {}))),
 
                     const SizedBox(width: 12),
 
-                    Expanded(child: TextField(controller: _discountAmtController, decoration: const InputDecoration(labelText: 'خصم مبلغ', border: OutlineInputBorder()), keyboardType: TextInputType.number, onChanged: (_) => setState(() {}))),
+                    Expanded(child: TextField(controller: _discountAmtController, decoration: InputDecoration(labelText: tr('خصم مبلغ', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number, onChanged: (_) => setState(() {}))),
 
                   ],
 
@@ -8673,7 +9890,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                   decoration: BoxDecoration(
 
-                    gradient: LinearGradient(colors: AppColors.gradient1.map((c) => c.withOpacity(0.1)).toList()),
+                    gradient: LinearGradient(colors: AppColors.gradient1.map((c) => c.withValues(alpha: 0.1)).toList()),
 
                     borderRadius: BorderRadius.circular(16),
 
@@ -8685,7 +9902,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-                        const Text('الإجمالي الفرعي'),
+                        Text(tr('الإجمالي الفرعي', isEng: context.read<DataStore>().isEnglish)),
 
                         Text('${_subtotal.toStringAsFixed(2)} د.ل', style: const TextStyle(fontWeight: FontWeight.bold)),
 
@@ -8695,7 +9912,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-                        const Text('الخصم'),
+                        Text(tr('الخصم', isEng: context.read<DataStore>().isEnglish)),
 
                         Text('${(_discAmt + _subtotal * _discPct / 100).toStringAsFixed(2)} د.ل', style: const TextStyle(color: AppColors.danger)),
 
@@ -8705,7 +9922,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-                        const Text('المجموع', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        Text(tr('المجموع', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
                         AnimatedSwitcher(
 
@@ -8729,64 +9946,6 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
           ),
 
-          // Template Selector
-
-          GlassCard(
-
-            child: Column(
-
-              crossAxisAlignment: CrossAxisAlignment.start,
-
-              children: [
-
-                Row(children: [const Icon(Icons.palette, color: AppColors.primary, size: 20), const SizedBox(width: 8), const Text('اختر النموذج', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold))]),
-
-                const SizedBox(height: 8),
-
-                SizedBox(
-
-                  height: 36,
-
-                  child: ListView(
-
-                    scrollDirection: Axis.horizontal,
-
-                    children: invoiceTemplates.map((t) {
-
-                      final selected = _selectedTemplate == t.id;
-
-                      return Padding(
-
-                        padding: const EdgeInsets.only(right: 6),
-
-                        child: ChoiceChip(
-
-                          label: Text(t.name, style: TextStyle(fontSize: 12, color: selected ? Colors.white : AppColors.primary)),
-
-                          selected: selected,
-
-                          selectedColor: AppColors.primary,
-
-                          backgroundColor: AppColors.primary.withOpacity(0.08),
-
-                          onSelected: (_) => setState(() => _selectedTemplate = t.id),
-
-                        ),
-
-                      );
-
-                    }).toList(),
-
-                  ),
-
-                ),
-
-              ],
-
-            ),
-
-          ),
-
               const SizedBox(height: 12),
 
               GlassCard(
@@ -8797,7 +9956,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                   children: [
 
-                    Row(children: [const Icon(Icons.calendar_today, color: AppColors.primary, size: 20), const SizedBox(width: 8), const Text('تاريخ الاستحقاق', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
+                    Row(children: [const Icon(Icons.calendar_today, color: AppColors.primary, size: 20), const SizedBox(width: 8), Text(tr('تاريخ الاستحقاق', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
 
                     const SizedBox(height: 12),
 
@@ -8849,7 +10008,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                             Text(
 
-                              _dueDate != null ? _dueDate! : 'اضغط لاختيار تاريخ الاستحقاق',
+                              _dueDate != null ? _dueDate! : tr('اضغط لاختيار تاريخ الاستحقاق', isEng: context.read<DataStore>().isEnglish),
 
                               style: TextStyle(
 
@@ -8919,11 +10078,11 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                   children: [
 
-                    Row(children: [const Icon(Icons.notes, color: AppColors.primary, size: 20), const SizedBox(width: 8), const Text('ملاحظات', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
+                    Row(children: [const Icon(Icons.notes, color: AppColors.primary, size: 20), const SizedBox(width: 8), Text(tr('ملاحظات', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
 
                     const SizedBox(height: 12),
 
-                    TextField(controller: _notesController, decoration: const InputDecoration(labelText: 'ملاحظات', border: OutlineInputBorder()), maxLines: 2),
+                    TextField(controller: _notesController, decoration: InputDecoration(labelText: tr('ملاحظات', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder()), maxLines: 2),
 
                   ],
 
@@ -8937,11 +10096,11 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
             children: [
 
-              Expanded(child: OutlinedButton.icon(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_forward), label: const Text('رجوع'))),
+              Expanded(child: OutlinedButton.icon(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_forward), label: Text(tr('رجوع', isEng: context.read<DataStore>().isEnglish)))),
 
               const SizedBox(width: 12),
 
-              Expanded(flex: 2, child: GradientButton(label: 'حفظ الفاتورة', icon: Icons.save, gradient: AppColors.gradient1, onPressed: _saveInvoice, isExpanded: true)),
+              Expanded(flex: 2, child: GradientButton(label: tr('حفظ الفاتورة', isEng: context.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient1, onPressed: _saveInvoice, isExpanded: true)),
 
             ],
 
@@ -8955,11 +10114,11 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               children: [
 
-                Expanded(child: GradientButton(label: 'مشاركة', icon: Icons.share, gradient: [AppColors.whatsapp, const Color(0xFF128C7E)], onPressed: () => _shareBottomSheet(_buildInvoice()), isExpanded: true)),
+                Expanded(child: GradientButton(label: tr('مشاركة', isEng: context.read<DataStore>().isEnglish), icon: Icons.share, gradient: [AppColors.whatsapp, const Color(0xFF128C7E)], onPressed: () => _shareBottomSheet(_buildInvoice()), isExpanded: true)),
 
                 const SizedBox(width: 12),
 
-                Expanded(child: GradientButton(label: 'PDF', icon: Icons.picture_as_pdf, gradient: AppColors.gradient2, onPressed: () => printInvoice(_buildInvoice()), isExpanded: true)),
+                Expanded(child: GradientButton(label: 'PDF', icon: Icons.picture_as_pdf, gradient: AppColors.gradient2, onPressed: () => printInvoice(_buildInvoice(), isEnglish: context.read<DataStore>().isEnglish), isExpanded: true)),
 
               ],
 
@@ -8990,6 +10149,127 @@ class InvoiceDetailScreen extends StatelessWidget {
   final int index;
 
   const InvoiceDetailScreen({super.key, required this.invoice, required this.index});
+
+
+
+  void _showShareSheet(BuildContext context) {
+
+    final store = context.read<DataStore>();
+
+    final eng = store.isEnglish;
+
+    showModalBottomSheet(
+
+      context: context,
+
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+
+      builder: (_) => SafeArea(
+
+        child: Padding(
+
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+
+              Container(
+                width: 40, height: 4,
+                margin: const EdgeInsets.only(top: 12, bottom: 8),
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+
+              Text(tr('مشاركة الفاتورة', isEng: eng), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+              const SizedBox(height: 16),
+
+              ListTile(
+
+                leading: Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.whatsapp.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: Icon(Icons.chat, color: AppColors.whatsapp)),
+
+                title: Text('واتساب PDF', style: const TextStyle(fontWeight: FontWeight.w600)),
+
+                subtitle: Text(eng ? 'Share PDF via WhatsApp' : 'مشاركة الفاتورة كـ PDF', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+
+                trailing: const Icon(Icons.chevron_left),
+
+                onTap: () { Navigator.pop(context); shareWhatsApp(invoice.buyerPhone, invoice, sharePdf: true); },
+
+              ),
+
+              ListTile(
+
+                leading: Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.whatsapp.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: Icon(Icons.chat, color: AppColors.whatsapp)),
+
+                title: Text('واتساب ${tr('نص', isEng: eng)}', style: const TextStyle(fontWeight: FontWeight.w600)),
+
+                subtitle: Text(eng ? 'Share text via WhatsApp' : 'مشاركة الفاتورة كنص', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+
+                trailing: const Icon(Icons.chevron_left),
+
+                onTap: () { Navigator.pop(context); shareWhatsApp(invoice.buyerPhone, invoice); },
+
+              ),
+
+              ListTile(
+
+                leading: Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.blue.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.send, color: Colors.blue)),
+
+                title: Text(tr('تيليجرام', isEng: eng), style: const TextStyle(fontWeight: FontWeight.w600)),
+
+                trailing: const Icon(Icons.chevron_left),
+
+                onTap: () { Navigator.pop(context); shareTelegram(invoice); },
+
+              ),
+
+              ListTile(
+
+                leading: Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.red.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.picture_as_pdf, color: Colors.red)),
+
+                title: const Text('PDF', style: TextStyle(fontWeight: FontWeight.w600)),
+
+                trailing: const Icon(Icons.chevron_left),
+
+                onTap: () { Navigator.pop(context); shareInvoicePdf(invoice, isEnglish: eng); },
+
+              ),
+
+              ListTile(
+
+                leading: Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.content_copy, color: Colors.grey)),
+
+                title: Text(tr('نسخ النص', isEng: eng), style: const TextStyle(fontWeight: FontWeight.w600)),
+
+                trailing: const Icon(Icons.chevron_left),
+
+                onTap: () {
+
+                  Navigator.pop(context);
+
+                  SharePlus.instance.share(ShareParams(text: '${tr("فاتورة", isEng: eng)}: ${invoice.id} | ${tr("العميل", isEng: eng)}: ${invoice.buyerName} | ${tr("الإجمالي", isEng: eng)}: ${invoice.total.toStringAsFixed(2)} د.ل'));
+
+                },
+
+              ),
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+
+    );
+
+  }
 
 
 
@@ -9029,13 +10309,22 @@ class InvoiceDetailScreen extends StatelessWidget {
 
               children: [
 
+                Container(
+                  width: 40, height: 4,
+                  margin: const EdgeInsets.only(top: 12, bottom: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+
                 Row(children: [
 
                   const Icon(Icons.payment, color: AppColors.primary, size: 24),
 
                   const SizedBox(width: 8),
 
-                  const Text('إضافة دفعة', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text(tr('إضافة دفعة', isEng: ctx.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
                   const Spacer(),
 
@@ -9043,7 +10332,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
 
-                    decoration: BoxDecoration(color: AppColors.danger.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+                    decoration: BoxDecoration(color: AppColors.danger.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
 
                     child: Text('المتبقي: ${invoice.remaining.toStringAsFixed(2)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.danger, fontWeight: FontWeight.bold)),
 
@@ -9053,7 +10342,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                const Text('المبلغ', style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(tr('المبلغ', isEng: ctx.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                 const SizedBox(height: 8),
 
@@ -9061,13 +10350,13 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                   controller: amtCtrl, keyboardType: TextInputType.number, autofocus: true,
 
-                  decoration: InputDecoration(border: const OutlineInputBorder(), suffixText: 'د.ل', hintText: 'أدخل المبلغ'),
+                  decoration: InputDecoration(border: const OutlineInputBorder(), suffixText: 'د.ل', hintText: tr('أدخل المبلغ', isEng: ctx.read<DataStore>().isEnglish)),
 
                 ),
 
                 const SizedBox(height: 12),
 
-                const Text('دفع سريع', style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(tr('دفع سريع', isEng: ctx.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                 const SizedBox(height: 8),
 
@@ -9075,19 +10364,19 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                   children: [
 
-                    _quickPayBtn('الكل', invoice.remaining, amtCtrl, setSheetState),
+                    _quickPayBtn(tr('الكل', isEng: ctx.read<DataStore>().isEnglish), invoice.remaining, amtCtrl, setSheetState),
 
                     const SizedBox(width: 8),
 
-                    _quickPayBtn('النصف', invoice.remaining / 2, amtCtrl, setSheetState),
+                    _quickPayBtn(tr('النصف', isEng: ctx.read<DataStore>().isEnglish), invoice.remaining / 2, amtCtrl, setSheetState),
 
                     const SizedBox(width: 8),
 
-                    _quickPayBtn('الربع', invoice.remaining / 4, amtCtrl, setSheetState),
+                    _quickPayBtn(tr('الربع', isEng: ctx.read<DataStore>().isEnglish), invoice.remaining / 4, amtCtrl, setSheetState),
 
                     const SizedBox(width: 8),
 
-                    _quickPayBtn('الثلث', invoice.remaining / 3, amtCtrl, setSheetState),
+                    _quickPayBtn(tr('الثلث', isEng: ctx.read<DataStore>().isEnglish), invoice.remaining / 3, amtCtrl, setSheetState),
 
                   ],
 
@@ -9095,7 +10384,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                const Text('طريقة الدفع', style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(tr('طريقة الدفع', isEng: ctx.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                 const SizedBox(height: 8),
 
@@ -9141,7 +10430,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                             const SizedBox(width: 6),
 
-                            Text(paymentMethodName(m), style: TextStyle(
+                            Text(paymentMethodName(m, isEnglish: ctx.read<DataStore>().isEnglish), style: TextStyle(
 
                               fontSize: 12, fontWeight: FontWeight.bold,
 
@@ -9165,19 +10454,19 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                   const SizedBox(height: 12),
 
-                  TextField(controller: refCtrl, decoration: const InputDecoration(labelText: 'رقم المرجع/المعاملة', border: OutlineInputBorder())),
+                  TextField(controller: refCtrl, decoration: InputDecoration(labelText: tr('رقم المرجع/المعاملة', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
 
                 ],
 
                 const SizedBox(height: 12),
 
-                TextField(controller: notesCtrl, decoration: const InputDecoration(labelText: 'ملاحظات (اختياري)', border: OutlineInputBorder()), maxLines: 2),
+                TextField(controller: notesCtrl, decoration: InputDecoration(labelText: tr('ملاحظات (اختياري)', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), maxLines: 2),
 
                 const SizedBox(height: 16),
 
                 GradientButton(
 
-                  label: 'حفظ الدفعة',
+                  label: tr('حفظ الدفعة', isEng: ctx.read<DataStore>().isEnglish),
 
                   icon: Icons.check,
 
@@ -9191,35 +10480,29 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                       final store = ctx.read<DataStore>();
 
-                      final paymentCount = invoice.payments.length + 1;
+                      final success = store.addPaymentToInvoice(
 
-                      invoice.payments.add(Payment(
-
-                        amount: amt,
-
-                        date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
-
-                        method: selectedMethod,
-
-                        receiptNumber: 'RCP-${invoice.id}-$paymentCount',
+                        invoice, amt, selectedMethod,
 
                         referenceNumber: refCtrl.text.isNotEmpty ? refCtrl.text : null,
 
                         notes: notesCtrl.text.isNotEmpty ? notesCtrl.text : null,
 
-                        customerId: invoice.buyerName,
-
-                        invoiceId: invoice.id,
-
-                      ));
-
-                      store.updateInvoice(index, invoice);
+                      );
 
                       Navigator.pop(ctx);
 
                       HapticFeedback.heavyImpact();
 
-                      showAppToast(ctx, 'تم تسجيل دفعة ${amt.toStringAsFixed(2)} د.ل');
+                      if (success) {
+
+                        showAppToast(ctx, '${tr('تم تسجيل دفعة', isEng: ctx.read<DataStore>().isEnglish)} ${amt.toStringAsFixed(2)} د.ل');
+
+                      } else {
+
+                        showAppToast(ctx, tr('المبلغ يتجاوز المتبقي', isEng: ctx.read<DataStore>().isEnglish), icon: Icons.warning, color: AppColors.warning);
+
+                      }
 
                     }
 
@@ -9267,11 +10550,11 @@ class InvoiceDetailScreen extends StatelessWidget {
 
           decoration: BoxDecoration(
 
-            gradient: LinearGradient(colors: [AppColors.primary.withOpacity(0.1), AppColors.primary.withOpacity(0.05)]),
+            gradient: LinearGradient(colors: [AppColors.primary.withValues(alpha: 0.1), AppColors.primary.withValues(alpha: 0.05)]),
 
             borderRadius: BorderRadius.circular(10),
 
-            border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+            border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
 
           ),
 
@@ -9309,13 +10592,13 @@ class InvoiceDetailScreen extends StatelessWidget {
 
       appBar: AppBar(
 
-        title: Text('فاتورة ${invoice.id}', style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('${tr('فاتورة', isEng: context.read<DataStore>().isEnglish)} ${invoice.id}', style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
         actions: [
 
-          IconButton(icon: const Icon(Icons.share), onPressed: () => shareWhatsApp(invoice.buyerPhone, invoice)),
+          IconButton(icon: const Icon(Icons.share), onPressed: () => _showShareSheet(context)),
 
-          IconButton(icon: const Icon(Icons.print), onPressed: () => printInvoice(invoice)),
+          IconButton(icon: const Icon(Icons.print), onPressed: () => printInvoice(invoice, isEnglish: context.read<DataStore>().isEnglish)),
 
         ],
 
@@ -9351,9 +10634,9 @@ class InvoiceDetailScreen extends StatelessWidget {
 
             child: ListTile(
 
-              leading: CircleAvatar(backgroundColor: AppColors.primary.withOpacity(0.1), child: const Icon(Icons.person, color: AppColors.primary)),
+              leading: CircleAvatar(backgroundColor: AppColors.primary.withValues(alpha: 0.1), child: const Icon(Icons.person, color: AppColors.primary)),
 
-              title: Text(invoice.buyerName.isEmpty ? 'عميل' : invoice.buyerName, style: const TextStyle(fontWeight: FontWeight.bold)),
+              title: Text(invoice.buyerName.isEmpty ? tr('عميل', isEng: context.read<DataStore>().isEnglish) : invoice.buyerName, style: const TextStyle(fontWeight: FontWeight.bold)),
 
               subtitle: Text([invoice.buyerPhone, invoice.buyerAddress].where((s) => s.isNotEmpty).join(' | ')),
 
@@ -9371,11 +10654,11 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                 decoration: BoxDecoration(
 
-                  color: (invoice.isOverdue ? AppColors.danger : AppColors.success).withOpacity(0.05),
+                  color: (invoice.isOverdue ? AppColors.danger : AppColors.success).withValues(alpha: 0.05),
 
                   borderRadius: BorderRadius.circular(12),
 
-                  border: Border.all(color: (invoice.isOverdue ? AppColors.danger : AppColors.success).withOpacity(0.3)),
+                  border: Border.all(color: (invoice.isOverdue ? AppColors.danger : AppColors.success).withValues(alpha: 0.3)),
 
                 ),
 
@@ -9445,7 +10728,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
               children: [
 
-                const Text('الأصناف', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(tr('الأصناف', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                 const SizedBox(height: 12),
 
@@ -9487,17 +10770,17 @@ class InvoiceDetailScreen extends StatelessWidget {
 
               children: [
 
-                _totalRow('الإجمالي', '${invoice.total.toStringAsFixed(2)} د.ل', AppColors.primary),
+                _totalRow(tr('الإجمالي', isEng: context.read<DataStore>().isEnglish), '${invoice.total.toStringAsFixed(2)} د.ل', AppColors.primary),
 
                 if (invoice.totalPaid > 0) ...[
 
-                  const Divider(), _totalRow('المدفوع', '${invoice.totalPaid.toStringAsFixed(2)} د.ل', AppColors.success),
+                  const Divider(), _totalRow(tr('المدفوع', isEng: context.read<DataStore>().isEnglish), '${invoice.totalPaid.toStringAsFixed(2)} د.ل', AppColors.success),
 
                 ],
 
                 if (invoice.remaining > 0) ...[
 
-                  const Divider(), _totalRow('المتبقي', '${invoice.remaining.toStringAsFixed(2)} د.ل', AppColors.danger),
+                  const Divider(), _totalRow(tr('المتبقي', isEng: context.read<DataStore>().isEnglish), '${invoice.remaining.toStringAsFixed(2)} د.ل', AppColors.danger),
 
                 ],
 
@@ -9523,7 +10806,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                     const SizedBox(width: 8),
 
-                    const Text('سجل الدفعات', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    Text(tr('سجل الدفعات', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                     const Spacer(),
 
@@ -9535,23 +10818,21 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                   ...invoice.payments.asMap().entries.map((entry) {
 
-                    final idx = entry.key;
-
                     final p = entry.value;
 
                     return Container(
 
-                      margin: const EdgeInsets.only(bottom: 8),
+                      margin: const EdgeInsets.only(bottom: 12),
 
                       padding: const EdgeInsets.all(12),
 
                       decoration: BoxDecoration(
 
-                        color: AppColors.success.withOpacity(0.05),
+                        color: AppColors.success.withValues(alpha: 0.05),
 
                         borderRadius: BorderRadius.circular(12),
 
-                        border: Border.all(color: AppColors.success.withOpacity(0.2)),
+                        border: Border.all(color: AppColors.success.withValues(alpha: 0.2)),
 
                       ),
 
@@ -9563,7 +10844,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                             padding: const EdgeInsets.all(8),
 
-                            decoration: BoxDecoration(color: AppColors.success.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                            decoration: BoxDecoration(color: AppColors.success.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
 
                             child: Text(paymentMethodIcon(p.method), style: const TextStyle(fontSize: 18)),
 
@@ -9589,9 +10870,9 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
 
-                                    decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+                                    decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
 
-                                    child: Text(paymentMethodName(p.method), style: TextStyle(fontSize: 10, color: AppColors.primary)),
+                                    child: Text(paymentMethodName(p.method, isEnglish: context.read<DataStore>().isEnglish), style: TextStyle(fontSize: 10, color: AppColors.primary)),
 
                                   ),
 
@@ -9599,7 +10880,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                                 const SizedBox(height: 4),
 
-                                Text('${p.date}${p.referenceNumber != null ? ' | #' + p.referenceNumber! : ''}', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                                Text('${p.date}${p.referenceNumber != null ? ' | #${p.referenceNumber!}' : ''}', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
 
                               ],
 
@@ -9613,9 +10894,9 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                             color: AppColors.primary,
 
-                            onPressed: () => printPaymentReceipt(invoice, p),
+                            onPressed: () => printPaymentReceipt(invoice, p, isEnglish: context.read<DataStore>().isEnglish),
 
-                            tooltip: 'إيصال الدفع',
+                            tooltip: tr('إيصال الدفع', isEng: context.read<DataStore>().isEnglish),
 
                           ),
 
@@ -9639,7 +10920,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
             GradientButton(
 
-              label: 'إضافة دفعة',
+              label: tr('إضافة دفعة', isEng: context.read<DataStore>().isEnglish),
 
               icon: Icons.payment,
 
@@ -9699,7 +10980,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
       appBar: AppBar(
 
-        title: Text('كشف حساب: $customerName', style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('${tr('كشف حساب', isEng: context.read<DataStore>().isEnglish)}: $customerName', style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
         actions: [
 
@@ -9725,7 +11006,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
       body: Consumer<DataStore>(
 
-        builder: (_, store, __) {
+        builder: (_, store, _) {
 
           final customerInvoices = store.invoices.where((i) => i.buyerName == customerName).toList();
 
@@ -9751,21 +11032,21 @@ class CustomerStatementScreen extends StatelessWidget {
 
                 children: [
 
-                  Expanded(child: _summaryCard('المشتريات', totalPurchased, AppColors.gradient1, Icons.shopping_cart)),
+                  Expanded(child: _summaryCard(tr('المشتريات', isEng: store.isEnglish), totalPurchased, AppColors.gradient1, Icons.shopping_cart)),
 
                   const SizedBox(width: 8),
 
-                  Expanded(child: _summaryCard('المدفوعات', totalPaid, AppColors.gradient4, Icons.payment)),
+                  Expanded(child: _summaryCard(tr('المدفوعات', isEng: store.isEnglish), totalPaid, AppColors.gradient4, Icons.payment)),
 
                   const SizedBox(width: 8),
 
-                  Expanded(child: _summaryCard('المتبقي', totalRemaining, totalRemaining > 0 ? [AppColors.danger, AppColors.danger.withOpacity(0.7)] : AppColors.gradient4, Icons.account_balance_wallet)),
+                  Expanded(child: _summaryCard(tr('المتبقي', isEng: store.isEnglish), totalRemaining, totalRemaining > 0 ? [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)] : AppColors.gradient4, Icons.account_balance_wallet)),
 
                   if (advanceBalance > 0) ...[
 
                     const SizedBox(width: 8),
 
-                    Expanded(child: _summaryCard('الرصيد', advanceBalance, [AppColors.success, AppColors.success.withOpacity(0.7)], Icons.savings)),
+                    Expanded(child: _summaryCard(tr('الرصيد', isEng: store.isEnglish), advanceBalance, [AppColors.success, AppColors.success.withValues(alpha: 0.7)], Icons.savings)),
 
                   ],
 
@@ -9787,7 +11068,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
                       radius: 30,
 
-                      backgroundColor: AppColors.primary.withOpacity(0.1),
+                      backgroundColor: AppColors.primary.withValues(alpha: 0.1),
 
                       child: Text(customerName.substring(0, 1), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary)),
 
@@ -9805,11 +11086,11 @@ class CustomerStatementScreen extends StatelessWidget {
 
                         const SizedBox(height: 4),
 
-                        Text('${customerInvoices.length} فاتورة', style: TextStyle(color: Colors.grey[600])),
+                        Text('${customerInvoices.length} ${tr('فاتورة', isEng: store.isEnglish)}', style: TextStyle(color: Colors.grey[600])),
 
                         if (totalRemaining > 0)
 
-                          Text('المتبقي: ${totalRemaining.toStringAsFixed(2)} د.ل', style: const TextStyle(color: AppColors.danger, fontWeight: FontWeight.bold)),
+                          Text('${tr('المتبقي', isEng: store.isEnglish)}: ${totalRemaining.toStringAsFixed(2)} د.ل', style: const TextStyle(color: AppColors.danger, fontWeight: FontWeight.bold)),
 
                       ],
 
@@ -9825,7 +11106,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
               // Transactions Timeline
 
-              const Text('سجل المعاملات', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Text(tr('سجل المعاملات', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
               const SizedBox(height: 12),
 
@@ -9841,7 +11122,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
                       const SizedBox(height: 12),
 
-                      Text('لا توجد فواتير لهذا العميل', style: TextStyle(color: Colors.grey[600])),
+              Text(tr('لا توجد فواتير لهذا العميل', isEng: store.isEnglish), style: TextStyle(color: Colors.grey[600])),
 
                     ],
 
@@ -9853,9 +11134,9 @@ class CustomerStatementScreen extends StatelessWidget {
 
                 ...customerInvoices.expand((inv) => [
 
-                  _transactionCard(inv),
+                  _transactionCard(inv, context),
 
-                  ...inv.payments.map((p) => _paymentCard(p, inv.id)),
+                  ...inv.payments.map((p) => _paymentCard(p, inv.id, context)),
 
                 ]),
 
@@ -9887,7 +11168,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
         borderRadius: BorderRadius.circular(16),
 
-        boxShadow: [BoxShadow(color: gradient.first.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))],
+        boxShadow: [BoxShadow(color: gradient.first.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 4))],
 
       ),
 
@@ -9915,9 +11196,21 @@ class CustomerStatementScreen extends StatelessWidget {
 
 
 
-  Widget _transactionCard(Invoice inv) {
+  Widget _transactionCard(Invoice inv, BuildContext context) {
 
     return GlassCard(
+
+      onTap: () => Navigator.push(context, PageRouteBuilder(
+        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: inv, index: context.read<DataStore>().invoices.indexOf(inv)),
+        transitionsBuilder: (_, anim, _, child) => FadeTransition(
+          opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+          child: SlideTransition(
+            position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+            child: child,
+          ),
+        ),
+        transitionDuration: const Duration(milliseconds: 400),
+      )),
 
       child: Row(
 
@@ -9929,7 +11222,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
             decoration: BoxDecoration(
 
-              gradient: LinearGradient(colors: inv.status == 'paid' ? AppColors.gradient4 : [AppColors.danger, AppColors.danger.withOpacity(0.7)]),
+              gradient: LinearGradient(colors: inv.status == 'paid' ? AppColors.gradient4 : [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)]),
 
               borderRadius: BorderRadius.circular(12),
 
@@ -9949,7 +11242,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
               children: [
 
-                Text('فاتورة ${inv.id}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text('${tr('فاتورة', isEng: context.read<DataStore>().isEnglish)} ${inv.id}', style: const TextStyle(fontWeight: FontWeight.bold)),
 
                 const SizedBox(height: 4),
 
@@ -9987,9 +11280,25 @@ class CustomerStatementScreen extends StatelessWidget {
 
 
 
-  Widget _paymentCard(Payment payment, String invoiceId) {
+  Widget _paymentCard(Payment payment, String invoiceId, BuildContext context) {
+
+    final store = context.read<DataStore>();
+
+    final linkedInv = store.invoices.where((i) => i.id == invoiceId).isNotEmpty ? store.invoices.firstWhere((i) => i.id == invoiceId) : null;
 
     return GlassCard(
+
+      onTap: linkedInv != null ? () => Navigator.push(context, PageRouteBuilder(
+        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: linkedInv, index: store.invoices.indexOf(linkedInv)),
+        transitionsBuilder: (_, anim, _, child) => FadeTransition(
+          opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+          child: SlideTransition(
+            position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+            child: child,
+          ),
+        ),
+        transitionDuration: const Duration(milliseconds: 400),
+      )) : null,
 
       child: Row(
 
@@ -10021,11 +11330,11 @@ class CustomerStatementScreen extends StatelessWidget {
 
               children: [
 
-                Text('دفعة - $invoiceId', style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text('${tr("دفعة", isEng: context.read<DataStore>().isEnglish)} - $invoiceId', style: const TextStyle(fontWeight: FontWeight.bold)),
 
                 const SizedBox(height: 4),
 
-                Text('${payment.date} | ${paymentMethodIcon(payment.method)} ${paymentMethodName(payment.method)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                Text('${payment.date} | ${paymentMethodIcon(payment.method)} ${paymentMethodName(payment.method, isEnglish: context.read<DataStore>().isEnglish)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
 
               ],
 
@@ -10097,6 +11406,14 @@ class CustomerStatementScreen extends StatelessWidget {
 
         pdfText('المتبقي: ${(totalPurchased - totalPaid).toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.red)),
 
+        if (store.getCustomerAdvanceBalance(customerName) > 0) ...[
+
+          pw.SizedBox(height: 4),
+
+          pdfText('الرصيد المقدم: ${store.getCustomerAdvanceBalance(customerName).toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.green)),
+
+        ],
+
       ],
 
     ));
@@ -10127,7 +11444,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
       for (final p in inv.payments) {
 
-        text += '  💰 ${p.date} | -${p.amount.toStringAsFixed(2)} د.ل | ${paymentMethodName(p.method)}\n';
+        text += '  💰 ${p.date} | -${p.amount.toStringAsFixed(2)} د.ل | ${paymentMethodName(p.method, isEnglish: store.isEnglish)}\n';
 
       }
 
@@ -10139,7 +11456,11 @@ class CustomerStatementScreen extends StatelessWidget {
 
     text += 'المدفوعات: ${totalPaid.toStringAsFixed(2)} د.ل\n';
 
-    text += 'المتبقي: ${(totalPurchased - totalPaid).toStringAsFixed(2)} د.ل';
+    text += 'المتبقي: ${(totalPurchased - totalPaid).toStringAsFixed(2)} د.ل\n';
+
+    final adv = store.getCustomerAdvanceBalance(customerName);
+
+    if (adv > 0) text += 'الرصيد المقدم: ${adv.toStringAsFixed(2)} د.ل';
 
 
 
@@ -10261,7 +11582,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
               children: [
 
-                const Text('إضافة منتج', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Container(
+                  width: 40, height: 4,
+                  margin: const EdgeInsets.only(top: 12, bottom: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+
+                Text(tr('إضافة منتج', isEng: ctx.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
                 const SizedBox(height: 16),
 
@@ -10281,17 +11611,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                     decoration: BoxDecoration(
 
-                      gradient: LinearGradient(colors: AppColors.gradient3.map((c) => c.withOpacity(0.2)).toList()),
+                      gradient: LinearGradient(colors: AppColors.gradient3.map((c) => c.withValues(alpha: 0.2)).toList()),
 
                       borderRadius: BorderRadius.circular(20),
 
-                      border: Border.all(color: AppColors.primary.withOpacity(0.3), width: 2),
+                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 2),
 
                     ),
 
                     child: imagePath != null
 
-                        ? ClipRRect(borderRadius: BorderRadius.circular(18), child: Image.file(File(imagePath!), fit: BoxFit.cover))
+                        ? ClipRRect(borderRadius: BorderRadius.circular(18), child: Image.file(File(imagePath!), width: 100, height: 100, fit: BoxFit.cover))
 
                         : Column(mainAxisAlignment: MainAxisAlignment.center, children: [
 
@@ -10299,7 +11629,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                             const SizedBox(height: 4),
 
-                            Text('صورة', style: TextStyle(fontSize: 12, color: AppColors.primary)),
+                            Text(tr('صورة', isEng: ctx.read<DataStore>().isEnglish), style: TextStyle(fontSize: 12, color: AppColors.primary)),
 
                           ]),
 
@@ -10309,19 +11639,29 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                 const SizedBox(height: 16),
 
-                TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: 'اسم المنتج *', border: OutlineInputBorder())),
+                TextField(controller: nameCtrl, decoration: InputDecoration(labelText: tr('اسم المنتج *', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
 
                 const SizedBox(height: 12),
 
                 Row(children: [
 
-                  Expanded(child: TextField(controller: barcodeCtrl, decoration: const InputDecoration(labelText: 'الباركود', border: OutlineInputBorder()))),
+                  Expanded(child: TextField(controller: barcodeCtrl, decoration: InputDecoration(labelText: tr('الباركود', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()))),
 
                   const SizedBox(width: 8),
 
                   GradientButton(label: '', icon: Icons.qr_code_scanner, gradient: AppColors.gradient3, onPressed: () async {
 
-                    final result = await Navigator.push<String>(ctx, MaterialPageRoute(builder: (_) => const BarcodeScannerScreen()));
+                    final result = await Navigator.push<String>(ctx, PageRouteBuilder(
+                      pageBuilder: (_, _, _) => const BarcodeScannerScreen(),
+                      transitionsBuilder: (_, anim, _, child) => FadeTransition(
+                        opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+                        child: SlideTransition(
+                          position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+                          child: child,
+                        ),
+                      ),
+                      transitionDuration: const Duration(milliseconds: 400),
+                    ));
 
                     if (result != null) setSheetState(() => barcodeCtrl.text = result);
 
@@ -10331,29 +11671,29 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                 const SizedBox(height: 12),
 
-                TextField(controller: categoryCtrl, decoration: const InputDecoration(labelText: 'التصنيف', border: OutlineInputBorder())),
+                TextField(controller: categoryCtrl, decoration: InputDecoration(labelText: tr('التصنيف', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
 
                 const SizedBox(height: 12),
 
                 Row(children: [
 
-                  Expanded(child: TextField(controller: buyPriceCtrl, decoration: const InputDecoration(labelText: 'شراء', border: OutlineInputBorder()), keyboardType: TextInputType.number)),
+                  Expanded(child: TextField(controller: buyPriceCtrl, decoration: InputDecoration(labelText: tr('شراء', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number)),
 
                   const SizedBox(width: 12),
 
-                  Expanded(child: TextField(controller: sellPriceCtrl, decoration: const InputDecoration(labelText: 'بيع *', border: OutlineInputBorder()), keyboardType: TextInputType.number)),
+                  Expanded(child: TextField(controller: sellPriceCtrl, decoration: InputDecoration(labelText: tr('بيع *', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number)),
 
                 ]),
 
                 const SizedBox(height: 12),
 
-                TextField(controller: qtyCtrl, decoration: const InputDecoration(labelText: 'الكمية', border: OutlineInputBorder()), keyboardType: TextInputType.number),
+                TextField(controller: qtyCtrl, decoration: InputDecoration(labelText: tr('الكمية', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number),
 
                 const SizedBox(height: 16),
 
                 GradientButton(
 
-                  label: 'حفظ المنتج', icon: Icons.save, gradient: AppColors.gradient4, isExpanded: true,
+                  label: tr('حفظ المنتج', isEng: ctx.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient4, isExpanded: true,
 
                   onPressed: () {
 
@@ -10373,7 +11713,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                     Navigator.pop(ctx);
 
-                    showAppToast(ctx, 'تم إضافة المنتج');
+                    showAppToast(ctx, tr('تم إضافة المنتج', isEng: ctx.read<DataStore>().isEnglish));
 
                   },
 
@@ -10407,7 +11747,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
       appBar: AppBar(
 
-        title: const Text('المنتجات', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(tr('المنتجات', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
         actions: [
 
@@ -10419,7 +11759,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
       body: Consumer<DataStore>(
 
-        builder: (_, store, __) {
+        builder: (_, store, _) {
 
           if (store.products.isEmpty) {
 
@@ -10427,11 +11767,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
               icon: Icons.inventory_2,
 
-              title: 'لا توجد منتجات',
+              title: tr('لا توجد منتجات', isEng: store.isEnglish),
 
-              subtitle: 'أضف منتجاتك لتبدأ',
+              subtitle: tr('أضف منتجاتك لتبدأ', isEng: store.isEnglish),
 
-              actionLabel: 'إضافة منتج',
+              actionLabel: tr('إضافة منتج', isEng: store.isEnglish),
 
               onAction: () => _showAddDialog(context),
 
@@ -10457,7 +11797,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                   decoration: InputDecoration(
 
-                    hintText: 'بحث بالاسم أو التصنيف أو الباركود...',
+                    hintText: tr('بحث بالاسم أو التصنيف أو الباركود...', isEng: store.isEnglish),
 
                     prefixIcon: const Icon(Icons.search, color: AppColors.primary),
 
@@ -10485,7 +11825,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
               child: ListView(scrollDirection: Axis.horizontal, padding: const EdgeInsets.symmetric(horizontal: 16), children: [
 
-                _filterChip('الكل', 'all'), _filterChip('متوفر', 'inStock'), _filterChip('نفذ', 'outOfStock'),
+                _filterChip(tr('الكل', isEng: store.isEnglish), 'all'), _filterChip(tr('متوفر', isEng: store.isEnglish), 'inStock'), _filterChip(tr('نفذ', isEng: store.isEnglish), 'outOfStock'),
 
                 const SizedBox(width: 8),
 
@@ -10495,7 +11835,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
 
-                    decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+                    decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
 
                     child: Row(mainAxisSize: MainAxisSize.min, children: [
 
@@ -10503,7 +11843,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                       const SizedBox(width: 4),
 
-                      Text('ترتيب', style: TextStyle(fontSize: 12, color: AppColors.primary)),
+                      Text(tr('ترتيب', isEng: store.isEnglish), style: TextStyle(fontSize: 12, color: AppColors.primary)),
 
                     ]),
 
@@ -10513,15 +11853,15 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                   itemBuilder: (_) => [
 
-                    CheckedPopupMenuItem(value: 'name', checked: _sortBy == 'name', child: const Text('الاسم')),
+                    CheckedPopupMenuItem(value: 'name', checked: _sortBy == 'name', child: Text(tr('الاسم', isEng: store.isEnglish))),
 
-                    CheckedPopupMenuItem(value: 'price_asc', checked: _sortBy == 'price_asc', child: const Text('سعر ↑')),
+                    CheckedPopupMenuItem(value: 'price_asc', checked: _sortBy == 'price_asc', child: Text(tr('سعر ↑', isEng: store.isEnglish))),
 
-                    CheckedPopupMenuItem(value: 'price_desc', checked: _sortBy == 'price_desc', child: const Text('سعر ↓')),
+                    CheckedPopupMenuItem(value: 'price_desc', checked: _sortBy == 'price_desc', child: Text(tr('سعر ↓', isEng: store.isEnglish))),
 
-                    CheckedPopupMenuItem(value: 'qty_asc', checked: _sortBy == 'qty_asc', child: const Text('كمية ↑')),
+                    CheckedPopupMenuItem(value: 'qty_asc', checked: _sortBy == 'qty_asc', child: Text(tr('كمية ↑', isEng: store.isEnglish))),
 
-                    CheckedPopupMenuItem(value: 'qty_desc', checked: _sortBy == 'qty_desc', child: const Text('كمية ↓')),
+                    CheckedPopupMenuItem(value: 'qty_desc', checked: _sortBy == 'qty_desc', child: Text(tr('كمية ↓', isEng: store.isEnglish))),
 
                   ],
 
@@ -10533,7 +11873,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
             if (filtered.isEmpty)
 
-              Expanded(child: Center(child: Text('لا توجد نتائج', style: TextStyle(color: Colors.grey[500], fontSize: 16)))),
+              Expanded(child: Center(child: Text(tr('لا توجد نتائج', isEng: store.isEnglish), style: TextStyle(color: Colors.grey[500], fontSize: 16)))),
 
             if (filtered.isNotEmpty)
 
@@ -10567,13 +11907,13 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                         return await showDialog<bool>(context: context, builder: (_) => AlertDialog(
 
-                          title: const Text('حذف المنتج'), content: Text('هل أنت متأكد من حذف ${p.name}؟'),
+                          title: Text(tr('حذف المنتج', isEng: store.isEnglish)), content: Text('${tr('هل أنت متأكد من حذف', isEng: store.isEnglish)} ${p.name}؟'),
 
                           actions: [
 
-                            TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('إلغاء')),
+                            TextButton(onPressed: () => Navigator.pop(context, false), child: Text(tr('إلغاء', isEng: store.isEnglish))),
 
-                            TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('حذف', style: TextStyle(color: AppColors.danger))),
+                            TextButton(onPressed: () => Navigator.pop(context, true), child: Text(tr('حذف', isEng: store.isEnglish), style: const TextStyle(color: AppColors.danger))),
 
                           ],
 
@@ -10581,13 +11921,13 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                       },
 
-                      onDismissed: (_) { store.deleteProduct(idx); showAppToast(context, 'تم حذف ${p.name}', icon: Icons.delete, color: AppColors.danger); },
+                      onDismissed: (_) { store.deleteProduct(idx); showAppToast(context, '${tr('تم حذف', isEng: store.isEnglish)} ${p.name}', icon: Icons.delete, color: AppColors.danger); },
 
                       background: Container(
 
-                    margin: const EdgeInsets.only(bottom: 8),
+                    margin: const EdgeInsets.only(bottom: 12),
 
-                    decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.danger, AppColors.danger.withOpacity(0.7)]), borderRadius: BorderRadius.circular(16)),
+                    decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)]), borderRadius: BorderRadius.circular(16)),
 
                     alignment: Alignment.centerLeft,
 
@@ -10597,9 +11937,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                   ),
 
-                  child: GlassCard(
+                  child: GestureDetector(
+                    onTap: () {
+                      final idx = store.products.indexWhere((x) => x.id == p.id);
+                      if (idx >= 0) _showEditDialog(context, store, p, idx);
+                    },
+                    child: GlassCard(
 
-                    margin: const EdgeInsets.only(bottom: 8),
+                    margin: const EdgeInsets.only(bottom: 12),
 
                     child: Row(
 
@@ -10633,7 +11978,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                               const SizedBox(height: 4),
 
-                              Text('شراء: ${p.buyPrice.toStringAsFixed(2)} | بيع: ${p.sellPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                              Text('${tr('شراء', isEng: store.isEnglish)}: ${p.buyPrice.toStringAsFixed(2)} | ${tr('بيع', isEng: store.isEnglish)}: ${p.sellPrice.toStringAsFixed(2)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
 
                             ],
 
@@ -10647,7 +11992,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                           decoration: BoxDecoration(
 
-                            color: p.quantity > 0 ? AppColors.success.withOpacity(0.1) : AppColors.danger.withOpacity(0.1),
+                            color: p.quantity > 0 ? AppColors.success.withValues(alpha: 0.1) : AppColors.danger.withValues(alpha: 0.1),
 
                             borderRadius: BorderRadius.circular(8),
 
@@ -10657,9 +12002,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                         ),
 
-                      ],
+                       ],
 
                     ),
+
+                  ),
 
                   ),
 
@@ -10699,9 +12046,202 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
         selectedColor: AppColors.primary,
 
-        backgroundColor: AppColors.primary.withOpacity(0.08),
+        backgroundColor: AppColors.primary.withValues(alpha: 0.08),
 
-        onSelected: (_) => setState(() => _filterType = value),
+        onSelected: (_) { HapticFeedback.selectionClick(); setState(() => _filterType = value); },
+
+      ),
+
+    );
+
+  }
+
+  void _showEditDialog(BuildContext ctx, DataStore store, Product p, int idx) {
+
+    final nameCtrl = TextEditingController(text: p.name);
+
+    final barcodeCtrl = TextEditingController(text: p.barcode);
+
+    final buyPriceCtrl = TextEditingController(text: p.buyPrice.toString());
+
+    final sellPriceCtrl = TextEditingController(text: p.sellPrice.toString());
+
+    final qtyCtrl = TextEditingController(text: p.quantity.toString());
+
+    final categoryCtrl = TextEditingController(text: p.category);
+
+    String? imagePath = p.imagePath.isNotEmpty ? p.imagePath : null;
+
+    final picker = ImagePicker();
+
+    showModalBottomSheet(
+
+      context: ctx,
+
+      isScrollControlled: true,
+
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+
+      builder: (_) => StatefulBuilder(
+
+        builder: (ctx, setSheetState) => Padding(
+
+          padding: EdgeInsets.only(bottom: MediaQuery.of(ctx).viewInsets.bottom, left: 20, right: 20, top: 20),
+
+          child: SingleChildScrollView(
+
+            child: Column(
+
+              mainAxisSize: MainAxisSize.min,
+
+              children: [
+
+                Container(
+                  width: 40, height: 4,
+                  margin: const EdgeInsets.only(top: 12, bottom: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+
+                Text(tr('تعديل المنتج', isEng: ctx.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+                const SizedBox(height: 16),
+
+                GestureDetector(
+
+                  onTap: () async {
+
+                    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+                    if (image != null) setSheetState(() => imagePath = image.path);
+
+                  },
+
+                  child: Container(
+
+                    width: 100, height: 100,
+
+                    decoration: BoxDecoration(
+
+                      gradient: LinearGradient(colors: AppColors.gradient3.map((c) => c.withValues(alpha: 0.2)).toList()),
+
+                      borderRadius: BorderRadius.circular(20),
+
+                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 2),
+
+                    ),
+
+                    child: imagePath != null
+
+                        ? ClipRRect(borderRadius: BorderRadius.circular(18), child: Image.file(File(imagePath!), width: 100, height: 100, fit: BoxFit.cover))
+
+                        : Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+
+                            Icon(Icons.camera_alt, color: AppColors.primary, size: 32),
+
+                            const SizedBox(height: 4),
+
+                            Text(tr('صورة', isEng: ctx.read<DataStore>().isEnglish), style: TextStyle(fontSize: 12, color: AppColors.primary)),
+
+                          ]),
+
+                  ),
+
+                ),
+
+                const SizedBox(height: 16),
+
+                TextField(controller: nameCtrl, decoration: InputDecoration(labelText: tr('اسم المنتج *', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
+
+                const SizedBox(height: 12),
+
+                Row(children: [
+
+                  Expanded(child: TextField(controller: barcodeCtrl, decoration: InputDecoration(labelText: tr('الباركود', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()))),
+
+                  const SizedBox(width: 8),
+
+                  GradientButton(label: '', icon: Icons.qr_code_scanner, gradient: AppColors.gradient3, onPressed: () async {
+
+                    final result = await Navigator.push<String>(ctx, PageRouteBuilder(
+                      pageBuilder: (_, _, _) => const BarcodeScannerScreen(),
+                      transitionsBuilder: (_, anim, _, child) => FadeTransition(
+                        opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+                        child: SlideTransition(
+                          position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+                          child: child,
+                        ),
+                      ),
+                      transitionDuration: const Duration(milliseconds: 400),
+                    ));
+
+                    if (result != null) setSheetState(() => barcodeCtrl.text = result);
+
+                  }),
+
+                ]),
+
+                const SizedBox(height: 12),
+
+                TextField(controller: categoryCtrl, decoration: InputDecoration(labelText: tr('التصنيف', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
+
+                const SizedBox(height: 12),
+
+                Row(children: [
+
+                  Expanded(child: TextField(controller: buyPriceCtrl, decoration: InputDecoration(labelText: tr('شراء', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number)),
+
+                  const SizedBox(width: 12),
+
+                  Expanded(child: TextField(controller: sellPriceCtrl, decoration: InputDecoration(labelText: tr('بيع *', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number)),
+
+                ]),
+
+                const SizedBox(height: 12),
+
+                TextField(controller: qtyCtrl, decoration: InputDecoration(labelText: tr('الكمية', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.number),
+
+                const SizedBox(height: 16),
+
+                GradientButton(
+
+                  label: tr('حفظ التعديلات', isEng: ctx.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient4, isExpanded: true,
+
+                  onPressed: () {
+
+                    if (nameCtrl.text.isEmpty) return;
+
+                    store.updateProduct(idx, Product(
+
+                      id: p.id, name: nameCtrl.text, barcode: barcodeCtrl.text,
+
+                      category: categoryCtrl.text, buyPrice: double.tryParse(buyPriceCtrl.text) ?? 0,
+
+                      sellPrice: double.tryParse(sellPriceCtrl.text) ?? 0, quantity: int.tryParse(qtyCtrl.text) ?? 0,
+
+                      imagePath: imagePath ?? '',
+
+                    ));
+
+                    Navigator.pop(ctx);
+
+                    showAppToast(ctx, tr('تم تعديل المنتج', isEng: ctx.read<DataStore>().isEnglish), icon: Icons.check, color: AppColors.success);
+
+                  },
+
+                ),
+
+                const SizedBox(height: 20),
+
+              ],
+
+            ),
+
+          ),
+
+        ),
 
       ),
 
@@ -10765,25 +12305,34 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
           children: [
 
-            const Text('إضافة عميل', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+            Container(
+              width: 40, height: 4,
+              margin: const EdgeInsets.only(top: 12, bottom: 8),
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+
+            Text(tr('إضافة عميل', isEng: ctx.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
 
             const SizedBox(height: 16),
 
-            TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: 'اسم العميل *', border: OutlineInputBorder())),
+            TextField(controller: nameCtrl, decoration: InputDecoration(labelText: tr('اسم العميل *', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
 
             const SizedBox(height: 12),
 
-            TextField(controller: phoneCtrl, decoration: const InputDecoration(labelText: 'الهاتف', border: OutlineInputBorder()), keyboardType: TextInputType.phone),
+            TextField(controller: phoneCtrl, decoration: InputDecoration(labelText: tr('الهاتف', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.phone),
 
             const SizedBox(height: 12),
 
-            TextField(controller: addrCtrl, decoration: const InputDecoration(labelText: 'العنوان', border: OutlineInputBorder())),
+            TextField(controller: addrCtrl, decoration: InputDecoration(labelText: tr('العنوان', isEng: ctx.read<DataStore>().isEnglish), border: const OutlineInputBorder())),
 
             const SizedBox(height: 16),
 
             GradientButton(
 
-              label: 'حفظ', icon: Icons.save, gradient: AppColors.gradient4, isExpanded: true,
+              label: tr('حفظ', isEng: ctx.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient4, isExpanded: true,
 
               onPressed: () {
 
@@ -10793,7 +12342,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                 Navigator.pop(ctx);
 
-                showAppToast(ctx, 'تم إضافة العميل');
+                showAppToast(ctx, tr('تم إضافة العميل', isEng: ctx.read<DataStore>().isEnglish));
 
               },
 
@@ -10837,7 +12386,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
       case 'withInvoices': list = list.where((c) => store.invoices.any((inv) => inv.buyerName == c.name)).toList(); break;
 
-      case 'withBalance': list = list.where((c) => c.advanceBalance > 0).toList(); break;
+      case 'withBalance': list = list.where((c) => store.getCustomerAdvanceBalance(c.name) > 0).toList(); break;
 
       case 'withPhone': list = list.where((c) => c.phone.isNotEmpty).toList(); break;
 
@@ -10861,7 +12410,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
       }); break;
 
-      case 'balance': list.sort((a, b) => b.advanceBalance.compareTo(a.advanceBalance)); break;
+      case 'balance': list.sort((a, b) => store.getCustomerAdvanceBalance(b.name).compareTo(store.getCustomerAdvanceBalance(a.name))); break;
 
     }
 
@@ -10893,7 +12442,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
       appBar: AppBar(
 
-        title: const Text('العملاء', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(tr('العملاء', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
         actions: [
 
@@ -10905,7 +12454,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
       body: Consumer<DataStore>(
 
-        builder: (_, store, __) {
+        builder: (_, store, _) {
 
           final filtered = _filtered(store);
 
@@ -10927,7 +12476,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                     decoration: InputDecoration(
 
-                      hintText: 'بحث بالاسم أو الهاتف...',
+                      hintText: tr('بحث بالاسم أو الهاتف...', isEng: store.isEnglish),
 
                       prefixIcon: const Icon(Icons.search, color: AppColors.primary),
 
@@ -10959,15 +12508,15 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                   children: [
 
-                    _filterChip('الكل', 'all'),
+                    _filterChip(tr('الكل', isEng: store.isEnglish), 'all'),
 
-                    _filterChip('لديه فواتير', 'withInvoices'),
+                    _filterChip(tr('لديه فواتير', isEng: store.isEnglish), 'withInvoices'),
 
-                    _filterChip('بدون فواتير', 'withoutInvoices'),
+                    _filterChip(tr('بدون فواتير', isEng: store.isEnglish), 'withoutInvoices'),
 
-                    _filterChip('رصيد مقدم', 'withBalance'),
+                    _filterChip(tr('رصيد مقدم', isEng: store.isEnglish), 'withBalance'),
 
-                    _filterChip('مع هاتف', 'withPhone'),
+                    _filterChip(tr('مع هاتف', isEng: store.isEnglish), 'withPhone'),
 
                   ],
 
@@ -10981,7 +12530,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                 child: Row(children: [
 
-                  Text('${filtered.length} عميل', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                  Text('${filtered.length} ${tr('عميل', isEng: store.isEnglish)}', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
 
                   const Spacer(),
 
@@ -10999,17 +12548,26 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                           child: Column(mainAxisSize: MainAxisSize.min, children: [
 
-                            const Padding(padding: EdgeInsets.all(16), child: Text('ترتيب حسب', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                            Container(
+                              width: 40, height: 4,
+                              margin: const EdgeInsets.only(top: 12, bottom: 8),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(2),
+                              ),
+                            ),
+
+                            Padding(padding: const EdgeInsets.all(16), child: Text(tr('ترتيب حسب', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
 
                             ...[
 
-                              ('name', 'الاسم (أ-ي)', Icons.sort_by_alpha),
+                              ('name', tr('الاسم (أ-ي)', isEng: store.isEnglish), Icons.sort_by_alpha),
 
-                              ('name_desc', 'الاسم (ي-أ)', Icons.sort_by_alpha),
+                              ('name_desc', tr('الاسم (ي-أ)', isEng: store.isEnglish), Icons.sort_by_alpha),
 
-                              ('invoices', 'عدد الفواتير', Icons.receipt),
+                              ('invoices', tr('عدد الفواتير', isEng: store.isEnglish), Icons.receipt),
 
-                              ('balance', 'الرصيد الأعلى', Icons.account_balance_wallet),
+                              ('balance', tr('الرصيد الأعلى', isEng: store.isEnglish), Icons.account_balance_wallet),
 
                             ].map((s) => ListTile(
 
@@ -11019,7 +12577,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                               trailing: _sortBy == s.$1 ? const Icon(Icons.check, color: AppColors.primary) : null,
 
-                              onTap: () { setState(() => _sortBy = s.$1); Navigator.pop(ctx); },
+              onTap: () { HapticFeedback.selectionClick(); setState(() => _sortBy = s.$1); Navigator.pop(ctx); },
 
                             )),
 
@@ -11035,7 +12593,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                     icon: const Icon(Icons.sort, size: 14),
 
-                    label: const Text('ترتيب'),
+                    label: Text(tr('ترتيب', isEng: store.isEnglish)),
 
                   ),
 
@@ -11047,7 +12605,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                 child: store.customers.isEmpty
 
-                    ? EmptyState(icon: Icons.people, title: 'لا يوجد عملاء', subtitle: 'أضف عملاءك لتتبع فواتيرهم', actionLabel: 'إضافة عميل', onAction: () => _showAddDialog(context))
+                    ? EmptyState(icon: Icons.people, title: tr('لا يوجد عملاء', isEng: store.isEnglish), subtitle: tr('أضف عملاءك لتتبع فواتيرهم', isEng: store.isEnglish), actionLabel: tr('إضافة عميل', isEng: store.isEnglish), onAction: () => _showAddDialog(context))
 
                     : filtered.isEmpty
 
@@ -11083,13 +12641,13 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                     return await showDialog<bool>(context: context, builder: (_) => AlertDialog(
 
-                                      title: const Text('حذف العميل'), content: Text('هل أنت متأكد من حذف ${c.name}؟'),
+                                      title: Text(tr('حذف العميل', isEng: store.isEnglish)), content: Text('${tr('هل أنت متأكد من حذف', isEng: store.isEnglish)} ${c.name}؟'),
 
                                       actions: [
 
-                                        TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('إلغاء')),
+                                        TextButton(onPressed: () => Navigator.pop(context, false), child: Text(tr('إلغاء', isEng: store.isEnglish))),
 
-                                        TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('حذف', style: TextStyle(color: AppColors.danger))),
+                                        TextButton(onPressed: () => Navigator.pop(context, true), child: Text(tr('حذف', isEng: store.isEnglish), style: const TextStyle(color: AppColors.danger))),
 
                                       ],
 
@@ -11097,13 +12655,13 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                   },
 
-                                  onDismissed: (_) { store.deleteCustomer(actualIndex); showAppToast(context, 'تم حذف ${c.name}', icon: Icons.delete, color: AppColors.danger); },
+                                  onDismissed: (_) { store.deleteCustomer(actualIndex); showAppToast(context, '${tr('تم حذف', isEng: store.isEnglish)} ${c.name}', icon: Icons.delete, color: AppColors.danger); },
 
                                   background: Container(
 
-                                    margin: const EdgeInsets.only(bottom: 8),
+                                    margin: const EdgeInsets.only(bottom: 12),
 
-                                    decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.danger, AppColors.danger.withOpacity(0.7)]), borderRadius: BorderRadius.circular(16)),
+                                    decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)]), borderRadius: BorderRadius.circular(16)),
 
                                     alignment: Alignment.centerLeft,
 
@@ -11113,13 +12671,23 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                   ),
 
-                                  child: GlassCard(
+                                   child: GlassCard(
 
-                                    margin: const EdgeInsets.only(bottom: 8),
+                                     margin: const EdgeInsets.only(bottom: 12),
 
-                                    child: InkWell(
+                                     child: InkWell(
 
-                                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomerStatementScreen(customerName: c.name))),
+                                      onTap: () => Navigator.push(context, PageRouteBuilder(
+                                        pageBuilder: (_, _, _) => CustomerStatementScreen(customerName: c.name),
+                                        transitionsBuilder: (_, anim, _, child) => FadeTransition(
+                                          opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+                                          child: SlideTransition(
+                                            position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+                                            child: child,
+                                          ),
+                                        ),
+                                        transitionDuration: const Duration(milliseconds: 400),
+                                      )),
 
                                       borderRadius: BorderRadius.circular(20),
 
@@ -11159,11 +12727,11 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                             Text('$invCount فاتورة', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
 
-                                            if (c.advanceBalance > 0) ...[
+                                            if (store.getCustomerAdvanceBalance(c.name) > 0) ...[
 
                                               Text(' | ', style: TextStyle(fontSize: 12, color: Colors.grey[400])),
 
-                                              Text('${c.advanceBalance.toStringAsFixed(0)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.success, fontWeight: FontWeight.w600)),
+                                              Text('${store.getCustomerAdvanceBalance(c.name).toStringAsFixed(0)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.success, fontWeight: FontWeight.w600)),
 
                                             ],
 
@@ -11217,7 +12785,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
         selected: sel,
 
-        onSelected: (_) => setState(() => _filterType = value),
+        onSelected: (_) { HapticFeedback.selectionClick(); setState(() => _filterType = value); },
 
         selectedColor: AppColors.primary,
 
@@ -11251,11 +12819,11 @@ class StatsScreen extends StatelessWidget {
 
       backgroundColor: AppColors.bgOf(context),
 
-      appBar: AppBar(title: const Text('الإحصائيات', style: TextStyle(fontWeight: FontWeight.bold))),
+      appBar: AppBar(title: Text(tr('الإحصائيات', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1)),
 
       body: Consumer<DataStore>(
 
-        builder: (_, store, __) {
+        builder: (_, store, _) {
 
           final totalSales = store.invoices.fold<double>(0, (s, i) => s + i.total);
 
@@ -11273,7 +12841,7 @@ class StatsScreen extends StatelessWidget {
 
           for (var inv in store.invoices) {
 
-            final name = inv.buyerName.isEmpty ? 'عميل' : inv.buyerName;
+            final name = inv.buyerName.isEmpty ? tr('عميل', isEng: store.isEnglish) : inv.buyerName;
 
             customerInvoiceCount[name] = (customerInvoiceCount[name] ?? 0) + 1;
 
@@ -11299,11 +12867,11 @@ class StatsScreen extends StatelessWidget {
 
                 Row(children: [
 
-                  Expanded(child: _statCard('الإجمالي', totalSales, AppColors.gradient1, Icons.attach_money, context)),
+                  Expanded(child: _statCard(tr('الإجمالي', isEng: store.isEnglish), totalSales, AppColors.gradient1, Icons.attach_money, context)),
 
                   const SizedBox(width: 12),
 
-                  Expanded(child: _statCard('الفواتير', store.invoices.length.toDouble(), AppColors.gradient2, Icons.receipt, context)),
+                  Expanded(child: _statCard(tr('الفواتير', isEng: store.isEnglish), store.invoices.length.toDouble(), AppColors.gradient2, Icons.receipt, context)),
 
                 ]),
 
@@ -11311,11 +12879,11 @@ class StatsScreen extends StatelessWidget {
 
                 Row(children: [
 
-                  Expanded(child: _statCard('المدفوع', totalPaid, AppColors.gradient4, Icons.check_circle, context)),
+                  Expanded(child: _statCard(tr('المدفوع', isEng: store.isEnglish), totalPaid, AppColors.gradient4, Icons.check_circle, context)),
 
                   const SizedBox(width: 12),
 
-                  Expanded(child: _statCard('المتبقي', totalRemaining, [AppColors.danger, AppColors.danger.withOpacity(0.7)], Icons.pending, context)),
+                  Expanded(child: _statCard(tr('المتبقي', isEng: store.isEnglish), totalRemaining, [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)], Icons.pending, context)),
 
                 ]),
 
@@ -11323,11 +12891,11 @@ class StatsScreen extends StatelessWidget {
 
                 Row(children: [
 
-                  Expanded(child: _statCard('المتوسط', avgInvoice, AppColors.gradient5, Icons.analytics, context)),
+                  Expanded(child: _statCard(tr('المتوسط', isEng: store.isEnglish), avgInvoice, AppColors.gradient5, Icons.analytics, context)),
 
                   const SizedBox(width: 12),
 
-                  Expanded(child: _statCard('المنتجات', store.products.length.toDouble(), AppColors.gradient3, Icons.inventory_2, context)),
+                  Expanded(child: _statCard(tr('المنتجات', isEng: store.isEnglish), store.products.length.toDouble(), AppColors.gradient3, Icons.inventory_2, context)),
 
                 ]),
 
@@ -11349,7 +12917,7 @@ class StatsScreen extends StatelessWidget {
 
                           const SizedBox(width: 8),
 
-                          const Text('أفضل العملاء', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          Text(tr('أفضل العملاء', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                         ]),
 
@@ -11373,9 +12941,9 @@ class StatsScreen extends StatelessWidget {
 
                               decoration: BoxDecoration(
 
-                                gradient: idx == 0 ? LinearGradient(colors: [AppColors.warning, AppColors.warning.withOpacity(0.7)]) : null,
+                                gradient: idx == 0 ? LinearGradient(colors: [AppColors.warning, AppColors.warning.withValues(alpha: 0.7)]) : null,
 
-                                color: idx != 0 ? AppColors.primary.withOpacity(0.1) : null,
+                                color: idx != 0 ? AppColors.primary.withValues(alpha: 0.1) : null,
 
                                 borderRadius: BorderRadius.circular(10),
 
@@ -11427,7 +12995,7 @@ class StatsScreen extends StatelessWidget {
 
                           const SizedBox(width: 8),
 
-                          Text('فواتير متأخرة (${store.invoices.where((i) => i.isOverdue).length})', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.danger)),
+                          Text('${tr('فواتير متأخرة', isEng: store.isEnglish)} (${store.invoices.where((i) => i.isOverdue).length})', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.danger)),
 
                         ]),
 
@@ -11437,7 +13005,7 @@ class StatsScreen extends StatelessWidget {
 
                           dense: true,
 
-                          leading: CircleAvatar(backgroundColor: AppColors.danger.withOpacity(0.1), child: const Icon(Icons.warning_amber, color: AppColors.danger, size: 18)),
+                          leading: CircleAvatar(backgroundColor: AppColors.danger.withValues(alpha: 0.1), child: const Icon(Icons.warning_amber, color: AppColors.danger, size: 18)),
 
                           title: Text('${inv.id} - ${inv.buyerName}', style: const TextStyle(fontWeight: FontWeight.w600)),
 
@@ -11445,7 +13013,17 @@ class StatsScreen extends StatelessWidget {
 
                           trailing: const Icon(Icons.chevron_left, color: AppColors.danger),
 
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => InvoiceDetailScreen(invoice: inv, index: store.invoices.indexOf(inv)))),
+                          onTap: () => Navigator.push(context, PageRouteBuilder(
+                            pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: inv, index: store.invoices.indexOf(inv)),
+                            transitionsBuilder: (_, anim, _, child) => FadeTransition(
+                              opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+                              child: SlideTransition(
+                                position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+                                child: child,
+                              ),
+                            ),
+                            transitionDuration: const Duration(milliseconds: 400),
+                          )),
 
                         )),
 
@@ -11471,7 +13049,7 @@ class StatsScreen extends StatelessWidget {
 
                         const SizedBox(width: 8),
 
-                        const Text('آخر الفواتير', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                        Text(tr('آخر الفواتير', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                       ]),
 
@@ -11479,7 +13057,7 @@ class StatsScreen extends StatelessWidget {
 
                       if (store.invoices.isEmpty)
 
-                        const Center(child: Padding(padding: EdgeInsets.all(20), child: Text('لا توجد فواتير')))
+                        Center(child: Padding(padding: const EdgeInsets.all(20), child: Text(tr('لا توجد فواتير', isEng: store.isEnglish))))
 
                       else
 
@@ -11493,7 +13071,7 @@ class StatsScreen extends StatelessWidget {
 
                             decoration: BoxDecoration(
 
-                              color: statusColor(inv.status).withOpacity(0.1),
+                              color: statusColor(inv.status).withValues(alpha: 0.1),
 
                               borderRadius: BorderRadius.circular(8),
 
@@ -11557,7 +13135,7 @@ class StatsScreen extends StatelessWidget {
 
               boxShadow: [
 
-                BoxShadow(color: gradient.first.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4)),
+                BoxShadow(color: gradient.first.withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 4)),
 
               ],
 
@@ -11687,7 +13265,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
 
-            decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
+            decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(8)),
 
             child: Text('${val.round()}$unit', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: AppColors.primary)),
 
@@ -11699,7 +13277,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
           activeTrackColor: AppColors.primary, thumbColor: AppColors.primary,
 
-          inactiveTrackColor: AppColors.primary.withOpacity(0.15),
+          inactiveTrackColor: AppColors.primary.withValues(alpha: 0.15),
 
           trackHeight: 4, thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8)),
 
@@ -11745,7 +13323,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
               GridView.builder(shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
 
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4, crossAxisSpacing: 10, mainAxisSpacing: 10),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: (MediaQuery.of(context).size.width / 180).floor().clamp(2, 4), crossAxisSpacing: 10, mainAxisSpacing: 10),
 
                 itemCount: colors.length,
 
@@ -11767,7 +13345,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         border: Border.all(color: sel ? Colors.black : Colors.transparent, width: 3),
 
-                        boxShadow: sel ? [BoxShadow(color: c.withOpacity(0.5), blurRadius: 8)] : []),
+                        boxShadow: sel ? [BoxShadow(color: c.withValues(alpha: 0.5), blurRadius: 8)] : []),
 
                     ),
 
@@ -11793,9 +13371,9 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
         decoration: BoxDecoration(
 
-          color: _h(hex).withOpacity(0.08), borderRadius: BorderRadius.circular(12),
+          color: _h(hex).withValues(alpha: 0.08), borderRadius: BorderRadius.circular(12),
 
-          border: Border.all(color: _h(hex).withOpacity(0.2)),
+          border: Border.all(color: _h(hex).withValues(alpha: 0.2)),
 
         ),
 
@@ -11803,7 +13381,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
           Container(width: 36, height: 36, decoration: BoxDecoration(color: _h(hex), borderRadius: BorderRadius.circular(10),
 
-              boxShadow: [BoxShadow(color: _h(hex).withOpacity(0.3), blurRadius: 6)])),
+              boxShadow: [BoxShadow(color: _h(hex).withValues(alpha: 0.3), blurRadius: 6)])),
 
           const SizedBox(width: 12),
 
@@ -11963,7 +13541,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
 
-              decoration: BoxDecoration(color: AppColors.primary.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+              decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
 
               child: Text(s.paperSize == 'landscape' ? 'Landscape' : 'Portrait', style: TextStyle(fontSize: 11, color: AppColors.primary, fontWeight: FontWeight.bold)),
 
@@ -11991,7 +13569,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                   borderRadius: BorderRadius.circular(s.borderRadius),
 
-                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 20, offset: const Offset(0, 8))],
+                  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 20, offset: const Offset(0, 8))],
 
                 ),
 
@@ -12023,7 +13601,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                           Container(width: s.logoHeight * 0.8, height: s.logoHeight * 0.8,
 
-                              decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(8)),
+                              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(8)),
 
                               child: Icon(Icons.store, color: Colors.white, size: s.logoHeight * 0.4)),
 
@@ -12037,7 +13615,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                             textAlign: s.logoPosition == 'center' ? TextAlign.center : (s.logoPosition == 'left' ? TextAlign.left : TextAlign.right)),
 
-                        if (s.invoiceSubtitle.isNotEmpty) Text(s.invoiceSubtitle, style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: s.fontSize * 0.8)),
+                        if (s.invoiceSubtitle.isNotEmpty) Text(s.invoiceSubtitle, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: s.fontSize * 0.8)),
 
                         const SizedBox(height: 6),
 
@@ -12067,7 +13645,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                       child: Row(children: [
 
-                        CircleAvatar(radius: 16, backgroundColor: pri.withOpacity(0.1), child: Icon(Icons.person, color: pri, size: 18)),
+                        CircleAvatar(radius: 16, backgroundColor: pri.withValues(alpha: 0.1), child: Icon(Icons.person, color: pri, size: 18)),
 
                         const SizedBox(width: 10),
 
@@ -12075,9 +13653,9 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                           Text(s.sellerName.isNotEmpty ? s.sellerName : 'Store Name', style: TextStyle(fontSize: s.fontSize, fontWeight: FontWeight.bold, color: txC)),
 
-                          if (s.showSellerPhone && s.sellerPhone.isNotEmpty) Text(s.sellerPhone, style: TextStyle(fontSize: s.fontSize * 0.75, color: txC.withOpacity(0.6))),
+                          if (s.showSellerPhone && s.sellerPhone.isNotEmpty) Text(s.sellerPhone, style: TextStyle(fontSize: s.fontSize * 0.75, color: txC.withValues(alpha: 0.6))),
 
-                          if (s.showSellerAddress && s.sellerAddress.isNotEmpty) Text(s.sellerAddress, style: TextStyle(fontSize: s.fontSize * 0.75, color: txC.withOpacity(0.6))),
+                          if (s.showSellerAddress && s.sellerAddress.isNotEmpty) Text(s.sellerAddress, style: TextStyle(fontSize: s.fontSize * 0.75, color: txC.withValues(alpha: 0.6))),
 
                         ])),
 
@@ -12091,7 +13669,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                     padding: EdgeInsets.all(s.sectionSpacing.toDouble()),
 
-                    decoration: BoxDecoration(color: pri.withOpacity(0.03), borderRadius: BorderRadius.circular(8)),
+                    decoration: BoxDecoration(color: pri.withValues(alpha: 0.03), borderRadius: BorderRadius.circular(8)),
 
                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
 
@@ -12155,7 +13733,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         padding: EdgeInsets.all(s.sectionSpacing.toDouble()),
 
-                        decoration: BoxDecoration(color: pri.withOpacity(0.03), borderRadius: BorderRadius.vertical(bottom: Radius.circular(8))),
+                        decoration: BoxDecoration(color: pri.withValues(alpha: 0.03), borderRadius: BorderRadius.vertical(bottom: Radius.circular(8))),
 
                         child: Column(children: [
 
@@ -12191,7 +13769,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
 
-                            decoration: BoxDecoration(color: pri.withOpacity(0.08), borderRadius: BorderRadius.circular(6)),
+                            decoration: BoxDecoration(color: pri.withValues(alpha: 0.08), borderRadius: BorderRadius.circular(6)),
 
                             child: Text('Terms', style: TextStyle(fontSize: s.fontSize * 0.75, fontWeight: FontWeight.bold, color: pri))),
 
@@ -12205,7 +13783,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                             Padding(padding: const EdgeInsets.only(top: 5, left: 4), child: Icon(Icons.circle, size: 5, color: pri)),
 
-                            Expanded(child: Text(t, style: TextStyle(fontSize: s.fontSize * 0.7, color: txC.withOpacity(0.7), height: s.lineHeight))),
+                            Expanded(child: Text(t, style: TextStyle(fontSize: s.fontSize * 0.7, color: txC.withValues(alpha: 0.7), height: s.lineHeight))),
 
                           ]),
 
@@ -12235,7 +13813,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                       padding: const EdgeInsets.all(10),
 
-                      decoration: BoxDecoration(color: Colors.amber.withOpacity(0.06), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.amber.withOpacity(0.2))),
+                      decoration: BoxDecoration(color: Colors.amber.withValues(alpha: 0.06), borderRadius: BorderRadius.circular(8), border: Border.all(color: Colors.amber.withValues(alpha: 0.2))),
 
                       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
@@ -12243,7 +13821,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         const SizedBox(width: 8),
 
-                        Expanded(child: Text('Additional notes...', style: TextStyle(fontSize: s.fontSize * 0.7, color: txC.withOpacity(0.6), fontStyle: FontStyle.italic))),
+                        Expanded(child: Text('Additional notes...', style: TextStyle(fontSize: s.fontSize * 0.7, color: txC.withValues(alpha: 0.6), fontStyle: FontStyle.italic))),
 
                       ]),
 
@@ -12265,7 +13843,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         Icon(Icons.qr_code_2, size: s.qrSize * 0.6, color: txC),
 
-                        Text('QR', style: TextStyle(fontSize: 8, color: txC.withOpacity(0.4))),
+                        Text('QR', style: TextStyle(fontSize: 8, color: txC.withValues(alpha: 0.4))),
 
                       ]),
 
@@ -12279,7 +13857,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                     decoration: BoxDecoration(
 
-                      gradient: LinearGradient(colors: [pri.withOpacity(0.08), sec.withOpacity(0.05)]),
+                      gradient: LinearGradient(colors: [pri.withValues(alpha: 0.08), sec.withValues(alpha: 0.05)]),
 
                       borderRadius: BorderRadius.vertical(bottom: Radius.circular(s.borderRadius)),
 
@@ -12317,7 +13895,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
       const SizedBox(height: 2),
 
-      Text(value, style: TextStyle(fontSize: 10, color: color.withOpacity(0.7))),
+      Text(value, style: TextStyle(fontSize: 10, color: color.withValues(alpha: 0.7))),
 
     ]);
 
@@ -12347,7 +13925,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
       decoration: BoxDecoration(
 
-        color: isAlt ? primary.withOpacity(0.03) : Colors.transparent,
+        color: isAlt ? primary.withValues(alpha: 0.03) : Colors.transparent,
 
         border: s.tableRowStyle == 'borders' ? Border(bottom: BorderSide(color: _h(s.tableBorderColor), width: 0.5)) : null,
 
@@ -12359,7 +13937,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
         Expanded(flex: 3, child: Text(name, style: TextStyle(fontSize: 9, fontWeight: FontWeight.w500, color: _h(s.textColor)))),
 
-        if (s.showUnitPrice) Expanded(flex: 2, child: Text('${price.toStringAsFixed(0)} ${s.currencySymbol}', style: TextStyle(fontSize: 9, color: _h(s.textColor).withOpacity(0.7)))),
+        if (s.showUnitPrice) Expanded(flex: 2, child: Text('${price.toStringAsFixed(0)} ${s.currencySymbol}', style: TextStyle(fontSize: 9, color: _h(s.textColor).withValues(alpha: 0.7)))),
 
         Expanded(flex: 1, child: Center(child: Text('$qty', style: TextStyle(fontSize: 9, color: _h(s.textColor))))),
 
@@ -12383,7 +13961,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-        Text(label, style: TextStyle(fontSize: big ? 12 : 10, fontWeight: big ? FontWeight.bold : FontWeight.normal, color: color.withOpacity(big ? 1 : 0.7))),
+        Text(label, style: TextStyle(fontSize: big ? 12 : 10, fontWeight: big ? FontWeight.bold : FontWeight.normal, color: color.withValues(alpha: big ? 1 : 0.7))),
 
         Text(value, style: TextStyle(fontSize: big ? 13 : 10, fontWeight: FontWeight.bold, color: color)),
 
@@ -12399,11 +13977,11 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
     return Container(width: 90, height: 60,
 
-      decoration: BoxDecoration(border: Border.all(color: color.withOpacity(0.2)), borderRadius: BorderRadius.circular(8)),
+      decoration: BoxDecoration(border: Border.all(color: color.withValues(alpha: 0.2)), borderRadius: BorderRadius.circular(8)),
 
       alignment: Alignment.center,
 
-      child: Text(label, style: TextStyle(fontSize: 8, color: color.withOpacity(0.3))),
+      child: Text(label, style: TextStyle(fontSize: 8, color: color.withValues(alpha: 0.3))),
 
     );
 
@@ -12455,7 +14033,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                 border: Border.all(color: active ? Colors.white : Colors.transparent, width: 2),
 
-                boxShadow: active ? [BoxShadow(color: _h(p['a'] as String).withOpacity(0.4), blurRadius: 12)] : [],
+                boxShadow: active ? [BoxShadow(color: _h(p['a'] as String).withValues(alpha: 0.4), blurRadius: 12)] : [],
 
               ),
 
@@ -12605,7 +14183,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
               decoration: BoxDecoration(
 
-                color: active ? AppColors.primary.withOpacity(0.1) : Colors.grey.shade50,
+                color: active ? AppColors.primary.withValues(alpha: 0.1) : Colors.grey.shade50,
 
                 borderRadius: BorderRadius.circular(12),
 
@@ -12867,9 +14445,93 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
           appBar: AppBar(
 
-            title: const Text('Invoice Settings', style: TextStyle(fontWeight: FontWeight.bold)),
+            title: Text(tr('إعدادات الفاتورة', isEng: s.isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
             actions: [
+
+              if (s.savedTemplates.isNotEmpty)
+
+                PopupMenuButton<int>(
+
+                  icon: const Icon(Icons.folder_open, color: AppColors.primary),
+
+                  tooltip: tr('قوالب محفوظة', isEng: context.read<DataStore>().isEnglish),
+
+                  onSelected: (i) {
+
+                    s.loadTemplate(i);
+
+                    showAppToast(context, 'تم تحميل القالب', icon: Icons.check, color: AppColors.success);
+
+                  },
+
+                  itemBuilder: (_) => [
+
+                    for (int i = 0; i < s.savedTemplates.length; i++)
+
+                      PopupMenuItem(value: i, child: Row(children: [
+
+                        Icon(s.activeTemplate == s.savedTemplates[i]['name'] ? Icons.radio_button_checked : Icons.radio_button_unchecked, size: 18, color: AppColors.primary),
+
+                        const SizedBox(width: 8),
+
+                        Expanded(child: Text('${s.savedTemplates[i]['name']}', style: const TextStyle(fontWeight: FontWeight.w600))),
+
+                        IconButton(icon: const Icon(Icons.delete, size: 18, color: AppColors.danger), onPressed: () {
+
+                          s.deleteTemplate(i);
+
+                          showAppToast(context, 'تم حذف القالب', icon: Icons.delete, color: AppColors.danger);
+
+                        }),
+
+                      ])),
+
+                  ],
+
+                ),
+
+              IconButton(
+
+                icon: const Icon(Icons.save_alt, color: AppColors.primary),
+
+                tooltip: tr('حفظ كقالب', isEng: context.read<DataStore>().isEnglish),
+
+                onPressed: () {
+
+                  final ctrl = TextEditingController();
+
+                  showDialog(context: context, builder: (_) => AlertDialog(
+
+                    title: Text(tr('حفظ القالب', isEng: context.read<DataStore>().isEnglish)),
+
+                    content: TextField(controller: ctrl, decoration: InputDecoration(labelText: tr('اسم القالب', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder()), autofocus: true),
+
+                    actions: [
+
+                      TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('إلغاء', isEng: context.read<DataStore>().isEnglish))),
+
+                      TextButton(onPressed: () {
+
+                        if (ctrl.text.isNotEmpty) {
+
+                          s.saveCurrentAsTemplate(ctrl.text);
+
+                          Navigator.pop(context);
+
+                          showAppToast(context, 'تم حفظ القالب: ${ctrl.text}', icon: Icons.check, color: AppColors.success);
+
+                        }
+
+                      }, child: Text(tr('حفظ', isEng: context.read<DataStore>().isEnglish))),
+
+                    ],
+
+                  ));
+
+                },
+
+              ),
 
               IconButton(
 
@@ -12929,7 +14591,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
               height: 56,
 
-              decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 8, offset: const Offset(0, 2))]),
+              decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.06), blurRadius: 8, offset: const Offset(0, 2))]),
 
               child: ListView.builder(
 
@@ -12991,15 +14653,37 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
             Expanded(
 
-              child: Row(children: [
+              child: LayoutBuilder(
 
-                SizedBox(width: 380, child: Container(color: Colors.white, child: _tabContent(s))),
+                builder: (ctx, constraints) {
 
-                Container(width: 1, color: Colors.grey.shade200),
+                  if (constraints.maxWidth < 600) {
 
-                Expanded(child: Padding(padding: const EdgeInsets.all(12), child: _preview(s))),
+                    return Column(children: [
 
-              ]),
+                      Expanded(child: _preview(s)),
+
+                      Container(height: 1, color: Colors.grey.shade200),
+
+                      SizedBox(height: 300, child: Container(color: Colors.white, child: _tabContent(s))),
+
+                    ]);
+
+                  }
+
+                  return Row(children: [
+
+                    SizedBox(width: 380, child: Container(color: Colors.white, child: _tabContent(s))),
+
+                    Container(width: 1, color: Colors.grey.shade200),
+
+                    Expanded(child: Padding(padding: const EdgeInsets.all(12), child: _preview(s))),
+
+                  ]);
+
+                },
+
+              ),
 
             ),
 
@@ -13033,11 +14717,11 @@ class SettingsScreen extends StatelessWidget {
 
       backgroundColor: AppColors.bgOf(context),
 
-      appBar: AppBar(title: const Text('الإعدادات', style: TextStyle(fontWeight: FontWeight.bold))),
+      appBar: AppBar(title: Text(tr('الإعدادات', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1)),
 
       body: Consumer<DataStore>(
 
-        builder: (_, store, __) {
+        builder: (_, store, _) {
 
           return ListView(
 
@@ -13057,7 +14741,7 @@ class SettingsScreen extends StatelessWidget {
 
                     decoration: BoxDecoration(
 
-                      gradient: store.isDarkMode ? LinearGradient(colors: [Colors.indigo, Colors.indigo[700]!]) : LinearGradient(colors: [AppColors.warning, AppColors.warning.withOpacity(0.7)]),
+                      gradient: store.isDarkMode ? LinearGradient(colors: [Colors.indigo, Colors.indigo[700]!]) : LinearGradient(colors: [AppColors.warning, AppColors.warning.withValues(alpha: 0.7)]),
 
                       borderRadius: BorderRadius.circular(12),
 
@@ -13067,9 +14751,9 @@ class SettingsScreen extends StatelessWidget {
 
                   ),
 
-                  title: const Text('الوضع الليلي', style: TextStyle(fontWeight: FontWeight.w600)),
+                  title: Text(tr('الوضع الليلي', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                  subtitle: Text(store.isDarkMode ? 'مفعّل' : 'معطّل'),
+                  subtitle: Text(store.isDarkMode ? tr('مفعّل', isEng: store.isEnglish) : tr('معطّل', isEng: store.isEnglish)),
 
                   value: store.isDarkMode,
 
@@ -13125,13 +14809,83 @@ class SettingsScreen extends StatelessWidget {
 
                   children: [
 
+                    Row(children: [const Icon(Icons.palette, color: AppColors.primary, size: 20), const SizedBox(width: 8), Text(tr('القالب الافتراضي', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
+
+                    const SizedBox(height: 8),
+
+                    Text(tr('يُستخدم تلقائياً عند إنشاء فاتورة جديدة', isEng: store.isEnglish), style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+
+                    const SizedBox(height: 8),
+
+                    SizedBox(
+
+                      height: 36,
+
+                      child: ListView(
+
+                        scrollDirection: Axis.horizontal,
+
+                        children: invoiceTemplates.map((t) {
+
+                          final selected = store.defaultTemplate == t.id;
+
+                          return Padding(
+
+                            padding: const EdgeInsets.only(right: 6),
+
+                            child: ChoiceChip(
+
+                              label: Text('${t.icon} ${t.name}', style: TextStyle(fontSize: 12, color: selected ? Colors.white : AppColors.primary)),
+
+                              selected: selected,
+
+                              selectedColor: AppColors.primary,
+
+                              backgroundColor: AppColors.primary.withValues(alpha: 0.08),
+
+                              onSelected: (_) {
+
+                                HapticFeedback.lightImpact();
+
+                                store.updateInvoiceSetting('defaultTemplate', t.id);
+
+                                showAppToast(context, 'تم تغيير القالب الافتراضي', icon: Icons.check, color: AppColors.success);
+
+                              },
+
+                            ),
+
+                          );
+
+                        }).toList(),
+
+                      ),
+
+                    ),
+
+                  ],
+
+                ),
+
+              ),
+
+              const SizedBox(height: 12),
+
+              GlassCard(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+
                     Row(children: [
 
                       const Icon(Icons.store, color: AppColors.primary, size: 20),
 
                       const SizedBox(width: 8),
 
-                      const Text('بيانات البائع', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text(tr('بيانات البائع', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                     ]),
 
@@ -13141,7 +14895,7 @@ class SettingsScreen extends StatelessWidget {
 
                       initialValue: store.sellerName,
 
-                      decoration: const InputDecoration(labelText: 'اسم البائع / المتجر', border: OutlineInputBorder()),
+                      decoration: InputDecoration(labelText: tr('اسم البائع / المتجر', isEng: store.isEnglish), border: const OutlineInputBorder()),
 
                       onChanged: (v) { store.sellerName = v; store.save(); },
 
@@ -13153,7 +14907,7 @@ class SettingsScreen extends StatelessWidget {
 
                       initialValue: store.sellerPhone,
 
-                      decoration: const InputDecoration(labelText: 'الهاتف', border: OutlineInputBorder()),
+                      decoration: InputDecoration(labelText: tr('الهاتف', isEng: store.isEnglish), border: const OutlineInputBorder()),
 
                       keyboardType: TextInputType.phone,
 
@@ -13167,7 +14921,7 @@ class SettingsScreen extends StatelessWidget {
 
                       initialValue: store.sellerAddress,
 
-                      decoration: const InputDecoration(labelText: 'العنوان', border: OutlineInputBorder()),
+                      decoration: InputDecoration(labelText: tr('العنوان', isEng: store.isEnglish), border: const OutlineInputBorder()),
 
                       onChanged: (v) { store.sellerAddress = v; store.save(); },
 
@@ -13199,13 +14953,23 @@ class SettingsScreen extends StatelessWidget {
 
                   ),
 
-                  title: const Text('إعدادات الفاتورة', style: TextStyle(fontWeight: FontWeight.w600)),
+                  title: Text(tr('إعدادات الفاتورة', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                  subtitle: const Text('النموذج، العنوان، العرض، والخيارات'),
+                  subtitle: Text(tr('النموذج، العنوان، العرض، والخيارات', isEng: store.isEnglish)),
 
                   trailing: const Icon(Icons.chevron_left),
 
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InvoiceSettingsScreen())),
+                  onTap: () => Navigator.push(context, PageRouteBuilder(
+                    pageBuilder: (_, _, _) => const InvoiceSettingsScreen(),
+                    transitionsBuilder: (_, anim, _, child) => FadeTransition(
+                      opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
+                      child: SlideTransition(
+                        position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)),
+                        child: child,
+                      ),
+                    ),
+                    transitionDuration: const Duration(milliseconds: 400),
+                  )),
 
                 ),
 
@@ -13227,7 +14991,7 @@ class SettingsScreen extends StatelessWidget {
 
                       const SizedBox(width: 8),
 
-                      const Text('إدارة البيانات', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text(tr('إدارة البيانات', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                     ]),
 
@@ -13247,9 +15011,9 @@ class SettingsScreen extends StatelessWidget {
 
                       ),
 
-                      title: const Text('نسخ احتياطي', style: TextStyle(fontWeight: FontWeight.w600)),
+                      title: Text(tr('نسخ احتياطي', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                      subtitle: const Text('تصدير جميع البيانات'),
+                      subtitle: Text(tr('تصدير جميع البيانات', isEng: store.isEnglish)),
 
                       trailing: const Icon(Icons.chevron_left),
 
@@ -13285,7 +15049,7 @@ class SettingsScreen extends StatelessWidget {
 
                             if (cu.address.isNotEmpty) 'a': cu.address,
 
-                            if (cu.advanceBalance > 0) 'ab': cu.advanceBalance,
+                            if (store.getCustomerAdvanceBalance(cu.name) > 0) 'ab': store.getCustomerAdvanceBalance(cu.name),
 
                           }).toList(),
 
@@ -13313,6 +15077,14 @@ class SettingsScreen extends StatelessWidget {
 
                               p.amount, p.date, p.method.index,
 
+                              if (p.customerId != null) p.customerId,
+
+                              if (p.invoiceId != null) p.invoiceId,
+
+                              if (p.receiptNumber != null) p.receiptNumber,
+
+                              if (p.appliedAmount > 0) p.appliedAmount,
+
                             ]).toList(),
 
                             if (inv.discountPct > 0) 'dp': inv.discountPct,
@@ -13325,7 +15097,21 @@ class SettingsScreen extends StatelessWidget {
 
                             't': inv.template,
 
+                            if (inv.allocatedFromAdvance > 0) 'afa': inv.allocatedFromAdvance,
+
+                            if (inv.advancePaymentId != null) 'api': inv.advancePaymentId,
+
                           }).toList(),
+
+                          if (store.standalonePayments.isNotEmpty) 'sap': store.standalonePayments.map((p) => [
+
+                            p.amount, p.date, p.method.index,
+
+                            p.customerId ?? '', p.appliedAmount,
+
+                            if (p.receiptNumber != null) p.receiptNumber,
+
+                          ]).toList(),
 
                           'n': store.invoiceCounter,
 
@@ -13351,6 +15137,15 @@ class SettingsScreen extends StatelessWidget {
 
                                 children: [
 
+                                  Container(
+                                    width: 40, height: 4,
+                                    margin: const EdgeInsets.only(top: 12, bottom: 8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius: BorderRadius.circular(2),
+                                    ),
+                                  ),
+
                                   Padding(
 
                                     padding: const EdgeInsets.all(16),
@@ -13373,7 +15168,7 @@ class SettingsScreen extends StatelessWidget {
 
                                     leading: const Icon(Icons.chat, color: AppColors.whatsapp),
 
-                                    title: const Text('واتساب'),
+                                    title: Text(tr('واتساب', isEng: store.isEnglish)),
 
                                     onTap: () { Navigator.pop(ctx); shareWhatsAppBackup(json); },
 
@@ -13383,7 +15178,7 @@ class SettingsScreen extends StatelessWidget {
 
                                     leading: const Icon(Icons.send, color: Colors.blue),
 
-                                    title: const Text('تيليجرام'),
+                                    title: Text(tr('تيليجرام', isEng: store.isEnglish)),
 
                                     onTap: () { Navigator.pop(ctx); shareTelegramBackup(json); },
 
@@ -13393,7 +15188,7 @@ class SettingsScreen extends StatelessWidget {
 
                                     leading: const Icon(Icons.email, color: Colors.red),
 
-                                    title: const Text('البريد الإلكتروني'),
+                                    title: Text(tr('البريد الإلكتروني', isEng: store.isEnglish)),
 
                                     onTap: () { Navigator.pop(ctx); shareEmailBackup(json); },
 
@@ -13403,7 +15198,7 @@ class SettingsScreen extends StatelessWidget {
 
                                     leading: const Icon(Icons.content_copy, color: Colors.grey),
 
-                                    title: const Text('نسخ النص'),
+                                    title: Text(tr('نسخ النص', isEng: store.isEnglish)),
 
                                     onTap: () {
 
@@ -13447,7 +15242,7 @@ class SettingsScreen extends StatelessWidget {
 
                       ),
 
-                      title: const Text('استرجاع نسخة احتياطية', style: TextStyle(fontWeight: FontWeight.w600)),
+                      title: Text(tr('استرجاع نسخة احتياطية', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                       subtitle: const Text('استيراد البيانات من ملف .abk'),
 
@@ -13535,19 +15330,39 @@ class SettingsScreen extends StatelessWidget {
 
                                 final m = Map<String, dynamic>.from(cm);
 
+                                final custName = m['n'] ?? '';
+
                                 store.addCustomer(Customer(
 
                                   id: const Uuid().v4(),
 
-                                  name: m['n'] ?? '',
+                                  name: custName,
 
                                   phone: m['p'] ?? '',
 
                                   address: m['a'] ?? '',
 
-                                  advanceBalance: (m['ab'] ?? 0).toDouble(),
-
                                 ));
+
+                                final oldBalance = (m['ab'] ?? 0).toDouble();
+
+                                if (oldBalance > 0) {
+
+                                  store.addAdvancePayment(custName, Payment(
+
+                                    amount: oldBalance,
+
+                                    date: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+
+                                    method: PaymentMethod.cash,
+
+                                    receiptNumber: 'MIG-$custName-${DateTime.now().millisecondsSinceEpoch}',
+
+                                    notes: 'تم الترحيل من نسخة احتياطية',
+
+                                  ));
+
+                                }
 
                               }
 
@@ -13603,6 +15418,14 @@ class SettingsScreen extends StatelessWidget {
 
                                       method: PaymentMethod.values[l[2] ?? 0],
 
+                                      customerId: l.length > 3 ? l[3]?.toString() : null,
+
+                                      invoiceId: l.length > 4 ? l[4]?.toString() : null,
+
+                                      receiptNumber: l.length > 5 ? l[5]?.toString() : null,
+
+                                      appliedAmount: l.length > 6 ? (l[6] ?? 0).toDouble() : 0,
+
                                     );
 
                                   }).toList(),
@@ -13616,6 +15439,36 @@ class SettingsScreen extends StatelessWidget {
                                   dueDate: m['dd'],
 
                                   template: m['t'] ?? 'classic',
+
+                                  allocatedFromAdvance: (m['afa'] ?? 0).toDouble(),
+
+                                  advancePaymentId: m['api'],
+
+                                ));
+
+                              }
+
+                            }
+
+                            if (data.containsKey('sap')) {
+
+                              for (final spm in (data['sap'] as List)) {
+
+                                final l = spm as List;
+
+                                store.standalonePayments.add(Payment(
+
+                                  amount: (l[0] ?? 0).toDouble(),
+
+                                  date: l[1].toString(),
+
+                                  method: PaymentMethod.values[l[2] ?? 0],
+
+                                  customerId: l.length > 3 ? l[3]?.toString() : null,
+
+                                  appliedAmount: l.length > 4 ? (l[4] ?? 0).toDouble() : 0,
+
+                                  receiptNumber: l.length > 5 ? l[5]?.toString() : null,
 
                                 ));
 
@@ -13663,7 +15516,7 @@ class SettingsScreen extends StatelessWidget {
 
                       ),
 
-                      title: const Text('تصدير المنتجات CSV', style: TextStyle(fontWeight: FontWeight.w600)),
+                      title: Text(tr('تصدير المنتجات CSV', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                       subtitle: Text('${store.products.length} منتج'),
 
@@ -13687,13 +15540,13 @@ class SettingsScreen extends StatelessWidget {
 
                       ),
 
-                      title: const Text('تصدير العملاء CSV', style: TextStyle(fontWeight: FontWeight.w600)),
+                      title: Text(tr('تصدير العملاء CSV', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                       subtitle: Text('${store.customers.length} عميل'),
 
                       trailing: const Icon(Icons.chevron_left),
 
-                      onTap: () => exportCustomersCsv(store.customers),
+                      onTap: () => exportCustomersCsv(store.customers, store),
 
                     ),
 
@@ -13711,7 +15564,7 @@ class SettingsScreen extends StatelessWidget {
 
                       ),
 
-                      title: const Text('تصدير الفواتير CSV', style: TextStyle(fontWeight: FontWeight.w600)),
+                      title: Text(tr('تصدير الفواتير CSV', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                       subtitle: Text('${store.invoices.length} فاتورة'),
 
@@ -13731,15 +15584,41 @@ class SettingsScreen extends StatelessWidget {
 
                         padding: const EdgeInsets.all(10),
 
-                        decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.danger, AppColors.danger.withOpacity(0.7)]), borderRadius: BorderRadius.circular(12)),
+                        decoration: BoxDecoration(gradient: LinearGradient(colors: AppColors.gradient1), borderRadius: BorderRadius.circular(12)),
+
+                        child: const Icon(Icons.system_update, color: Colors.white),
+
+                      ),
+
+                      title: Text(tr('ما الجديد في هذا الإصدار', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
+
+                      subtitle: Text('الإصدار $appVersion'),
+
+                      trailing: const Icon(Icons.chevron_left),
+
+                      onTap: () => _showWhatsNewDialog(context),
+
+                    ),
+
+                    const Divider(),
+
+                    ListTile(
+
+                      contentPadding: EdgeInsets.zero,
+
+                      leading: Container(
+
+                        padding: const EdgeInsets.all(10),
+
+                        decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.danger, AppColors.danger.withValues(alpha: 0.7)]), borderRadius: BorderRadius.circular(12)),
 
                         child: const Icon(Icons.delete_forever, color: Colors.white),
 
                       ),
 
-                      title: const Text('مسح جميع البيانات', style: TextStyle(color: AppColors.danger, fontWeight: FontWeight.w600)),
+                      title: Text(tr('مسح جميع البيانات', isEng: store.isEnglish), style: const TextStyle(color: AppColors.danger, fontWeight: FontWeight.w600)),
 
-                      subtitle: const Text('حذف جميع الفواتير والمنتجات'),
+                      subtitle: Text(tr('حذف جميع الفواتير والمنتجات', isEng: store.isEnglish)),
 
                       trailing: const Icon(Icons.chevron_left),
 
