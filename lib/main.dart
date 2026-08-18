@@ -10179,7 +10179,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               const SizedBox(width: 12),
 
-              Expanded(flex: 2, child: GradientButton(label: tr('حفظ الفاتورة', isEng: context.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient1, onPressed: _saveInvoice, isExpanded: true)),
+              Expanded(flex: 2, child: GradientButton(label: tr('حفظ الفاتورة', isEng: context.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient1, onPressed: _saveInvoice, enabled: !_saved, isExpanded: true)),
 
             ],
 
