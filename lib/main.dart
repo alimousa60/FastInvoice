@@ -1244,7 +1244,7 @@ class AppColors {
 
   static const whatsapp = Color(0xFF25D366);
 
-  static const bg = Color(0xFFF0F4FF);
+  static const bg = Color(0xFFFFFFFF);
 
   static const cardLight = Color(0xFFFFFFFF);
 
@@ -1270,7 +1270,7 @@ class AppColors {
 
   static bool _isDark(BuildContext c) => Theme.of(c).brightness == Brightness.dark;
 
-  static Color bgOf(BuildContext c) => _isDark(c) ? const Color(0xFF0F172A) : const Color(0xFFF0F4FF);
+  static Color bgOf(BuildContext c) => _isDark(c) ? const Color(0xFF0F172A) : const Color(0xFFFFFFFF);
 
   static Color cardOf(BuildContext c) => _isDark(c) ? const Color(0xFF1E293B) : Colors.white;
 
@@ -1336,7 +1336,7 @@ class MainApp extends StatelessWidget {
                 brightness: Brightness.light,
               ),
               useMaterial3: true,
-              scaffoldBackgroundColor: AppColors.bg,
+              scaffoldBackgroundColor: Colors.white,
               appBarTheme: const AppBarTheme(
                 backgroundColor: Colors.transparent,
                 elevation: 0,
