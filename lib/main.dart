@@ -475,6 +475,85 @@ final Map<String, String> _en = {
   'فاتورة رقم': 'Invoice #',
   'التاريخ': 'Date',
   'نص': 'Text',
+  'الألوان': 'Colors',
+  'التخطيط': 'Layout',
+  'الخط': 'Font',
+  'الجدول': 'Table',
+  'الأقسام': 'Sections',
+  'المحتوى': 'Content',
+  'الثيمات الجاهزة': 'Preset Themes',
+  'ألوان مخصصة': 'Custom Colors',
+  'اللون الأساسي': 'Primary Color',
+  'اللون الثانوي': 'Secondary Color',
+  'ألوان إضافية': 'Additional Colors',
+  'لون النص': 'Text Color',
+  'لون الحدود': 'Border Color',
+  'الورقة': 'Paper',
+  'عمودي': 'Portrait',
+  'أفقي': 'Landscape',
+  'الأبعاد': 'Dimensions',
+  'نصف قطر الحدود': 'Border Radius',
+  'شريط التمييز': 'Accent Bar',
+  'ارتفاع الشعار': 'Logo Height',
+  'تباعد الأقسام': 'Section Spacing',
+  'حجم رمز QR': 'QR Size',
+  'موضع الشعار': 'Logo Position',
+  'يسار': 'Left',
+  'وسط': 'Center',
+  'يمين': 'Right',
+  'نوع الخط': 'Font Family',
+  'أمثلة نصية': 'Sample text',
+  'الأحجام': 'Sizes',
+  'الخط الأساسي': 'Base Font',
+  'اسم الشركة': 'Company Name',
+  'ارتفاع السطر': 'Line Height',
+  'حشو الصف': 'Row Padding',
+  'نمط الرأس': 'Header Style',
+  'صلب': 'Solid',
+  'مخطط': 'Outline',
+  'نظيف': 'Clean',
+  'نمط الصف': 'Row Style',
+  'متناوب': 'Alternating',
+  'حدود': 'Borders',
+  'الأعمدة': 'Columns',
+  'رقم الصنف': 'Item Number',
+  'سعر الوحدة': 'Unit Price',
+  'الخصم': 'Discount',
+  'إظهار / إخفاء الأقسام': 'Show / Hide Sections',
+  'الشعار': 'Logo',
+  'معلومات الشركة': 'Company Info',
+  'الرقم الضريبي': 'Tax Number',
+  'شارة الدفع': 'Payment Badge',
+  'شبكة المعلومات': 'Info Grid',
+  'رمز QR': 'QR Code',
+  'الشروط': 'Terms',
+  'الختم': 'Stamps',
+  'ملاحظات': 'Notes',
+  'تفاصيل الدفع': 'Payment Details',
+  'معلومات الفاتورة': 'Invoice Info',
+  'عنوان الفاتورة': 'Invoice Title',
+  'العنوان الفرعي': 'Subtitle',
+  'الرقم الابتدائي': 'Start Number',
+  'العملة': 'Currency',
+  'نص التذييل': 'Footer Text',
+  'الشروط والأحكام': 'Terms & Conditions',
+  'شريطة واحدة لكل سطر': 'One term per line',
+  'عنوان مخصص': 'Custom Title',
+  'عنوان فاتورة مخصص': 'Custom Invoice Title',
+  'اتركه فارغاً للإفتراضي': 'Leave empty for default',
+  'معاينة': 'Preview',
+  'غير مدفوعة': 'Unpaid',
+  'اسم المتجر': 'Store Name',
+  'الإجمالي الفرعي': 'Subtotal',
+  'المتبقي': 'Remaining',
+  'ملاحظات إضافية...': 'Additional notes...',
+  'ختم البائع': 'Seller Stamp',
+  'توقيع المشتري': 'Buyer Signature',
+  'المنتج': 'Product',
+  'السعر': 'Price',
+  'الكمية': 'Qty',
+  'الإجمالي': 'Total',
+  'المدفوع': 'Paid',
 };
 
 String tr(String key, {bool? isEng}) {
@@ -13533,7 +13612,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
             const SizedBox(width: 10),
 
-            const Text('Preview', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+            Text(tr('معاينة', isEng: s.isEnglish), style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
 
             const Spacer(),
 
@@ -13543,7 +13622,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
               decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
 
-              child: Text(s.paperSize == 'landscape' ? 'Landscape' : 'Portrait', style: TextStyle(fontSize: 11, color: AppColors.primary, fontWeight: FontWeight.bold)),
+              child: Text(s.paperSize == 'landscape' ? tr('أفقي', isEng: s.isEnglish) : tr('عمودي', isEng: s.isEnglish), style: TextStyle(fontSize: 11, color: AppColors.primary, fontWeight: FontWeight.bold)),
 
             ),
 
@@ -13627,7 +13706,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                               decoration: BoxDecoration(color: sec, borderRadius: BorderRadius.circular(20)),
 
-                              child: const Text('Unpaid', style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold))),
+                              child: Text(tr('غير مدفوعة', isEng: s.isEnglish), style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold))),
 
                         ),
 
@@ -13651,7 +13730,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-                          Text(s.sellerName.isNotEmpty ? s.sellerName : 'Store Name', style: TextStyle(fontSize: s.fontSize, fontWeight: FontWeight.bold, color: txC)),
+                          Text(s.sellerName.isNotEmpty ? s.sellerName : tr('اسم المتجر', isEng: s.isEnglish), style: TextStyle(fontSize: s.fontSize, fontWeight: FontWeight.bold, color: txC)),
 
                           if (s.showSellerPhone && s.sellerPhone.isNotEmpty) Text(s.sellerPhone, style: TextStyle(fontSize: s.fontSize * 0.75, color: txC.withValues(alpha: 0.6))),
 
@@ -13673,11 +13752,11 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
 
-                      _infoCell('Invoice #', '#001', pri),
+                      _infoCell(tr('فاتورة #', isEng: s.isEnglish), '#001', pri),
 
-                      _infoCell('Date', '2025-01-01', pri),
+                      _infoCell(tr('التاريخ', isEng: s.isEnglish), '2025-01-01', pri),
 
-                      if (s.showSellerPhone) _infoCell('Phone', s.sellerPhone.isNotEmpty ? s.sellerPhone : '---', pri),
+                      if (s.showSellerPhone) _infoCell(tr('الهاتف', isEng: s.isEnglish), s.sellerPhone.isNotEmpty ? s.sellerPhone : '---', pri),
 
                     ]),
 
@@ -13709,15 +13788,15 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                           if (s.showItemNumber) Expanded(flex: 1, child: _tHead('#', s)),
 
-                          Expanded(flex: 3, child: _tHead('Product', s)),
+                          Expanded(flex: 3, child: _tHead(tr('المنتج', isEng: s.isEnglish), s)),
 
-                          if (s.showUnitPrice) Expanded(flex: 2, child: _tHead('Price', s)),
+                          if (s.showUnitPrice) Expanded(flex: 2, child: _tHead(tr('السعر', isEng: s.isEnglish), s)),
 
-                          Expanded(flex: 1, child: _tHead('Qty', s)),
+                          Expanded(flex: 1, child: _tHead(tr('الكمية', isEng: s.isEnglish), s)),
 
-                          if (s.showDiscountCol) Expanded(flex: 1, child: _tHead('Disc', s)),
+                          if (s.showDiscountCol) Expanded(flex: 1, child: _tHead(tr('الخصم', isEng: s.isEnglish), s)),
 
-                          Expanded(flex: 2, child: _tHead('Total', s)),
+                          Expanded(flex: 2, child: _tHead(tr('الإجمالي', isEng: s.isEnglish), s)),
 
                         ]),
 
@@ -13737,19 +13816,19 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         child: Column(children: [
 
-                          _sRow('Subtotal', '675.00 ${s.currencySymbol}', txC),
+                          _sRow(tr('الإجمالي الفرعي', isEng: s.isEnglish), '675.00 ${s.currencySymbol}', txC),
 
-                          _sRow('Discount', '- 5.00 ${s.currencySymbol}', Colors.red),
+                          _sRow(tr('الخصم', isEng: s.isEnglish), '- 5.00 ${s.currencySymbol}', Colors.red),
 
                           Divider(color: borderC),
 
-                          _sRow('Total', '670.00 ${s.currencySymbol}', pri, big: true),
+                          _sRow(tr('الإجمالي', isEng: s.isEnglish), '670.00 ${s.currencySymbol}', pri, big: true),
 
                           const SizedBox(height: 4),
 
-                          _sRow('Paid', '0.00 ${s.currencySymbol}', Colors.grey),
+                          _sRow(tr('المدفوع', isEng: s.isEnglish), '0.00 ${s.currencySymbol}', Colors.grey),
 
-                          _sRow('Remaining', '670.00 ${s.currencySymbol}', sec, big: true),
+                          _sRow(tr('المتبقي', isEng: s.isEnglish), '670.00 ${s.currencySymbol}', sec, big: true),
 
                         ]),
 
@@ -13771,7 +13850,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                             decoration: BoxDecoration(color: pri.withValues(alpha: 0.08), borderRadius: BorderRadius.circular(6)),
 
-                            child: Text('Terms', style: TextStyle(fontSize: s.fontSize * 0.75, fontWeight: FontWeight.bold, color: pri))),
+                            child: Text(tr('الشروط', isEng: s.isEnglish), style: TextStyle(fontSize: s.fontSize * 0.75, fontWeight: FontWeight.bold, color: pri))),
 
                         const SizedBox(height: 6),
 
@@ -13799,7 +13878,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                     child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-                      _stampArea('Seller Stamp', pri), _stampArea('Buyer Signature', pri),
+                      _stampArea(tr('ختم البائع', isEng: s.isEnglish), pri), _stampArea(tr('توقيع المشتري', isEng: s.isEnglish), pri),
 
                     ]),
 
@@ -13821,7 +13900,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                         const SizedBox(width: 8),
 
-                        Expanded(child: Text('Additional notes...', style: TextStyle(fontSize: s.fontSize * 0.7, color: txC.withValues(alpha: 0.6), fontStyle: FontStyle.italic))),
+                        Expanded(child: Text(tr('ملاحظات إضافية...', isEng: s.isEnglish), style: TextStyle(fontSize: s.fontSize * 0.7, color: txC.withValues(alpha: 0.6), fontStyle: FontStyle.italic))),
 
                       ]),
 
@@ -14007,7 +14086,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
     return ListView(padding: const EdgeInsets.all(16), children: [
 
-      _sectionLabel('Preset Themes', Icons.auto_awesome),
+      _sectionLabel(tr('الثيمات الجاهزة', isEng: s.isEnglish), Icons.auto_awesome),
 
       ...presets.map((p) {
 
@@ -14061,31 +14140,31 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
       const SizedBox(height: 8),
 
-      _sectionLabel('Custom Colors', Icons.palette),
+      _sectionLabel(tr('ألوان مخصصة', isEng: s.isEnglish), Icons.palette),
 
-      _colorPicker('Primary Color', s.primaryColor, (c) => s.updateInvoiceSetting('primaryColor', c)),
-
-      const SizedBox(height: 8),
-
-      _colorPicker('Secondary Color', s.accentColor, (c) => s.updateInvoiceSetting('accentColor', c)),
+      _colorPicker(tr('اللون الأساسي', isEng: s.isEnglish), s.primaryColor, (c) => s.updateInvoiceSetting('primaryColor', c)),
 
       const SizedBox(height: 8),
 
-      _tile('Gradient', s.useGradient, () => s.updateInvoiceSetting('useGradient', !s.useGradient), icon: Icons.gradient),
+      _colorPicker(tr('اللون الثانوي', isEng: s.isEnglish), s.accentColor, (c) => s.updateInvoiceSetting('accentColor', c)),
+
+      const SizedBox(height: 8),
+
+      _tile(tr('التدرج', isEng: s.isEnglish), s.useGradient, () => s.updateInvoiceSetting('useGradient', !s.useGradient), icon: Icons.gradient),
 
       _divider(),
 
-      _sectionLabel('Additional Colors', Icons.brush),
+      _sectionLabel(tr('ألوان إضافية', isEng: s.isEnglish), Icons.brush),
 
-      _colorPicker('Background', s.invoiceBgColor, (c) => s.updateInvoiceSetting('invoiceBgColor', c)),
-
-      const SizedBox(height: 8),
-
-      _colorPicker('Text Color', s.textColor, (c) => s.updateInvoiceSetting('textColor', c)),
+      _colorPicker(tr('الخلفية', isEng: s.isEnglish), s.invoiceBgColor, (c) => s.updateInvoiceSetting('invoiceBgColor', c)),
 
       const SizedBox(height: 8),
 
-      _colorPicker('Border Color', s.tableBorderColor, (c) => s.updateInvoiceSetting('tableBorderColor', c)),
+      _colorPicker(tr('لون النص', isEng: s.isEnglish), s.textColor, (c) => s.updateInvoiceSetting('textColor', c)),
+
+      const SizedBox(height: 8),
+
+      _colorPicker(tr('لون الحدود', isEng: s.isEnglish), s.tableBorderColor, (c) => s.updateInvoiceSetting('tableBorderColor', c)),
 
     ]);
 
@@ -14097,43 +14176,43 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
     return ListView(padding: const EdgeInsets.all(16), children: [
 
-      _sectionLabel('Paper', Icons.pageview),
+      _sectionLabel(tr('الورقة', isEng: s.isEnglish), Icons.pageview),
 
       Row(children: [
 
-        Expanded(child: _optBtn('Portrait', s.paperSize, 'portrait', (v) => s.updateInvoiceSetting('paperSize', v))),
+        Expanded(child: _optBtn(tr('عمودي', isEng: s.isEnglish), s.paperSize, 'portrait', (v) => s.updateInvoiceSetting('paperSize', v))),
 
         const SizedBox(width: 8),
 
-        Expanded(child: _optBtn('Landscape', s.paperSize, 'landscape', (v) => s.updateInvoiceSetting('paperSize', v))),
+        Expanded(child: _optBtn(tr('أفقي', isEng: s.isEnglish), s.paperSize, 'landscape', (v) => s.updateInvoiceSetting('paperSize', v))),
 
       ]),
 
-      _sectionLabel('Dimensions', Icons.straighten),
+      _sectionLabel(tr('الأبعاد', isEng: s.isEnglish), Icons.straighten),
 
-      _slider('Border Radius', s.borderRadius, 0, 24, 'px', (v) => s.updateInvoiceSetting('borderRadius', v)),
+      _slider(tr('نصف قطر الحدود', isEng: s.isEnglish), s.borderRadius, 0, 24, 'px', (v) => s.updateInvoiceSetting('borderRadius', v)),
 
-      _slider('Accent Bar', s.accentBarHeight, 0, 10, 'px', (v) => s.updateInvoiceSetting('accentBarHeight', v)),
+      _slider(tr('شريط التمييز', isEng: s.isEnglish), s.accentBarHeight, 0, 10, 'px', (v) => s.updateInvoiceSetting('accentBarHeight', v)),
 
-      _slider('Logo Height', s.logoHeight, 20, 150, 'px', (v) => s.updateInvoiceSetting('logoHeight', v)),
+      _slider(tr('ارتفاع الشعار', isEng: s.isEnglish), s.logoHeight, 20, 150, 'px', (v) => s.updateInvoiceSetting('logoHeight', v)),
 
-      _slider('Section Spacing', s.sectionSpacing, 4, 30, 'px', (v) => s.updateInvoiceSetting('sectionSpacing', v)),
+      _slider(tr('تباعد الأقسام', isEng: s.isEnglish), s.sectionSpacing, 4, 30, 'px', (v) => s.updateInvoiceSetting('sectionSpacing', v)),
 
-      _slider('QR Size', s.qrSize, 40, 200, 'px', (v) => s.updateInvoiceSetting('qrSize', v)),
+      _slider(tr('حجم رمز QR', isEng: s.isEnglish), s.qrSize, 40, 200, 'px', (v) => s.updateInvoiceSetting('qrSize', v)),
 
-      _sectionLabel('Logo Position', Icons.open_with),
+      _sectionLabel(tr('موضع الشعار', isEng: s.isEnglish), Icons.open_with),
 
       Row(children: [
 
-        Expanded(child: _optBtn('Left', s.logoPosition, 'left', (v) => s.updateInvoiceSetting('logoPosition', v))),
+        Expanded(child: _optBtn(tr('يسار', isEng: s.isEnglish), s.logoPosition, 'left', (v) => s.updateInvoiceSetting('logoPosition', v))),
 
         const SizedBox(width: 6),
 
-        Expanded(child: _optBtn('Center', s.logoPosition, 'center', (v) => s.updateInvoiceSetting('logoPosition', v))),
+        Expanded(child: _optBtn(tr('وسط', isEng: s.isEnglish), s.logoPosition, 'center', (v) => s.updateInvoiceSetting('logoPosition', v))),
 
         const SizedBox(width: 6),
 
-        Expanded(child: _optBtn('Right', s.logoPosition, 'right', (v) => s.updateInvoiceSetting('logoPosition', v))),
+        Expanded(child: _optBtn(tr('يمين', isEng: s.isEnglish), s.logoPosition, 'right', (v) => s.updateInvoiceSetting('logoPosition', v))),
 
       ]),
 
@@ -14163,7 +14242,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
     return ListView(padding: const EdgeInsets.all(16), children: [
 
-      _sectionLabel('Font Family', Icons.font_download),
+      _sectionLabel(tr('نوع الخط', isEng: s.isEnglish), Icons.font_download),
 
       ...fonts.map((f) {
 
@@ -14197,7 +14276,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                   Text(f['name']!, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: active ? AppColors.primary : _h(s.textColor))),
 
-                  const Text('Sample text', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  Text(tr('أمثلة نصية', isEng: s.isEnglish), style: TextStyle(fontSize: 12, color: Colors.grey)),
 
                 ])),
 
@@ -14215,15 +14294,15 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
       const SizedBox(height: 8),
 
-      _sectionLabel('Sizes', Icons.format_size),
+      _sectionLabel(tr('الأحجام', isEng: s.isEnglish), Icons.format_size),
 
-      _slider('Base Font', s.fontSize, 8, 18, 'px', (v) => s.updateInvoiceSetting('fontSize', v)),
+      _slider(tr('الخط الأساسي', isEng: s.isEnglish), s.fontSize, 8, 18, 'px', (v) => s.updateInvoiceSetting('fontSize', v)),
 
-      _slider('Company Name', s.companyNameSize, 10, 36, 'px', (v) => s.updateInvoiceSetting('companyNameSize', v)),
+      _slider(tr('اسم الشركة', isEng: s.isEnglish), s.companyNameSize, 10, 36, 'px', (v) => s.updateInvoiceSetting('companyNameSize', v)),
 
-      _slider('Line Height', s.lineHeight, 1, 2.5, 'x', (v) => s.updateInvoiceSetting('lineHeight', v), step: 0.1),
+      _slider(tr('ارتفاع السطر', isEng: s.isEnglish), s.lineHeight, 1, 2.5, 'x', (v) => s.updateInvoiceSetting('lineHeight', v), step: 0.1),
 
-      _slider('Row Padding', s.rowPadding, 2, 16, 'px', (v) => s.updateInvoiceSetting('rowPadding', v)),
+      _slider(tr('حشو الصف', isEng: s.isEnglish), s.rowPadding, 2, 16, 'px', (v) => s.updateInvoiceSetting('rowPadding', v)),
 
     ]);
 
@@ -14235,41 +14314,41 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
     return ListView(padding: const EdgeInsets.all(16), children: [
 
-      _sectionLabel('Header Style', Icons.table_chart),
+      _sectionLabel(tr('نمط الرأس', isEng: s.isEnglish), Icons.table_chart),
 
       Wrap(spacing: 8, runSpacing: 8, children: [
 
-        _optBtn('Gradient', s.tableHeaderStyle, 'gradient', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
+        _optBtn(tr('التدرج', isEng: s.isEnglish), s.tableHeaderStyle, 'gradient', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
 
-        _optBtn('Solid', s.tableHeaderStyle, 'solid', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
+        _optBtn(tr('صلب', isEng: s.isEnglish), s.tableHeaderStyle, 'solid', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
 
-        _optBtn('Outline', s.tableHeaderStyle, 'outline', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
+        _optBtn(tr('مخطط', isEng: s.isEnglish), s.tableHeaderStyle, 'outline', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
 
-        _optBtn('Clean', s.tableHeaderStyle, 'clean', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
+        _optBtn(tr('نظيف', isEng: s.isEnglish), s.tableHeaderStyle, 'clean', (v) => s.updateInvoiceSetting('tableHeaderStyle', v)),
 
       ]),
 
-      _sectionLabel('Row Style', Icons.view_list),
+      _sectionLabel(tr('نمط الصف', isEng: s.isEnglish), Icons.view_list),
 
       Wrap(spacing: 8, runSpacing: 8, children: [
 
-        _optBtn('Alternating', s.tableRowStyle, 'alternating', (v) => s.updateInvoiceSetting('tableRowStyle', v)),
+        _optBtn(tr('متناوب', isEng: s.isEnglish), s.tableRowStyle, 'alternating', (v) => s.updateInvoiceSetting('tableRowStyle', v)),
 
-        _optBtn('Borders', s.tableRowStyle, 'borders', (v) => s.updateInvoiceSetting('tableRowStyle', v)),
+        _optBtn(tr('حدود', isEng: s.isEnglish), s.tableRowStyle, 'borders', (v) => s.updateInvoiceSetting('tableRowStyle', v)),
 
-        _optBtn('Clean', s.tableRowStyle, 'clean', (v) => s.updateInvoiceSetting('tableRowStyle', v)),
+        _optBtn(tr('نظيف', isEng: s.isEnglish), s.tableRowStyle, 'clean', (v) => s.updateInvoiceSetting('tableRowStyle', v)),
 
       ]),
 
-      _sectionLabel('Columns', Icons.view_column),
+      _sectionLabel(tr('الأعمدة', isEng: s.isEnglish), Icons.view_column),
 
-      _tile('Item Number', s.showItemCode, () => s.updateInvoiceSetting('showItemCode', !s.showItemCode), icon: Icons.tag),
+      _tile(tr('رقم الصنف', isEng: s.isEnglish), s.showItemCode, () => s.updateInvoiceSetting('showItemCode', !s.showItemCode), icon: Icons.tag),
 
-      _tile('Barcode', s.showItemBarcode, () => s.updateInvoiceSetting('showItemBarcode', !s.showItemBarcode), icon: Icons.qr_code),
+      _tile(tr('الباركود', isEng: s.isEnglish), s.showItemBarcode, () => s.updateInvoiceSetting('showItemBarcode', !s.showItemBarcode), icon: Icons.qr_code),
 
-      _tile('Unit Price', s.showUnitPrice, () => s.updateInvoiceSetting('showUnitPrice', !s.showUnitPrice), icon: Icons.attach_money),
+      _tile(tr('سعر الوحدة', isEng: s.isEnglish), s.showUnitPrice, () => s.updateInvoiceSetting('showUnitPrice', !s.showUnitPrice), icon: Icons.attach_money),
 
-      _tile('Discount', s.showDiscountCol, () => s.updateInvoiceSetting('showDiscountCol', !s.showDiscountCol), icon: Icons.discount),
+      _tile(tr('الخصم', isEng: s.isEnglish), s.showDiscountCol, () => s.updateInvoiceSetting('showDiscountCol', !s.showDiscountCol), icon: Icons.discount),
 
     ]);
 
@@ -14281,31 +14360,31 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
     final items = [
 
-      ['showLogo', 'Logo', Icons.business, s.showLogo],
+      ['showLogo', tr('الشعار', isEng: s.isEnglish), Icons.business, s.showLogo],
 
-      ['showCompanyInfo', 'Company Info', Icons.store, s.showCompanyInfo],
+      ['showCompanyInfo', tr('معلومات الشركة', isEng: s.isEnglish), Icons.store, s.showCompanyInfo],
 
-      ['showTaxNo', 'Tax Number', Icons.pin, s.showTaxNo],
+      ['showTaxNo', tr('الرقم الضريبي', isEng: s.isEnglish), Icons.pin, s.showTaxNo],
 
-      ['showBadge', 'Payment Badge', Icons.badge, s.showBadge],
+      ['showBadge', tr('شارة الدفع', isEng: s.isEnglish), Icons.badge, s.showBadge],
 
-      ['showInfoGrid', 'Info Grid', Icons.info, s.showInfoGrid],
+      ['showInfoGrid', tr('شبكة المعلومات', isEng: s.isEnglish), Icons.info, s.showInfoGrid],
 
-      ['showQrCode', 'QR Code', Icons.qr_code_2, s.showQrCode],
+      ['showQrCode', tr('رمز QR', isEng: s.isEnglish), Icons.qr_code_2, s.showQrCode],
 
-      ['showTerms', 'Terms', Icons.description, s.showTerms],
+      ['showTerms', tr('الشروط', isEng: s.isEnglish), Icons.description, s.showTerms],
 
-      ['showStamps', 'Stamps', Icons.verified, s.showStamps],
+      ['showStamps', tr('الختم', isEng: s.isEnglish), Icons.verified, s.showStamps],
 
-      ['showNotes', 'Notes', Icons.sticky_note_2, s.showNotes],
+      ['showNotes', tr('ملاحظات', isEng: s.isEnglish), Icons.sticky_note_2, s.showNotes],
 
-      ['showPaymentDetails', 'Payment Details', Icons.payment, s.showPaymentDetails],
+      ['showPaymentDetails', tr('تفاصيل الدفع', isEng: s.isEnglish), Icons.payment, s.showPaymentDetails],
 
     ];
 
     return ListView(padding: const EdgeInsets.all(16), children: [
 
-      _sectionLabel('Show / Hide Sections', Icons.visibility),
+      _sectionLabel(tr('إظهار / إخفاء الأقسام', isEng: s.isEnglish), Icons.visibility),
 
       ...items.map((item) {
 
@@ -14337,27 +14416,27 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
     return ListView(padding: const EdgeInsets.all(16), children: [
 
-      _sectionLabel('Invoice Info', Icons.receipt),
+      _sectionLabel(tr('معلومات الفاتورة', isEng: s.isEnglish), Icons.receipt),
 
-      _inputField('Invoice Title', s.invoiceTitle, (v) => s.updateInvoiceSetting('invoiceTitle', v)),
+      _inputField(tr('عنوان الفاتورة', isEng: s.isEnglish), s.invoiceTitle, (v) => s.updateInvoiceSetting('invoiceTitle', v)),
 
-      _inputField('Subtitle', s.invoiceSubtitle, (v) => s.updateInvoiceSetting('invoiceSubtitle', v)),
+      _inputField(tr('العنوان الفرعي', isEng: s.isEnglish), s.invoiceSubtitle, (v) => s.updateInvoiceSetting('invoiceSubtitle', v)),
 
       Row(children: [
 
-        Expanded(child: _inputField('Start Number', s.invoiceStartNumber.toString(), (v) => s.updateInvoiceSetting('invoiceStartNumber', int.tryParse(v) ?? 1))),
+        Expanded(child: _inputField(tr('الرقم الابتدائي', isEng: s.isEnglish), s.invoiceStartNumber.toString(), (v) => s.updateInvoiceSetting('invoiceStartNumber', int.tryParse(v) ?? 1))),
 
         const SizedBox(width: 8),
 
-        Expanded(child: _inputField('Currency', s.currencySymbol, (v) => s.updateInvoiceSetting('currencySymbol', v))),
+        Expanded(child: _inputField(tr('العملة', isEng: s.isEnglish), s.currencySymbol, (v) => s.updateInvoiceSetting('currencySymbol', v))),
 
       ]),
 
-      _inputField('Footer Text', s.footerText, (v) => s.updateInvoiceSetting('footerText', v)),
+      _inputField(tr('نص التذييل', isEng: s.isEnglish), s.footerText, (v) => s.updateInvoiceSetting('footerText', v)),
 
       const SizedBox(height: 8),
 
-      _sectionLabel('Terms & Conditions', Icons.description),
+      _sectionLabel(tr('الشروط والأحكام', isEng: s.isEnglish), Icons.description),
 
       TextFormField(
 
@@ -14365,7 +14444,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
         decoration: InputDecoration(
 
-          hintText: 'One term per line', hintStyle: TextStyle(color: Colors.grey.shade400),
+          hintText: tr('شريطة واحدة لكل سطر', isEng: s.isEnglish), hintStyle: TextStyle(color: Colors.grey.shade400),
 
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
 
@@ -14381,9 +14460,9 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
       const SizedBox(height: 12),
 
-      _sectionLabel('Custom Title', Icons.edit),
+      _sectionLabel(tr('عنوان مخصص', isEng: s.isEnglish), Icons.edit),
 
-      _inputField('Custom Invoice Title', s.customTitle, (v) => s.updateInvoiceSetting('customTitle', v), hint: 'Leave empty for default'),
+      _inputField(tr('عنوان فاتورة مخصص', isEng: s.isEnglish), s.customTitle, (v) => s.updateInvoiceSetting('customTitle', v), hint: tr('اتركه فارغاً للإفتراضي', isEng: s.isEnglish)),
 
     ]);
 
@@ -14419,25 +14498,25 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
   Widget build(BuildContext context) {
 
-    final tabData = [
-
-      {'icon': Icons.palette, 'label': 'Colors'},
-
-      {'icon': Icons.dashboard, 'label': 'Layout'},
-
-      {'icon': Icons.font_download, 'label': 'Font'},
-
-      {'icon': Icons.table_chart, 'label': 'Table'},
-
-      {'icon': Icons.list, 'label': 'Sections'},
-
-      {'icon': Icons.edit, 'label': 'Content'},
-
-    ];
-
     return Consumer<DataStore>(
 
       builder: (ctx, s, _) {
+
+        final tabData = [
+
+          {'icon': Icons.palette, 'label': tr('الألوان', isEng: s.isEnglish)},
+
+          {'icon': Icons.dashboard, 'label': tr('التخطيط', isEng: s.isEnglish)},
+
+          {'icon': Icons.font_download, 'label': tr('الخط', isEng: s.isEnglish)},
+
+          {'icon': Icons.table_chart, 'label': tr('الجدول', isEng: s.isEnglish)},
+
+          {'icon': Icons.list, 'label': tr('الأقسام', isEng: s.isEnglish)},
+
+          {'icon': Icons.edit, 'label': tr('المحتوى', isEng: s.isEnglish)},
+
+        ];
 
         return Scaffold(
 
