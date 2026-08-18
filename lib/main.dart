@@ -4068,19 +4068,19 @@ pw.Widget _buildItemsTable(Invoice inv, pw.Font font, pw.Font fontBold) {
 
     headerAlignment: pw.Alignment.center,
 
-    headers: ['المنتج', 'السعر', 'الكمية', 'الخصم', 'الإجمالي'],
+    headers: ['المنتج', 'السعر', 'الكمية', 'الخصم', 'الإجمالي'].map((h) => fixPdfArabic(h)).toList(),
 
     data: inv.items.map((item) => [
 
-      item.name,
+      fixPdfArabic(item.name),
 
-      '${item.price.toStringAsFixed(2)} د.ل',
+      fixPdfArabic('${item.price.toStringAsFixed(2)} د.ل'),
 
       '${item.quantity}',
 
       '${item.discountAmt.toStringAsFixed(2)}',
 
-      '${item.lineTotal.toStringAsFixed(2)} د.ل',
+      fixPdfArabic('${item.lineTotal.toStringAsFixed(2)} د.ل'),
 
     ]).toList(),
 
@@ -10079,9 +10079,9 @@ class CustomerStatementScreen extends StatelessWidget {
 
         pw.TableHelper.fromTextArray(
 
-          headers: ['الفاتورة', 'التاريخ', 'المبلغ', 'المدفوع', 'المتبقي'],
+          headers: ['الفاتورة', 'التاريخ', 'المبلغ', 'المدفوع', 'المتبقي'].map((h) => fixPdfArabic(h)).toList(),
 
-          data: customerInvoices.map((inv) => [inv.id, inv.date, '${inv.total.toStringAsFixed(2)} د.ل', '${inv.totalPaid.toStringAsFixed(2)} د.ل', '${inv.remaining.toStringAsFixed(2)} د.ل']).toList(),
+          data: customerInvoices.map((inv) => [inv.id, inv.date, fixPdfArabic('${inv.total.toStringAsFixed(2)} د.ل'), fixPdfArabic('${inv.totalPaid.toStringAsFixed(2)} د.ل'), fixPdfArabic('${inv.remaining.toStringAsFixed(2)} د.ل')]).toList(),
 
           headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
 
