@@ -44,91 +44,37 @@ String fixPdfArabic(String text) {
 
   if (text.isEmpty) return text;
 
-  const isolated = {0x0621: '\uFE8D', 0x0622: '\uFE8F', 0x0623: '\uFE93', 0x0624: '\uFE95', 0x0625: '\uFE99', 0x0626: '\uFE9B', 0x0627: '\uFE8D', 0x0628: '\uFE8F', 0x0629: '\uFE93', 0x062A: '\uFE95', 0x062B: '\uFE99', 0x062C: '\uFE9D', 0x062D: '\uFEA1', 0x062E: '\uFEA5', 0x062F: '\uFEA9', 0x0630: '\uFEAB', 0x0631: '\uFEAD', 0x0632: '\uFEAF', 0x0633: '\uFEB1', 0x0634: '\uFEB5', 0x0635: '\uFEB9', 0x0636: '\uFEBD', 0x0637: '\uFEC1', 0x0638: '\uFEC5', 0x0639: '\uFEC9', 0x063A: '\uFECD', 0x0640: '\uFE70', 0x0641: '\uFED1', 0x0642: '\uFED5', 0x0643: '\uFED9', 0x0644: '\uFEDD', 0x0645: '\uFEE1', 0x0646: '\uFEE5', 0x0647: '\uFEE9', 0x0648: '\uFEED', 0x0649: '\uFEEF', 0x064A: '\uFEF1'};
+  final arabicRe = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+');
 
-  final initial = {0x0622: '\uFE82', 0x0623: '\uFE84', 0x0625: '\uFE88', 0x0626: '\uFE9C', 0x0627: '\uFE8E', 0x0628: '\uFE91', 0x0629: '\uFE94', 0x062A: '\uFE97', 0x062B: '\uFE9C', 0x062C: '\uFE9F', 0x062D: '\uFEA3', 0x062E: '\uFEA7', 0x0633: '\uFEB3', 0x0634: '\uFEB7', 0x0635: '\uFEBB', 0x0636: '\uFEBF', 0x0637: '\uFEC3', 0x0638: '\uFEC7', 0x0639: '\uFECB', 0x063A: '\uFECF', 0x0641: '\uFED3', 0x0642: '\uFED7', 0x0643: '\uFEDB', 0x0644: '\uFEDF', 0x0645: '\uFEE3', 0x0646: '\uFEE7', 0x0647: '\uFEEB', 0x0649: '\uFEF0', 0x064A: '\uFEF3'};
+  final result = StringBuffer();
 
-  final medial = {0x0622: '\uFE83', 0x0623: '\uFE85', 0x0625: '\uFE89', 0x0626: '\uFE9D', 0x0627: '\uFE8F', 0x0628: '\uFE92', 0x062A: '\uFE98', 0x062B: '\uFE9D', 0x062C: '\uFEA0', 0x062D: '\uFEA4', 0x062E: '\uFEA8', 0x0633: '\uFEB4', 0x0634: '\uFEB8', 0x0635: '\uFEBC', 0x0636: '\uFEC0', 0x0637: '\uFEC4', 0x0638: '\uFEC8', 0x0639: '\uFECC', 0x063A: '\uFED0', 0x0641: '\uFED4', 0x0642: '\uFED8', 0x0643: '\uFEDC', 0x0644: '\uFEE0', 0x0645: '\uFEE4', 0x0646: '\uFEE8', 0x0647: '\uFEEC', 0x0649: '\uFEF1', 0x064A: '\uFEF4'};
+  int lastEnd = 0;
 
-  final finalF = {0x0622: '\uFE82', 0x0623: '\uFE84', 0x0625: '\uFE8A', 0x0626: '\uFE9A', 0x0627: '\uFE8E', 0x0628: '\uFE90', 0x062A: '\uFE96', 0x062B: '\uFE9B', 0x062C: '\uFE9E', 0x062D: '\uFEA2', 0x062E: '\uFEA6', 0x0633: '\uFEB2', 0x0634: '\uFEB6', 0x0635: '\uFEBA', 0x0636: '\uFEBE', 0x0637: '\uFEC2', 0x0638: '\uFEC6', 0x0639: '\uFECA', 0x063A: '\uFECE', 0x0640: '\uFE71', 0x0641: '\uFED2', 0x0642: '\uFED6', 0x0643: '\uFEDA', 0x0644: '\uFEDE', 0x0645: '\uFEE2', 0x0646: '\uFEE6', 0x0647: '\uFEEA', 0x0649: '\uFEEE', 0x064A: '\uFEF2'};
+  for (final match in arabicRe.allMatches(text)) {
 
-  final lamAlef = {0x0622: '\uFEF6', 0x0623: '\uFEF8', 0x0625: '\uFEFA', 0x0627: '\uFEFC'};
+    if (match.start > lastEnd) result.write(text.substring(lastEnd, match.start));
 
-  bool isArabic(int c) => (c >= 0x0600 && c <= 0x06FF) || (c >= 0x0750 && c <= 0x077F) || (c >= 0x08A0 && c <= 0x08FF) || (c >= 0xFB50 && c <= 0xFDFF) || (c >= 0xFE70 && c <= 0xFEFF);
+    final arabicWord = match.group(0)!;
 
-  bool isJoining(int c) => isArabic(c) && c != 0x0621 && c != 0x0622 && c != 0x0623 && c != 0x0624 && c != 0x0625 && c != 0x0627 && c != 0x0629 && c != 0x062F && c != 0x0630 && c != 0x0631 && c != 0x0632 && c != 0x0648 && c != 0x0649;
+    final chars = arabicWord.codeUnits;
 
-  final words = text.split(' ');
+    final reversed = <int>[];
 
-  final buffer = StringBuffer();
+    for (int i = chars.length - 1; i >= 0; i--) {
 
-  for (final word in words) {
-
-    if (word.isEmpty) { buffer.write(' '); continue; }
-
-    final chars = word.codeUnits;
-
-    final shaped = <int>[];
-
-    for (int i = 0; i < chars.length; i++) {
-
-      final c = chars[i];
-
-      if (!isArabic(c)) { shaped.add(c); continue; }
-
-      final prevJoin = i > 0 && isJoining(chars[i - 1]);
-
-      final nextJoin = i < chars.length - 1 && isJoining(chars[i + 1]);
-
-      if (c == 0x0644 && i < chars.length - 1 && lamAlef.containsKey(chars[i + 1])) {
-
-        shaped.add(lamAlef[chars[i + 1]]!.codeUnitAt(0));
-
-        i++;
-
-        continue;
-
-      }
-
-      int form = 0;
-
-      if (!prevJoin && !nextJoin) form = 0;
-
-      else if (!prevJoin && nextJoin) form = 1;
-
-      else if (prevJoin && nextJoin) form = 2;
-
-      else form = 3;
-
-      int mapped;
-
-      switch (form) {
-
-        case 1: mapped = (initial[c] ?? isolated[c] ?? String.fromCharCode(c)).codeUnitAt(0); break;
-
-        case 2: mapped = (medial[c] ?? initial[c] ?? isolated[c] ?? String.fromCharCode(c)).codeUnitAt(0); break;
-
-        case 3: mapped = (finalF[c] ?? isolated[c] ?? String.fromCharCode(c)).codeUnitAt(0); break;
-
-        default: mapped = (isolated[c] ?? String.fromCharCode(c)).codeUnitAt(0); break;
-
-      }
-
-      shaped.add(mapped);
+      reversed.add(chars[i]);
 
     }
 
-    for (int i = shaped.length - 1; i >= 0; i--) {
+    result.write(String.fromCharCodes(reversed));
 
-      buffer.writeCharCode(shaped[i]);
-
-    }
-
-    buffer.write(' ');
+    lastEnd = match.end;
 
   }
 
-  return buffer.toString().trim();
+  if (lastEnd < text.length) result.write(text.substring(lastEnd));
+
+  return result.toString();
 
 }
 
@@ -4789,9 +4735,9 @@ pw.Widget _buildItemsTable(Invoice inv, pw.Font font, pw.Font fontBold) {
 
     cellStyle: pw.TextStyle(font: font, fontSize: 10),
 
-    cellAlignment: pw.Alignment.center,
+    cellAlignment: pw.Alignment.centerRight,
 
-    headerAlignment: pw.Alignment.center,
+    headerAlignment: pw.Alignment.centerRight,
 
     headers: ['المنتج', 'السعر', 'الكمية', 'الخصم', 'الإجمالي'].map((h) => fixPdfArabic(h)).toList(),
 
