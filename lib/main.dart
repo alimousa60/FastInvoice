@@ -44,37 +44,17 @@ String fixPdfArabic(String text) {
 
   if (text.isEmpty) return text;
 
-  final arabicRe = RegExp(r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]+');
+  final chars = text.codeUnits;
 
-  final result = StringBuffer();
+  final reversed = <int>[];
 
-  int lastEnd = 0;
+  for (int i = chars.length - 1; i >= 0; i--) {
 
-  for (final match in arabicRe.allMatches(text)) {
-
-    if (match.start > lastEnd) result.write(text.substring(lastEnd, match.start));
-
-    final arabicWord = match.group(0)!;
-
-    final chars = arabicWord.codeUnits;
-
-    final reversed = <int>[];
-
-    for (int i = chars.length - 1; i >= 0; i--) {
-
-      reversed.add(chars[i]);
-
-    }
-
-    result.write(String.fromCharCodes(reversed));
-
-    lastEnd = match.end;
+    reversed.add(chars[i]);
 
   }
 
-  if (lastEnd < text.length) result.write(text.substring(lastEnd));
-
-  return result.toString();
+  return String.fromCharCodes(reversed);
 
 }
 
