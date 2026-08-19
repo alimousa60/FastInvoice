@@ -281,6 +281,7 @@ final Map<String, String> _en = {
   'ملاحظات': 'Notes',
   'تاريخ الاستحقاق': 'Due Date',
   'القالب': 'Template',
+  'قالب الفاتورة': 'Invoice Template',
   'كلاسيكي': 'Classic',
   'عصري': 'Modern',
   'بسيط': 'Simple',
@@ -4417,7 +4418,7 @@ void _buildClassicTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
         decoration: pw.BoxDecoration(
 
-          color: PdfColor.fromHex('#1E293B'),
+          color: PdfColor.fromInt(template.primaryColor.value),
 
           borderRadius: const pw.BorderRadius.only(
 
@@ -4477,7 +4478,7 @@ void _buildModernTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template
 
           gradient: pw.LinearGradient(
 
-            colors: [PdfColor.fromHex('#6366F1'), PdfColor.fromHex('#8B5CF6')],
+            colors: [PdfColor.fromInt(template.primaryColor.value), PdfColor.fromInt(template.secondaryColor.value)],
 
           ),
 
@@ -4543,7 +4544,7 @@ void _buildMinimalTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
         pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
 
-          pdfText('فاتورة', style: pw.TextStyle(font: fontBold, fontSize: 32, color: PdfColor.fromHex('#374151'))),
+          pdfText('فاتورة', style: pw.TextStyle(font: fontBold, fontSize: 32, color: PdfColor.fromInt(template.primaryColor.value))),
 
           pdfText(inv.id, style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.grey)),
 
@@ -4567,7 +4568,7 @@ void _buildMinimalTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
             ),
 
-            child: pdfText(_statusLabel(inv.status, isEnglish: isEnglish), style: pw.TextStyle(font: fontBold, fontSize: 10, color: PdfColor.fromHex('#EC4899'))),
+            child: pdfText(_statusLabel(inv.status, isEnglish: isEnglish), style: pw.TextStyle(font: fontBold, fontSize: 10, color: PdfColor.fromInt(template.primaryColor.value))),
 
           ),
 
@@ -4615,7 +4616,7 @@ void _buildCorporateTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templ
 
           gradient: pw.LinearGradient(
 
-            colors: [PdfColor.fromHex('#0369A1'), PdfColor.fromHex('#0284C7')],
+            colors: [PdfColor.fromInt(template.primaryColor.value), PdfColor.fromInt(template.secondaryColor.value)],
 
           ),
 
@@ -4685,7 +4686,7 @@ void _buildColorfulTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templa
 
           gradient: pw.LinearGradient(
 
-            colors: [PdfColor.fromHex('#EC4899'), PdfColor.fromHex('#F59E0B')],
+            colors: [PdfColor.fromInt(template.primaryColor.value), PdfColor.fromInt(template.secondaryColor.value)],
 
           ),
 
@@ -4739,7 +4740,7 @@ void _buildDarkTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, 
 
         decoration: pw.BoxDecoration(
 
-          color: PdfColor.fromHex('#0F172A'),
+          color: PdfColor.fromInt(template.primaryColor.value),
 
           borderRadius: const pw.BorderRadius.all(pw.Radius.circular(16)),
 
@@ -10295,6 +10296,52 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               ),
 
+              const SizedBox(height: 12),
+
+              GlassCard(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  children: [
+
+                    Row(children: [const Icon(Icons.picture_as_pdf, color: AppColors.primary, size: 20), const SizedBox(width: 8), Text(tr('قالب الفاتورة', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold))]),
+
+                    const SizedBox(height: 12),
+
+                    SizedBox(
+                      height: 42,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: invoiceTemplates.length,
+                        itemBuilder: (_, i) {
+                          final t = invoiceTemplates[i];
+                          final selected = _selectedTemplate == t.id;
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: ChoiceChip(
+                              label: Text('${t.icon} ${t.name}', style: TextStyle(fontSize: 13, color: selected ? Colors.white : AppColors.primary)),
+                              selected: selected,
+                              selectedColor: AppColors.primary,
+                              backgroundColor: AppColors.primary.withValues(alpha: 0.08),
+                              side: selected ? BorderSide.none : BorderSide(color: AppColors.primary.withValues(alpha: 0.2)),
+                              onSelected: (_) {
+                                HapticFeedback.lightImpact();
+                                setState(() => _selectedTemplate = t.id);
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+
+                  ],
+
+                ),
+
+              ),
+
               const SizedBox(height: 20),
 
           Row(
@@ -10800,6 +10847,20 @@ class InvoiceDetailScreen extends StatelessWidget {
         title: Text('${tr('فاتورة', isEng: context.read<DataStore>().isEnglish)} ${invoice.id}', style: const TextStyle(fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis, maxLines: 1),
 
         actions: [
+
+          IconButton(icon: const Icon(Icons.edit), onPressed: () {
+
+            Navigator.pushReplacement(context, PageRouteBuilder(
+
+              transitionDuration: const Duration(milliseconds: 400),
+
+              pageBuilder: (_, _, _) => CreateInvoiceScreen(editInvoice: invoice, editIndex: index),
+
+              transitionsBuilder: (_, anim, __, child) => FadeTransition(opacity: anim, child: SlideTransition(position: Tween<Offset>(begin: const Offset(0.3, 0), end: Offset.zero).animate(CurvedAnimation(parent: anim, curve: Curves.easeOutCubic)), child: child)),
+
+            ));
+
+          }),
 
           IconButton(icon: const Icon(Icons.share), onPressed: () => _showShareSheet(context)),
 
