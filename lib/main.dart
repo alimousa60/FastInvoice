@@ -494,6 +494,17 @@ final Map<String, String> _en = {
   'لا توجد منتجات': 'No Products',
   'أضف أصنافاً أولاً': 'Add items first',
   'أدخل اسم العميل': 'Enter customer name',
+  'أدخل سعر صحيح': 'Enter a valid price',
+  'أدخل كمية صحيحة': 'Enter a valid quantity',
+  'أدخل اسم المنتج والسعر': 'Enter product name and price',
+  'تعديل العميل': 'Edit Customer',
+  'تم التعديل': 'Updated',
+  'أضف أصنافًا أولاً': 'Add items first',
+  'فاتورة متأخرة': 'overdue invoices',
+  'لديك': 'You have',
+  'أخرها': 'Latest',
+  'يوم': 'days',
+  'فواتير أخرى': 'other invoices',
   'تم حفظ الفاتورة': 'Invoice saved',
   'الأصناف': 'Items',
   'اضغط "إضافة" لاختيار منتج': 'Press "Add" to select a product',
@@ -6004,11 +6015,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
             const SizedBox(height: 8),
 
-            Text('لديك ${overdueInvoices.length} فاتورة متأخرة', style: TextStyle(color: Colors.grey[600])),
+            Text(tr('لديك', isEng: store.isEnglish) + ' ${overdueInvoices.length} ' + tr('فاتورة متأخرة', isEng: store.isEnglish), style: TextStyle(color: Colors.grey[600])),
 
             const SizedBox(height: 4),
 
-            Text('أخرها $maxDays يوم - إجمالي ${totalRemaining.toStringAsFixed(0)} د.ل', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.danger)),
+            Text(tr('أخرها', isEng: store.isEnglish) + ' $maxDays ' + tr('يوم', isEng: store.isEnglish) + ' - ' + tr('إجمالي', isEng: store.isEnglish) + ' ${totalRemaining.toStringAsFixed(0)} د.ل', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.danger)),
 
             const SizedBox(height: 16),
 
@@ -6032,7 +6043,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
             if (overdueInvoices.length > 3)
 
-              Text('... و ${overdueInvoices.length - 3} فواتير أخرى', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+              Text('... ${overdueInvoices.length - 3} ' + tr('فواتير أخرى', isEng: store.isEnglish), style: TextStyle(fontSize: 12, color: Colors.grey[500])),
 
           ],
 
@@ -6054,7 +6065,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
               Navigator.pop(ctx);
 
-              setState(() => _currentIndex = 2);
+              setState(() => _currentIndex = 0);
 
             },
 
@@ -8687,33 +8698,29 @@ class _DashboardSummary extends StatelessWidget {
 
   Widget _dashCard(BuildContext ctx, String label, String value, IconData icon, List<Color> gradient) {
 
-    return Expanded(
+    return Container(
 
-      child: Container(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
 
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 6),
+      decoration: BoxDecoration(
 
-        decoration: BoxDecoration(
+        gradient: LinearGradient(colors: gradient),
 
-          gradient: LinearGradient(colors: gradient),
-
-          borderRadius: BorderRadius.circular(12),
-
-        ),
-
-        child: Column(children: [
-
-          Icon(icon, color: Colors.white, size: 18),
-
-          const SizedBox(height: 4),
-
-          Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11), maxLines: 1, overflow: TextOverflow.ellipsis),
-
-          Text(label, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 9)),
-
-        ]),
+        borderRadius: BorderRadius.circular(12),
 
       ),
+
+      child: Column(children: [
+
+        Icon(icon, color: Colors.white, size: 18),
+
+        const SizedBox(height: 4),
+
+        Text(value, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11), maxLines: 1, overflow: TextOverflow.ellipsis),
+
+        Text(label, style: TextStyle(color: Colors.white.withValues(alpha: 0.8), fontSize: 9)),
+
+      ]),
 
     );
 
@@ -8947,6 +8954,8 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
   bool _saved = false;
 
+  int? _editIndex;
+
   bool _useAdvanceBalance = false;
 
   String _selectedTemplate = 'classic';
@@ -8984,6 +8993,14 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
       _selectedTemplate = inv.template;
 
       _dueDate = inv.dueDate;
+
+      _editIndex = widget.editIndex;
+
+      final store = context.read<DataStore>();
+
+      final match = store.customers.where((c) => c.name == inv.buyerName);
+
+      if (match.isNotEmpty) _selectedCustomerId = match.first.id;
 
     }
 
@@ -9079,7 +9096,11 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
         TextButton(onPressed: () {
 
-          final newPrice = double.tryParse(ctrl.text) ?? item.price;
+          final newPrice = double.tryParse(ctrl.text);
+          if (newPrice == null || newPrice <= 0) {
+            showAppToast(context, tr('أدخل سعر صحيح', isEng: context.read<DataStore>().isEnglish), icon: Icons.warning, color: AppColors.warning);
+            return;
+          }
 
           setState(() => _items[i] = InvoiceItem(
 
@@ -9088,8 +9109,6 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
             quantity: item.quantity, discountPct: item.discountPct, discountAmt: item.discountAmt,
 
           ));
-
-          context.read<DataStore>().updateProductSellPrice(item.productId, newPrice);
 
           Navigator.pop(context);
 
@@ -9117,7 +9136,11 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
         TextButton(onPressed: () {
 
-          final newQty = int.tryParse(ctrl.text) ?? item.quantity;
+          final newQty = int.tryParse(ctrl.text);
+          if (newQty == null) {
+            showAppToast(context, tr('أدخل كمية صحيحة', isEng: context.read<DataStore>().isEnglish), icon: Icons.warning, color: AppColors.warning);
+            return;
+          }
 
           if (newQty <= 0) { _removeItem(i); Navigator.pop(context); return; }
 
@@ -9485,7 +9508,10 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
             onPressed: () {
 
-              if (nameCtrl.text.isEmpty || sellPriceCtrl.text.isEmpty) return;
+              if (nameCtrl.text.isEmpty || sellPriceCtrl.text.isEmpty) {
+                showAppToast(context, tr('أدخل اسم المنتج والسعر', isEng: context.read<DataStore>().isEnglish), icon: Icons.warning, color: AppColors.warning);
+                return;
+              }
 
               final store = context.read<DataStore>();
 
@@ -9595,7 +9621,10 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
             onPressed: () {
 
-              if (nameCtrl.text.isEmpty) return;
+              if (nameCtrl.text.isEmpty) {
+                showAppToast(context, tr('أدخل اسم العميل', isEng: eng), icon: Icons.warning, color: AppColors.warning);
+                return;
+              }
 
               final store = context.read<DataStore>();
 
@@ -9649,13 +9678,13 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
   void _saveInvoice() {
 
-    if (_items.isEmpty) { showAppToast(context, 'أضف أصنافًا أولاً', icon: Icons.warning, color: AppColors.warning); return; }
-
-    if (_buyerController.text.isEmpty) { showAppToast(context, 'أدخل اسم العميل', icon: Icons.warning, color: AppColors.warning); return; }
-
-
-
     final store = context.read<DataStore>();
+
+    if (_items.isEmpty) { showAppToast(context, tr('أضف أصنافًا أولاً', isEng: store.isEnglish), icon: Icons.warning, color: AppColors.warning); return; }
+
+    if (_buyerController.text.isEmpty) { showAppToast(context, tr('أدخل اسم العميل', isEng: store.isEnglish), icon: Icons.warning, color: AppColors.warning); return; }
+
+
 
     final inv = Invoice(
 
@@ -9685,29 +9714,34 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
 
 
-    if (widget.editIndex != null) {
+    if (widget.editIndex != null || _editIndex != null) {
 
-      store.updateInvoice(widget.editIndex!, inv);
+      store.updateInvoice(_editIndex ?? widget.editIndex!, inv);
 
     } else {
 
       store.addInvoice(inv);
 
-      if (_useAdvanceBalance && inv.total > 0) {
+    }
 
-        store.applyAdvanceToInvoice(_buyerController.text, inv, inv.total);
-
-      }
-
+    if (_useAdvanceBalance && inv.total > 0) {
+      store.applyAdvanceToInvoice(_buyerController.text, inv, inv.total);
     }
 
 
 
     HapticFeedback.heavyImpact();
 
-    setState(() => _saved = true);
+    setState(() {
+      _saved = true;
+      if (widget.editIndex != null) {
+        _editIndex = widget.editIndex;
+      } else {
+        _editIndex = store.invoices.length - 1;
+      }
+    });
 
-    showAppToast(context, 'تم حفظ الفاتورة ${inv.id}');
+    showAppToast(context, tr('تم حفظ الفاتورة ${inv.id}', isEng: store.isEnglish), icon: Icons.check, color: AppColors.success);
 
   }
 
@@ -10502,7 +10536,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               const SizedBox(width: 12),
 
-              Expanded(flex: 2, child: GradientButton(label: tr('حفظ الفاتورة', isEng: context.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient1, onPressed: _saveInvoice, enabled: !_saved, isExpanded: true)),
+              Expanded(flex: 2, child: GradientButton(label: tr('حفظ الفاتورة', isEng: context.read<DataStore>().isEnglish), icon: Icons.save, gradient: AppColors.gradient1, onPressed: _saveInvoice, enabled: widget.editInvoice != null || !_saved, isExpanded: true)),
 
             ],
 
@@ -13275,7 +13309,23 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                         ])),
 
-                                        Icon(Icons.chevron_left, color: AppColors.textSecondaryOf(context)),
+                                        Row(mainAxisSize: MainAxisSize.min, children: [
+
+                                          IconButton(
+
+                                            icon: Icon(Icons.edit, size: 18, color: AppColors.primary),
+
+                                            onPressed: () => _showEditCustomerDialog(context, store, c),
+
+                                            padding: EdgeInsets.zero,
+
+                                            constraints: const BoxConstraints(),
+
+                                          ),
+
+                                          Icon(Icons.chevron_left, color: AppColors.textSecondaryOf(context)),
+
+                                        ]),
 
                                       ]),
 
@@ -13305,7 +13355,43 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
   }
 
+  void _showEditCustomerDialog(BuildContext context, DataStore store, Customer c) {
+    final nameCtrl = TextEditingController(text: c.name);
+    final phoneCtrl = TextEditingController(text: c.phone);
+    final addressCtrl = TextEditingController(text: c.address);
 
+    showDialog(context: context, builder: (_) => AlertDialog(
+      title: Text(tr('تعديل العميل', isEng: store.isEnglish)),
+      content: SingleChildScrollView(
+        child: Column(mainAxisSize: MainAxisSize.min, children: [
+          TextField(controller: nameCtrl, decoration: InputDecoration(labelText: tr('اسم العميل', isEng: store.isEnglish), border: const OutlineInputBorder())),
+          const SizedBox(height: 12),
+          TextField(controller: phoneCtrl, decoration: InputDecoration(labelText: tr('الهاتف', isEng: store.isEnglish), border: const OutlineInputBorder()), keyboardType: TextInputType.phone),
+          const SizedBox(height: 12),
+          TextField(controller: addressCtrl, decoration: InputDecoration(labelText: tr('العنوان', isEng: store.isEnglish), border: const OutlineInputBorder())),
+        ]),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text(tr('إلغاء', isEng: store.isEnglish))),
+        FilledButton.icon(
+          onPressed: () {
+            if (nameCtrl.text.isEmpty) {
+              showAppToast(context, tr('أدخل اسم العميل', isEng: store.isEnglish), icon: Icons.warning, color: AppColors.warning);
+              return;
+            }
+            final idx = store.customers.indexWhere((x) => x.id == c.id);
+            if (idx != -1) {
+              store.updateCustomer(idx, Customer(id: c.id, name: nameCtrl.text, phone: phoneCtrl.text, address: addressCtrl.text, priceListId: c.priceListId, advanceBalance: c.advanceBalance));
+              showAppToast(context, '${tr('تم التعديل', isEng: store.isEnglish)} ${nameCtrl.text}', icon: Icons.check, color: AppColors.success);
+            }
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.save),
+          label: Text(tr('حفظ', isEng: store.isEnglish)),
+        ),
+      ],
+    ));
+  }
 
   Widget _filterChip(String label, String value) {
 
@@ -13407,7 +13493,7 @@ class StatsScreen extends StatelessWidget {
 
                   const SizedBox(width: 12),
 
-                  Expanded(child: _statCard(tr('الفواتير', isEng: store.isEnglish), store.invoices.length.toDouble(), AppColors.gradient2, Icons.receipt, context)),
+                   Expanded(child: _statCard(tr('الفواتير', isEng: store.isEnglish), store.invoices.length.toDouble(), AppColors.gradient2, Icons.receipt, context, showCurrency: false)),
 
                 ]),
 
@@ -13431,7 +13517,7 @@ class StatsScreen extends StatelessWidget {
 
                   const SizedBox(width: 12),
 
-                  Expanded(child: _statCard(tr('المنتجات', isEng: store.isEnglish), store.products.length.toDouble(), AppColors.gradient3, Icons.inventory_2, context)),
+                   Expanded(child: _statCard(tr('المنتجات', isEng: store.isEnglish), store.products.length.toDouble(), AppColors.gradient3, Icons.inventory_2, context, showCurrency: false)),
 
                 ]),
 
@@ -13651,7 +13737,7 @@ class StatsScreen extends StatelessWidget {
 
 
 
-  Widget _statCard(String title, double value, List<Color> gradient, IconData icon, BuildContext context) {
+  Widget _statCard(String title, double value, List<Color> gradient, IconData icon, BuildContext context, {bool showCurrency = true}) {
 
     return GlassCard(
 
@@ -13691,7 +13777,7 @@ class StatsScreen extends StatelessWidget {
 
             value: value,
 
-            suffix: title == 'الفواتير' || title == 'المنتجات' ? '' : 'د.ل',
+            suffix: showCurrency ? 'د.ل' : '',
 
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.textPrimaryOf(context)),
 
