@@ -52,11 +52,11 @@ String fixPdfArabic(String text) {
 
     0x0623: [0xFE93, 0xFE94, 0xFE95, 0xFE96],
 
-    0x0624: [0xFE95, 0xFE96, 0xFE97, 0xFE98],
+    0x0624: [0xFE85, 0xFE85, 0xFE85, 0xFE85],
 
-    0x0625: [0xFE99, 0xFE9A, 0xFE9B, 0xFE9C],
+    0x0625: [0xFE87, 0xFE88, 0xFE87, 0xFE88],
 
-    0x0626: [0xFE9B, 0xFE9C, 0xFE9D, 0xFE9E],
+    0x0626: [0xFE89, 0xFE8A, 0xFE8B, 0xFE8C],
 
     0x0627: [0xFE8D, 0xFE8E, 0xFE8D, 0xFE8E],
 
@@ -142,29 +142,21 @@ String fixPdfArabic(String text) {
 
   final input = text.codeUnits;
 
-  final reversed = <int>[];
-
-  for (int i = input.length - 1; i >= 0; i--) {
-
-    reversed.add(input[i]);
-
-  }
-
   final shaped = <int>[];
 
-  for (int i = 0; i < reversed.length; i++) {
+  for (int i = 0; i < input.length; i++) {
 
-    final c = reversed[i];
+    final c = input[i];
 
     if (!_isArabic(c)) { shaped.add(c); continue; }
 
-    bool prevJoin = i > 0 && _isJoining(reversed[i - 1]);
+    bool prevJoin = i > 0 && _isJoining(input[i - 1]);
 
-    bool nextJoin = i < reversed.length - 1 && _isJoining(reversed[i + 1]);
+    bool nextJoin = i < input.length - 1 && _isJoining(input[i + 1]);
 
-    if (c == 0x0644 && i < reversed.length - 1 && _lamAlef.containsKey(reversed[i + 1])) {
+    if (c == 0x0644 && i < input.length - 1 && _lamAlef.containsKey(input[i + 1])) {
 
-      shaped.add(_lamAlef[reversed[i + 1]]!);
+      shaped.add(_lamAlef[input[i + 1]]!);
 
       i++;
 
@@ -192,7 +184,15 @@ String fixPdfArabic(String text) {
 
   }
 
-  return String.fromCharCodes(shaped);
+  final reversed = <int>[];
+
+  for (int i = shaped.length - 1; i >= 0; i--) {
+
+    reversed.add(shaped[i]);
+
+  }
+
+  return String.fromCharCodes(reversed);
 
 }
 
@@ -356,7 +356,6 @@ final Map<String, String> _en = {
   'هل أنت متأكد من الحذف': 'Are you sure you want to delete',
   'قائمة الأسعار': 'Price List',
   'تنبيه التأخير': 'Overdue Alert',
-  'ما الجديد': "What's New",
   'تم': 'Done',
   'الصق نص النسخة الاحتياطية هنا...': 'Paste backup text here...',
   'فاتورة': 'Invoice',
@@ -391,7 +390,6 @@ final Map<String, String> _en = {
   'كل شيء محدث!': 'All caught up!',
   'لاحقاً': 'Later',
   'عرض الكل': 'View All',
-  'ما الجديد في هذا الإصدار': "What's New in This Version",
   'النسخ الاحتياطي': 'Backup',
   'استيراد من نص نسخة احتياطية': 'Import from backup text',
   'حذف جميع الفواتير والمنتجات': 'Delete all invoices and products',
@@ -425,7 +423,6 @@ final Map<String, String> _en = {
   'النموذج، العنوان، العرض، والخيارات': 'Template, layout, display & options',
   'نسخة احتياطية': 'Backup',
   'منتج • … عميل • … فاتورة • …': 'product • ... customer • ... invoice • ...',
-  'إلغاء': 'Cancel',
   'الصق النص الاحتياطي هنا...': 'Paste backup text here...',
   'تم الترحيل من نسخة احتياطية': 'Migrated from backup',
   '-msl': '',
@@ -437,11 +434,9 @@ final Map<String, String> _en = {
   'نظام فواتير متكامل': 'Complete Invoice System',
   'إنشاء فواتير احترافية': 'Create Professional Invoices',
   'قم بإنشاء فواتير مبيعات احترافية بضغطة زر': 'Create professional sales invoices with one tap',
-  'شارك الفواتير عبر واتساب أو تيليجرام أو PDF': 'Share invoices via WhatsApp, Telegram or PDF',
   'تتبع المبيعات والعملاء مع إحصائيات مفصلة': 'Track sales and customers with detailed statistics',
   'تنبيه: فواتير متأخرة': 'Alert: Overdue Invoices',
   'لحظة...': 'Moment...',
-  'عرض الكل': 'View All',
   'استلام دفعة': 'Receive Payment',
   'الزبون': 'Customer',
   'اختر الزبون': 'Select Customer',
@@ -469,20 +464,15 @@ final Map<String, String> _en = {
   '📄 شيك': '📄 Check',
   '💳 ائتمان': '💳 Card',
   'لا نتائج': 'No results',
-  'الكل': 'All',
   'التنبيهات': 'Notifications',
   'انتهى من المخزون': 'Out of stock',
   'متبقي فقط': 'only left',
-  'بحث...': 'Search...',
   'فلتر': 'Filter',
-  'ابدأ بإنشاء فاتورة جديدة': 'Start by creating a new invoice',
   'جرّب البحث بكلمات مختلفة': 'Try different keywords',
-  'فاتورة جديدة': 'New Invoice',
   'ترتيب حسب': 'Sort by',
   'فلتر متقدم': 'Advanced Filter',
   'مسح الفلتر': 'Clear Filter',
   'اختر التاريخ': 'Select Date',
-  'الحد الأدنى:': 'Min:',
   'الحد الأعلى:': 'Max:',
   'اليوم': 'Today',
   'الشهر': 'Month',
@@ -491,7 +481,6 @@ final Map<String, String> _en = {
   'سعر البيع': 'Sell Price',
   'تعديل الكمية': 'Edit Quantity',
   'اختر المنتج': 'Select Product',
-  'لا توجد منتجات': 'No Products',
   'أضف أصنافاً أولاً': 'Add items first',
   'أدخل اسم العميل': 'Enter customer name',
   'أدخل سعر صحيح': 'Enter a valid price',
@@ -505,13 +494,7 @@ final Map<String, String> _en = {
   'أخرها': 'Latest',
   'يوم': 'days',
   'فواتير أخرى': 'other invoices',
-  'فاتورة جديدة': 'New Invoice',
-  'استلام': 'Receive',
-  'مدفوعة': 'Paid',
   'رصيد الزبون': 'Customer Balance',
-  'توزيع المبلغ على الفواتير': 'Distribute Amount Across Invoices',
-  'للفاتورة': 'for invoice',
-  'استلام دفعة سريعة': 'Quick Payment',
   'الإجمالي:': 'Total:',
   'المدفوع:': 'Paid:',
   'لا توجد فواتير غير مدفوعة': 'No unpaid invoices',
@@ -521,20 +504,6 @@ final Map<String, String> _en = {
   'فشل الربط': 'Linking failed',
   'متأخر': 'Overdue',
   'متبقي': 'Remaining',
-  'انتهى من المخزون': 'Out of stock',
-  'متبقي فقط': 'only remaining',
-  'فاتورة': 'invoices',
-  'فلتر متقدم': 'Advanced Filter',
-  'مسح الفلتر': 'Clear Filter',
-  'من تاريخ:': 'From date:',
-  'إلى تاريخ:': 'To date:',
-  'اختر التاريخ': 'Choose date',
-  'الحد الأدنى:': 'Minimum:',
-  'الحد الأعلى:': 'Maximum:',
-  'تطبيق': 'Apply',
-  'لا نتائج': 'No results',
-  'جرّب البحث بكلمات مختلفة': 'Try different search words',
-  'يوم': 'days',
   'تم حفظ الفاتورة': 'Invoice saved',
   'الأصناف': 'Items',
   'اضغط "إضافة" لاختيار منتج': 'Press "Add" to select a product',
@@ -553,17 +522,12 @@ final Map<String, String> _en = {
   'إضافة دفعة': 'Add Payment',
   'ربط دفعة مستقلة': 'Link Standalone Payment',
   'اختر دفعة للربط': 'Choose Payment to Link',
-  'تم الربط بنجاح': 'Linked successfully',
-  'فشل الربط': 'Link failed',
   'اختر فاتورة للربط': 'Choose Invoice to Link',
-  'لا توجد فواتير غير مدفوعة': 'No unpaid invoices',
   'ربط': 'Link',
   'رقم المرجع/المعاملة': 'Reference / Transaction #',
   'ملاحظات (اختياري)': 'Notes (optional)',
   'تم تسجيل دفعة': 'Payment recorded',
-  'فاتورة': 'Invoice',
   'سجل الدفعات': 'Payment History',
-  'دفعة': 'Payment',
   'دفعة -': 'Payment -',
   'إيصال الدفع': 'Payment Receipt',
   'كشف حساب': 'Statement',
@@ -573,12 +537,9 @@ final Map<String, String> _en = {
   'سجل المعاملات': 'Transaction History',
   'صورة': 'Image',
   'التصنيف': 'Category',
-  'شراء': 'Buy',
-  'بيع': 'Sell',
   'حفظ المنتج': 'Save Product',
   'تم إضافة المنتج': 'Product added',
   'بحث بالاسم أو التصنيف أو الباركود...': 'Search by name, category or barcode...',
-  'متوفر': 'In Stock',
   'نفذ': 'Out',
   'اسم': 'Name',
   'سعر ↑': 'Price ↑',
@@ -589,18 +550,14 @@ final Map<String, String> _en = {
   'تم حذف': 'Deleted',
   'حفظ التعديلات': 'Save Changes',
   'تم تعديل المنتج': 'Product updated',
-  'حذف العميل': 'Delete Customer',
-  'هل أنت متأكد من حذف': 'Are you sure you want to delete',
   'تم حذف العميل': 'Customer deleted',
   'يمكن': 'can',
   'لديه فواتير': 'has invoices',
-  'بدون فواتير': 'without invoices',
   'رصيد مقدم': 'Advance balance',
   'مع هاتف': 'with phone',
   'بحث بالاسم أو الهاتف...': 'Search by name or phone...',
   'عدد الفواتير': 'Invoice count',
   'الرصيد الأعلى': 'Highest balance',
-  'الإحصائيات': 'Statistics',
   'أفضل العملاء': 'Top Customers',
   'آخر الفواتير': 'Recent Invoices',
   'د.ل': 'LYD',
@@ -611,25 +568,10 @@ final Map<String, String> _en = {
   'حفظ القالب': 'Save Template',
   'اسم القالب': 'Template Name',
   ' invoices': 'invoices',
-  'الإجمالي': 'Total',
-  'الفواتير': 'Invoices',
-  'المدفوع': 'Paid',
-  'المتوسط': 'Average',
-  'المتبقي': 'Remaining',
-  'المنتجات': 'Products',
-  'العملاء': 'Customers',
-  'الإعدادات': 'Settings',
   'مدفوع': 'Paid',
   'جزئي': 'Partial',
   'غير مدفوع': 'Unpaid',
-  'نقدي': 'Cash',
-  'تحويل بنكي': 'Bank Transfer',
   'موبايل موني': 'Mobile Money',
-  'شيك': 'Check',
-  'بطاقة ائتمان': 'Credit Card',
-  'أخرى': 'Other',
-  'سعر البيع *': 'Sell Price *',
-  'الكمية': 'Quantity',
   'تم التوزيع. متبقي': 'Distributed. Remaining',
   'غير موزع': 'undistributed',
   'تم توزيع': 'Distributed',
@@ -637,15 +579,6 @@ final Map<String, String> _en = {
   'حفظ الدفعة': 'Save Payment',
   'فواتير': 'invoices',
   'تعديل الفاتورة': 'Edit Invoice',
-  'مدفوع': 'Paid',
-  'جزئي': 'Partial',
-  'غير مدفوع': 'Unpaid',
-  'نقدي': 'Cash',
-  'تحويل بنكي': 'Bank Transfer',
-  'موبايل موني': 'Mobile Money',
-  'شيك': 'Check',
-  'بطاقة ائتمان': 'Credit Card',
-  'أخرى': 'Other',
   'العميل': 'Customer',
   'فاتورة رقم': 'Invoice #',
   'التاريخ': 'Date',
@@ -693,7 +626,6 @@ final Map<String, String> _en = {
   'الأعمدة': 'Columns',
   'رقم الصنف': 'Item Number',
   'سعر الوحدة': 'Unit Price',
-  'الخصم': 'Discount',
   'إظهار / إخفاء الأقسام': 'Show / Hide Sections',
   'الشعار': 'Logo',
   'معلومات الشركة': 'Company Info',
@@ -703,7 +635,6 @@ final Map<String, String> _en = {
   'رمز QR': 'QR Code',
   'الشروط': 'Terms',
   'الختم': 'Stamps',
-  'ملاحظات': 'Notes',
   'تفاصيل الدفع': 'Payment Details',
   'معلومات الفاتورة': 'Invoice Info',
   'عنوان الفاتورة': 'Invoice Title',
@@ -717,18 +648,11 @@ final Map<String, String> _en = {
   'عنوان فاتورة مخصص': 'Custom Invoice Title',
   'اتركه فارغاً للإفتراضي': 'Leave empty for default',
   'معاينة': 'Preview',
-  'غير مدفوعة': 'Unpaid',
   'اسم المتجر': 'Store Name',
-  'الإجمالي الفرعي': 'Subtotal',
-  'المتبقي': 'Remaining',
   'ملاحظات إضافية...': 'Additional notes...',
   'ختم البائع': 'Seller Stamp',
   'توقيع المشتري': 'Buyer Signature',
   'المنتج': 'Product',
-  'السعر': 'Price',
-  'الكمية': 'Qty',
-  'الإجمالي': 'Total',
-  'المدفوع': 'Paid',
 };
 
 String tr(String key, {bool? isEng}) {
@@ -6394,7 +6318,7 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
               Text(tr('الزبون', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
               const SizedBox(height: 8),
               DropdownButtonFormField<String>(
-                initialValue: selectedCustomer,
+                value: selectedCustomer,
                 isExpanded: true,
                 decoration: InputDecoration(border: const OutlineInputBorder(), hintText: tr('اختر الزبون', isEng: store.isEnglish)),
                 items: customerNames.map((n) => DropdownMenuItem(value: n, child: Text(n))).toList(),
@@ -9403,7 +9327,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                                           ? ClipRRect(borderRadius: BorderRadius.circular(8), child: Image.file(File(p.imagePath), width: 48, height: 48, fit: BoxFit.cover))
 
-                                          : CircleAvatar(backgroundColor: Theme.of(context).colorScheme.primaryContainer, child: Text(p.name[0], style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold))),
+                                          : CircleAvatar(backgroundColor: Theme.of(context).colorScheme.primaryContainer, child: Text(p.name.isNotEmpty ? p.name[0] : '?', style: TextStyle(color: Theme.of(context).colorScheme.primary, fontWeight: FontWeight.bold))),
 
                                       title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.w600)),
 
@@ -9947,7 +9871,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                           child: DropdownButtonFormField<String>(
 
-                            initialValue: _selectedCustomerId,
+                            value: _selectedCustomerId,
 
                             decoration: InputDecoration(labelText: tr('اختر عميل', isEng: context.read<DataStore>().isEnglish), border: const OutlineInputBorder()),
 
@@ -12567,7 +12491,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                                 decoration: BoxDecoration(gradient: LinearGradient(colors: AppColors.gradient3), borderRadius: BorderRadius.circular(12)),
 
-                                child: Center(child: Text(p.name[0], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24))),
+                                child: Center(child: Text(p.name.isNotEmpty ? p.name[0] : '?', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24))),
 
                               ),
 
@@ -13306,7 +13230,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                           decoration: BoxDecoration(gradient: LinearGradient(colors: AppColors.gradient5), borderRadius: BorderRadius.circular(12)),
 
-                                          child: Center(child: Text(c.name[0], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24))),
+                                          child: Center(child: Text(c.name.isNotEmpty ? c.name[0] : '?', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 24))),
 
                                         ),
 
