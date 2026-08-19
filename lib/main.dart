@@ -510,6 +510,13 @@ final Map<String, String> _en = {
   'رجوع': 'Back',
   'حفظ الفاتورة': 'Save Invoice',
   'إضافة دفعة': 'Add Payment',
+  'ربط دفعة مستقلة': 'Link Standalone Payment',
+  'اختر دفعة للربط': 'Choose Payment to Link',
+  'تم الربط بنجاح': 'Linked successfully',
+  'فشل الربط': 'Link failed',
+  'اختر فاتورة للربط': 'Choose Invoice to Link',
+  'لا توجد فواتير غير مدفوعة': 'No unpaid invoices',
+  'ربط': 'Link',
   'رقم المرجع/المعاملة': 'Reference / Transaction #',
   'ملاحظات (اختياري)': 'Notes (optional)',
   'تم تسجيل دفعة': 'Payment recorded',
@@ -3493,6 +3500,41 @@ class DataStore extends ChangeNotifier {
 
     return true;
 
+  }
+
+  /// ربط دفعة مستقلة بفاتورة
+  bool linkStandalonePaymentToInvoice(Payment standalonePayment, Invoice inv) {
+    final payIdx = standalonePayments.indexWhere((p) => p.id == standalonePayment.id);
+    if (payIdx == -1) return false;
+
+    final invIdx = invoices.indexWhere((i) => i.id == inv.id);
+    if (invIdx == -1) return false;
+
+    final available = standalonePayment.amount - standalonePayment.appliedAmount;
+    if (available <= 0) return false;
+
+    final safeAmt = available.clamp(0.0, inv.remaining);
+    if (safeAmt <= 0) return false;
+
+    final now = DateFormat('yyyy-MM-dd').format(DateTime.now());
+
+    inv.payments.add(Payment(
+      amount: safeAmt,
+      date: now,
+      method: standalonePayment.method,
+      customerId: inv.buyerName,
+      invoiceId: inv.id,
+      receiptNumber: 'RCP-${inv.id}-${inv.payments.length + 1}',
+      referenceNumber: standalonePayment.referenceNumber,
+      notes: 'تم الربط من دفعة ${standalonePayment.id}',
+    ));
+
+    standalonePayments[payIdx].appliedAmount += safeAmt;
+
+    updateInvoice(invIdx, inv);
+    save();
+
+    return true;
   }
 
   /// توزيع مبلغ على عدة فواتير
@@ -7252,13 +7294,33 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                             const SizedBox(height: 4),
 
-                            GestureDetector(
+                            if (isAdvance && p.remainingAmount > 0)
 
-                              onTap: inv != null ? () => printPaymentReceipt(inv, p, isEnglish: store.isEnglish) : null,
+                              GestureDetector(
 
-                              child: Icon(Icons.receipt, size: 18, color: inv != null ? AppColors.primary : Colors.grey[400]),
+                                onTap: () => _showLinkToInvoiceDialog(context, store, p),
 
-                            ),
+                                child: Container(
+
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+
+                                  decoration: BoxDecoration(color: AppColors.success.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(6)),
+
+                                  child: Text(tr('ربط', isEng: store.isEnglish), style: TextStyle(fontSize: 10, color: AppColors.success, fontWeight: FontWeight.bold)),
+
+                                ),
+
+                              )
+
+                            else
+
+                              GestureDetector(
+
+                                onTap: inv != null ? () => printPaymentReceipt(inv, p, isEnglish: store.isEnglish) : null,
+
+                                child: Icon(Icons.receipt, size: 18, color: inv != null ? AppColors.primary : Colors.grey[400]),
+
+                              ),
 
                           ],
 
@@ -7281,6 +7343,94 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
         );
 
       },
+
+    );
+
+  }
+
+  void _showLinkToInvoiceDialog(BuildContext context, DataStore store, Payment standalonePayment) {
+
+    final unpaidInvoices = store.invoices.where((i) => i.remaining > 0).toList();
+
+    if (unpaidInvoices.isEmpty) {
+
+      showAppToast(context, 'لا توجد فواتير غير مدفوعة', icon: Icons.info, color: AppColors.warning);
+
+      return;
+
+    }
+
+    showModalBottomSheet(
+
+      context: context,
+
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+
+      builder: (_) => SafeArea(
+
+        child: Padding(
+
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+
+              Container(width: 40, height: 4, margin: const EdgeInsets.only(top: 12, bottom: 8), decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
+
+              Text(tr('اختر فاتورة للربط', isEng: store.isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+              const SizedBox(height: 4),
+
+              Text('المبلغ المتاح: ${(standalonePayment.amount - standalonePayment.appliedAmount).toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+
+              const SizedBox(height: 16),
+
+              ...unpaidInvoices.map((inv) {
+
+                return ListTile(
+
+                  leading: Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: const Icon(Icons.receipt, color: AppColors.primary)),
+
+                  title: Text('${inv.id} - ${inv.buyerName}', style: const TextStyle(fontWeight: FontWeight.bold)),
+
+                  subtitle: Text('المتبقي: ${inv.remaining.toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+
+                  trailing: const Icon(Icons.chevron_left),
+
+                  onTap: () {
+
+                    final success = store.linkStandalonePaymentToInvoice(standalonePayment, inv);
+
+                    Navigator.pop(context);
+
+                    if (success) {
+
+                      showAppToast(context, 'تم الربط بنجاح', icon: Icons.check, color: AppColors.success);
+
+                      setState(() {});
+
+                    } else {
+
+                      showAppToast(context, 'فشل الربط', icon: Icons.error, color: AppColors.danger);
+
+                    }
+
+                  },
+
+                );
+
+              }),
+
+            ],
+
+          ),
+
+        ),
+
+      ),
 
     );
 
@@ -11182,25 +11332,145 @@ class InvoiceDetailScreen extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          if (invoice.remaining > 0)
+          if (invoice.remaining > 0) ...[
 
-            GradientButton(
+            Consumer<DataStore>(builder: (_, store, _) {
 
-              label: tr('إضافة دفعة', isEng: context.read<DataStore>().isEnglish),
+              final available = store.standalonePayments.where((p) => p.invoiceId == null && (p.amount - p.appliedAmount) > 0).toList();
 
-              icon: Icons.payment,
+              return Column(children: [
 
-              gradient: AppColors.gradient4,
+                GradientButton(
 
-              onPressed: () => _showPayDialog(context),
+                  label: tr('إضافة دفعة', isEng: context.read<DataStore>().isEnglish),
 
-              isExpanded: true,
+                  icon: Icons.payment,
 
-            ),
+                  gradient: AppColors.gradient4,
+
+                  onPressed: () => _showPayDialog(context),
+
+                  isExpanded: true,
+
+                ),
+
+                if (available.isNotEmpty) ...[
+
+                  const SizedBox(height: 8),
+
+                  GradientButton(
+
+                    label: tr('ربط دفعة مستقلة', isEng: context.read<DataStore>().isEnglish),
+
+                    icon: Icons.link,
+
+                    gradient: [AppColors.success, const Color(0xFF059669)],
+
+                    onPressed: () => _showLinkPaymentDialog(context, store, available),
+
+                    isExpanded: true,
+
+                  ),
+
+                ],
+
+              ]);
+
+            }),
+
+          ],
 
           const SizedBox(height: 30),
 
         ],
+
+      ),
+
+    );
+
+  }
+
+  void _showLinkPaymentDialog(BuildContext context, DataStore store, List<Payment> available) {
+
+    showModalBottomSheet(
+
+      context: context,
+
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+
+      builder: (_) => SafeArea(
+
+        child: Padding(
+
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+
+            mainAxisSize: MainAxisSize.min,
+
+            children: [
+
+              Container(width: 40, height: 4, margin: const EdgeInsets.only(top: 12, bottom: 8), decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
+
+              Text(tr('اختر دفعة للربط', isEng: store.isEnglish), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+
+              const SizedBox(height: 4),
+
+              Text('المتبقي: ${invoice.remaining.toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+
+              const SizedBox(height: 16),
+
+              ...available.map((p) {
+
+                final avail = p.amount - p.appliedAmount;
+
+                return ListTile(
+
+                  leading: Container(padding: const EdgeInsets.all(10), decoration: BoxDecoration(color: AppColors.success.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(12)), child: Icon(Icons.payment, color: AppColors.success)),
+
+                  title: Text('${avail.toStringAsFixed(2)} د.ل', style: const TextStyle(fontWeight: FontWeight.bold)),
+
+                  subtitle: Text('${p.date} | ${paymentMethodName(p.method, isEnglish: store.isEnglish)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+
+                  trailing: const Icon(Icons.chevron_left),
+
+                  onTap: () {
+
+                    final success = store.linkStandalonePaymentToInvoice(p, invoice);
+
+                    Navigator.pop(context);
+
+                    if (success) {
+
+                      showAppToast(context, 'تم الربط بنجاح', icon: Icons.check, color: AppColors.success);
+
+                      Navigator.pushReplacement(context, PageRouteBuilder(
+
+                        transitionDuration: const Duration(milliseconds: 400),
+
+                        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: store.invoices.firstWhere((i) => i.id == invoice.id), index: store.invoices.indexWhere((i) => i.id == invoice.id)),
+
+                        transitionsBuilder: (_, anim, __, child) => FadeTransition(opacity: anim, child: child),
+
+                      ));
+
+                    } else {
+
+                      showAppToast(context, 'فشل الربط', icon: Icons.error, color: AppColors.danger);
+
+                    }
+
+                  },
+
+                );
+
+              }),
+
+            ],
+
+          ),
+
+        ),
 
       ),
 
