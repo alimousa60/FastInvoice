@@ -505,6 +505,36 @@ final Map<String, String> _en = {
   'أخرها': 'Latest',
   'يوم': 'days',
   'فواتير أخرى': 'other invoices',
+  'فاتورة جديدة': 'New Invoice',
+  'استلام': 'Receive',
+  'مدفوعة': 'Paid',
+  'رصيد الزبون': 'Customer Balance',
+  'توزيع المبلغ على الفواتير': 'Distribute Amount Across Invoices',
+  'للفاتورة': 'for invoice',
+  'استلام دفعة سريعة': 'Quick Payment',
+  'الإجمالي:': 'Total:',
+  'المدفوع:': 'Paid:',
+  'لا توجد فواتير غير مدفوعة': 'No unpaid invoices',
+  'المبلغ المتاح': 'Available Amount',
+  'المتبقي:': 'Remaining:',
+  'تم الربط بنجاح': 'Linked successfully',
+  'فشل الربط': 'Linking failed',
+  'متأخر': 'Overdue',
+  'متبقي': 'Remaining',
+  'انتهى من المخزون': 'Out of stock',
+  'متبقي فقط': 'only remaining',
+  'فاتورة': 'invoices',
+  'فلتر متقدم': 'Advanced Filter',
+  'مسح الفلتر': 'Clear Filter',
+  'من تاريخ:': 'From date:',
+  'إلى تاريخ:': 'To date:',
+  'اختر التاريخ': 'Choose date',
+  'الحد الأدنى:': 'Minimum:',
+  'الحد الأعلى:': 'Maximum:',
+  'تطبيق': 'Apply',
+  'لا نتائج': 'No results',
+  'جرّب البحث بكلمات مختلفة': 'Try different search words',
+  'يوم': 'days',
   'تم حفظ الفاتورة': 'Invoice saved',
   'الأصناف': 'Items',
   'اضغط "إضافة" لاختيار منتج': 'Press "Add" to select a product',
@@ -6233,7 +6263,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                 icon: const Icon(Icons.add),
 
-                label: const Text('فاتورة جديدة'),
+                label: Text(tr('فاتورة جديدة', isEng: context.read<DataStore>().isEnglish)),
 
               ),
 
@@ -6277,7 +6307,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
                         final count = store.invoices.where((i) => i.remaining > 0).length;
 
-                        return Text(count > 0 ? 'استلام ($count)' : 'مدفوعة');
+                        return Text(count > 0 ? '${tr('استلام', isEng: store.isEnglish)} ($count)' : tr('مدفوعة', isEng: store.isEnglish));
 
                       },
 
@@ -6386,7 +6416,7 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
                   child: Row(children: [
                     const Icon(Icons.account_balance_wallet, color: AppColors.success, size: 18),
                     const SizedBox(width: 8),
-                    Text('رصيد الزبون: ${advanceBalance.toStringAsFixed(2)} د.ل',
+                    Text('${tr('رصيد الزبون', isEng: store.isEnglish)}: ${advanceBalance.toStringAsFixed(2)} د.ل',
                         style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.success)),
                   ]),
                 ),
@@ -6452,7 +6482,7 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
 
               if (selectedCustomer != null && paymentMode == 'multi' && unpaidInvoices.length > 1 && totalAmount > 0) ...[
                 const SizedBox(height: 16),
-                Text('توزيع المبلغ على الفواتير (${totalAmount.toStringAsFixed(2)} د.ل)',
+                Text('${tr('توزيع المبلغ على الفواتير', isEng: store.isEnglish)} (${totalAmount.toStringAsFixed(2)} د.ل)',
                     style: const TextStyle(fontWeight: FontWeight.w600)),
                 const SizedBox(height: 8),
                 ...unpaidInvoices.map((inv) {
@@ -7035,7 +7065,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                       const SizedBox(width: 8),
 
-                      const Text('استلام دفعة سريعة', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      Text(tr('استلام دفعة سريعة', isEng: store.isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                     ]),
 
@@ -7103,7 +7133,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                                     const SizedBox(height: 4),
 
-                                    Text('الإجمالي: ${inv.total.toStringAsFixed(2)} | المدفوع: ${inv.totalPaid.toStringAsFixed(2)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                                    Text('${tr('الإجمالي', isEng: store.isEnglish)}: ${inv.total.toStringAsFixed(2)} | ${tr('المدفوع', isEng: store.isEnglish)}: ${inv.totalPaid.toStringAsFixed(2)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
 
                                   ],
 
@@ -7131,7 +7161,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                                       decoration: BoxDecoration(gradient: LinearGradient(colors: AppColors.gradient4), borderRadius: BorderRadius.circular(8)),
 
-                                      child: const Text('استلام', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
+                                      child: Text(tr('استلام', isEng: store.isEnglish), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
 
                                     ),
 
@@ -7365,7 +7395,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
     if (unpaidInvoices.isEmpty) {
 
-      showAppToast(context, 'لا توجد فواتير غير مدفوعة', icon: Icons.info, color: AppColors.warning);
+      showAppToast(context, tr('لا توجد فواتير غير مدفوعة', isEng: store.isEnglish), icon: Icons.info, color: AppColors.warning);
 
       return;
 
@@ -7395,7 +7425,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
               const SizedBox(height: 4),
 
-              Text('المبلغ المتاح: ${(standalonePayment.amount - standalonePayment.appliedAmount).toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+              Text('${tr('المبلغ المتاح', isEng: store.isEnglish)}: ${(standalonePayment.amount - standalonePayment.appliedAmount).toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
 
               const SizedBox(height: 16),
 
@@ -7407,7 +7437,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                   title: Text('${inv.id} - ${inv.buyerName}', style: const TextStyle(fontWeight: FontWeight.bold)),
 
-                  subtitle: Text('المتبقي: ${inv.remaining.toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                  subtitle: Text('${tr('المتبقي', isEng: store.isEnglish)}: ${inv.remaining.toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
 
                   trailing: const Icon(Icons.chevron_left),
 
@@ -7419,13 +7449,13 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                     if (success) {
 
-                      showAppToast(context, 'تم الربط بنجاح', icon: Icons.check, color: AppColors.success);
+                      showAppToast(context, tr('تم الربط بنجاح', isEng: store.isEnglish), icon: Icons.check, color: AppColors.success);
 
                       setState(() {});
 
                     } else {
 
-                      showAppToast(context, 'فشل الربط', icon: Icons.error, color: AppColors.danger);
+                      showAppToast(context, tr('فشل الربط', isEng: store.isEnglish), icon: Icons.error, color: AppColors.danger);
 
                     }
 
@@ -7984,7 +8014,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
             title: Text('${inv.id} - ${inv.buyerName}', style: const TextStyle(fontWeight: FontWeight.bold)),
 
-            subtitle: Text('متأخر ${inv.daysUntilDue.abs()} يوم - متبقي ${inv.remaining.toStringAsFixed(0)} د.ل', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+            subtitle: Text('${tr('متأخر', isEng: store.isEnglish)} ${inv.daysUntilDue.abs()} ${tr('يوم', isEng: store.isEnglish)} - ${tr('متبقي', isEng: store.isEnglish)} ${inv.remaining.toStringAsFixed(0)} د.ل', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
 
           ))),
 
@@ -8004,7 +8034,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
             title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.bold)),
 
-            subtitle: const Text('انتهى من المخزون', style: TextStyle(color: AppColors.danger, fontSize: 12)),
+            subtitle: Text(tr('انتهى من المخزون', isEng: store.isEnglish), style: const TextStyle(color: AppColors.danger, fontSize: 12)),
 
           ))),
 
@@ -8024,7 +8054,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
             title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.bold)),
 
-            subtitle: Text('متبقي ${p.quantity} فقط', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+            subtitle: Text('${tr('متبقي', isEng: store.isEnglish)} ${p.quantity} ${tr('فقط', isEng: store.isEnglish)}', style: TextStyle(color: Colors.grey[600], fontSize: 12)),
 
           ))),
 
@@ -8176,7 +8206,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                   children: [
 
-                    Text('${filtered.length} فاتورة', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                    Text('${filtered.length} ${tr('فاتورة', isEng: store.isEnglish)}', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
 
                     const Spacer(),
 
@@ -8220,7 +8250,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                         title: store.invoices.isEmpty ? tr('لا توجد فواتير', isEng: store.isEnglish) : tr('لا نتائج', isEng: store.isEnglish),
 
-                        subtitle: store.invoices.isEmpty ? tr('ابدأ بإنشاء فاتورة جديدة', isEng: store.isEnglish) : 'جرّب البحث بكلمات مختلفة',
+                        subtitle: store.invoices.isEmpty ? tr('ابدأ بإنشاء فاتورة جديدة', isEng: store.isEnglish) : tr('جرّب البحث بكلمات مختلفة', isEng: store.isEnglish),
 
                         actionLabel: store.invoices.isEmpty ? tr('فاتورة جديدة', isEng: store.isEnglish) : null,
 
@@ -8446,7 +8476,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
 
-                const Text('فلتر متقدم', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(tr('فلتر متقدم', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                 if (_dateFrom != null || _dateTo != null || _amountMin != null || _amountMax != null)
 
@@ -8456,13 +8486,13 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                     setState(() {});
 
-                  }, child: const Text('مسح الفلتر')),
+                  }, child: Text(tr('مسح الفلتر', isEng: context.read<DataStore>().isEnglish))),
 
               ]),
 
               const SizedBox(height: 12),
 
-              const Text('من تاريخ:', style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(tr('من تاريخ:', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
               const SizedBox(height: 4),
 
@@ -8472,7 +8502,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                 readOnly: true,
 
-                decoration: InputDecoration(hintText: 'اختر التاريخ', prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
+                decoration: InputDecoration(hintText: tr('اختر التاريخ', isEng: context.read<DataStore>().isEnglish), prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
 
                 onTap: () async {
 
@@ -8486,7 +8516,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
               const SizedBox(height: 12),
 
-              const Text('إلى تاريخ:', style: TextStyle(fontWeight: FontWeight.w600)),
+              Text(tr('إلى تاريخ:', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
               const SizedBox(height: 4),
 
@@ -8496,7 +8526,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                 readOnly: true,
 
-                decoration: InputDecoration(hintText: 'اختر التاريخ', prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
+                decoration: InputDecoration(hintText: tr('اختر التاريخ', isEng: context.read<DataStore>().isEnglish), prefixIcon: const Icon(Icons.calendar_today, size: 18), border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)), contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14)),
 
                 onTap: () async {
 
@@ -8514,7 +8544,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                 Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-                  const Text('الحد الأدنى:', style: TextStyle(fontWeight: FontWeight.w600)),
+                  Text(tr('الحد الأدنى:', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                   const SizedBox(height: 4),
 
@@ -8534,7 +8564,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                 Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-                  const Text('الحد الأعلى:', style: TextStyle(fontWeight: FontWeight.w600)),
+                  Text(tr('الحد الأعلى:', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
                   const SizedBox(height: 4),
 
@@ -8560,7 +8590,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
 
                 child: GradientButton(
 
-                  label: 'تطبيق',
+                  label: tr('تطبيق', isEng: context.read<DataStore>().isEnglish),
 
                   icon: Icons.check,
 
@@ -9047,6 +9077,13 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
     setState(() {
 
       final existing = _items.indexWhere((i) => i.productId == p.id);
+
+      final currentQty = existing >= 0 ? _items[existing].quantity : 0;
+
+      if (p.quantity > 0 && currentQty >= p.quantity) {
+        showAppToast(context, '${tr('انتهى من المخزون', isEng: context.read<DataStore>().isEnglish)}: ${p.name}', icon: Icons.warning, color: AppColors.warning);
+        return;
+      }
 
       if (existing >= 0) {
 
@@ -11476,7 +11513,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                     if (success) {
 
-                      showAppToast(context, 'تم الربط بنجاح', icon: Icons.check, color: AppColors.success);
+                      showAppToast(context, tr('تم الربط بنجاح', isEng: context.read<DataStore>().isEnglish), icon: Icons.check, color: AppColors.success);
 
                       Navigator.pushReplacement(context, PageRouteBuilder(
 
@@ -11490,7 +11527,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                     } else {
 
-                      showAppToast(context, 'فشل الربط', icon: Icons.error, color: AppColors.danger);
+                      showAppToast(context, tr('فشل الربط', isEng: context.read<DataStore>().isEnglish), icon: Icons.error, color: AppColors.danger);
 
                     }
 
@@ -13179,7 +13216,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                     : filtered.isEmpty
 
-                        ? EmptyState(icon: Icons.search_off, title: 'لا نتائج', subtitle: 'جرّب البحث بكلمات مختلفة')
+                        ? EmptyState(icon: Icons.search_off, title: tr('لا نتائج', isEng: store.isEnglish), subtitle: tr('جرّب البحث بكلمات مختلفة', isEng: store.isEnglish))
 
                         : RefreshIndicator(
 
@@ -13295,7 +13332,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                             ],
 
-                                            Text('$invCount فاتورة', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
+                                             Text('$invCount ${tr('فاتورة', isEng: store.isEnglish)}', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
 
                                             if (store.getCustomerAdvanceBalance(c.name) > 0) ...[
 
@@ -13585,7 +13622,7 @@ class StatsScreen extends StatelessWidget {
 
                             title: Text(e.key, style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                            subtitle: Text('${e.value} فاتورة'),
+                            subtitle: Text('${e.value} ${tr('فاتورة', isEng: store.isEnglish)}'),
 
                             trailing: Text('${total.toStringAsFixed(2)} د.ل', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
 
@@ -13631,7 +13668,7 @@ class StatsScreen extends StatelessWidget {
 
                           title: Text('${inv.id} - ${inv.buyerName}', style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                          subtitle: Text('متأخر ${-inv.daysUntilDue} يوم | متبقي ${inv.remaining.toStringAsFixed(2)} د.ل'),
+                          subtitle: Text('${tr('متأخر', isEng: store.isEnglish)} ${-inv.daysUntilDue} ${tr('يوم', isEng: store.isEnglish)} | ${tr('متبقي', isEng: store.isEnglish)} ${inv.remaining.toStringAsFixed(2)} د.ل'),
 
                           trailing: const Icon(Icons.chevron_left, color: AppColors.danger),
 
