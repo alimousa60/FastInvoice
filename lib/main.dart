@@ -122,9 +122,15 @@ String fixPdfArabic(String text) {
 
   };
 
-  const Map<int, int> _lamAlef = {
+  const Map<int, int> _lamAlefIsolated = {
 
     0x0622: 0xFEF5, 0x0623: 0xFEF7, 0x0625: 0xFEF9, 0x0627: 0xFEFB,
+
+  };
+
+  const Map<int, int> _lamAlefFinal = {
+
+    0x0622: 0xFEF6, 0x0623: 0xFEF8, 0x0625: 0xFEFA, 0x0627: 0xFEFC,
 
   };
 
@@ -142,57 +148,70 @@ String fixPdfArabic(String text) {
 
   final input = text.codeUnits;
 
+  // Segment into Arabic and non-Arabic runs, shape Arabic, reverse Arabic runs only
+  final runs = <({int start, int end, bool isArabic})>[];
+  
+  int runStart = 0;
+  bool runIsArabic = _isArabic(input[0]);
+  for (int i = 1; i < input.length; i++) {
+    final curArabic = _isArabic(input[i]);
+    if (curArabic != runIsArabic) {
+      runs.add((start: runStart, end: i, isArabic: runIsArabic));
+      runStart = i;
+      runIsArabic = curArabic;
+    }
+  }
+  runs.add((start: runStart, end: input.length, isArabic: runIsArabic));
+
   final shaped = <int>[];
-
-  for (int i = 0; i < input.length; i++) {
-
-    final c = input[i];
-
-    if (!_isArabic(c)) { shaped.add(c); continue; }
-
-    bool prevJoin = i > 0 && _isJoining(input[i - 1]);
-
-    bool nextJoin = i < input.length - 1 && _isJoining(input[i + 1]);
-
-    if (c == 0x0644 && i < input.length - 1 && _lamAlef.containsKey(input[i + 1])) {
-
-      shaped.add(_lamAlef[input[i + 1]]!);
-
-      i++;
-
+  for (final run in runs) {
+    final runChars = input.sublist(run.start, run.end);
+    if (!run.isArabic) {
+      shaped.addAll(runChars);
       continue;
-
     }
+    // Shape Arabic characters in this run
+    for (int i = 0; i < runChars.length; i++) {
+      final c = runChars[i];
+      if (!_isArabic(c)) { shaped.add(c); continue; }
+      bool prevJoin = i > 0 && _isJoining(runChars[i - 1]);
+      bool nextJoin = i < runChars.length - 1 && _isJoining(runChars[i + 1]);
+      if (c == 0x0644 && i < runChars.length - 1 && _lamAlefIsolated.containsKey(runChars[i + 1])) {
+        final prevCharJoin = i > 0 && _isJoining(runChars[i - 1]);
+        shaped.add(prevCharJoin ? _lamAlefFinal[runChars[i + 1]]! : _lamAlefIsolated[runChars[i + 1]]!);
+        i++;
+        continue;
+      }
+      final forms = _forms[c];
+      if (forms != null) {
+        if (prevJoin && nextJoin) shaped.add(forms[2]);
+        else if (!prevJoin && nextJoin) shaped.add(forms[0]);
+        else if (prevJoin && !nextJoin) shaped.add(forms[1]);
+        else shaped.add(forms[3]);
+      } else {
+        shaped.add(c);
+      }
+    }
+  }
 
-    final forms = _forms[c];
-
-    if (forms != null) {
-
-      if (prevJoin && nextJoin) shaped.add(forms[2]);
-
-      else if (!prevJoin && nextJoin) shaped.add(forms[0]);
-
-      else if (prevJoin && !nextJoin) shaped.add(forms[1]);
-
-      else shaped.add(forms[3]);
-
+  // Reverse only the Arabic runs for RTL display, keep non-Arabic in original positions
+  final result = <int>[];
+  int shapedIdx = 0;
+  for (final run in runs) {
+    final runLen = run.end - run.start;
+    if (!run.isArabic) {
+      result.addAll(shaped.sublist(shapedIdx, shapedIdx + runLen));
+      shapedIdx += runLen;
     } else {
-
-      shaped.add(c);
-
+      // Reverse this Arabic run in the output
+      for (int i = shapedIdx + runLen - 1; i >= shapedIdx; i--) {
+        result.add(shaped[i]);
+      }
+      shapedIdx += runLen;
     }
-
   }
 
-  final reversed = <int>[];
-
-  for (int i = shaped.length - 1; i >= 0; i--) {
-
-    reversed.add(shaped[i]);
-
-  }
-
-  return String.fromCharCodes(reversed);
+  return String.fromCharCodes(result);
 
 }
 
@@ -319,7 +338,6 @@ final Map<String, String> _en = {
   'شراء': 'Purchase',
   'بيع': 'Sale',
   'قطعة': 'Piece',
-  'قطعة2': 'pcs',
   'إجمالي المبيعات': 'Total Sales',
   'المتوسط': 'Average',
   'أكبر العملاء': 'Top Customers',
@@ -394,9 +412,16 @@ final Map<String, String> _en = {
   'استيراد من نص نسخة احتياطية': 'Import from backup text',
   'حذف جميع الفواتير والمنتجات': 'Delete all invoices and products',
   'هل أنت متأكد؟ لا يمكن التراجع': 'Are you sure? Cannot be undone.',
+  'هل أنت متأكد؟ لا يمكن التراجع.': 'Are you sure? Cannot be undone.',
   'تأكيد الحذف': 'Confirm Delete',
   'نعم': 'Yes',
   'لا': 'No',
+  'إلغاء': 'Cancel',
+  'استرجاع': 'Restore',
+  'تم الاسترجاع': 'Restored',
+  'تم نسخ النص': 'Text copied',
+  'مسح': 'Clear',
+  'استيراد البيانات من ملف .abk': 'Import data from .abk file',
   'اسم العنصر': 'Item Name',
   'السعر': 'Price',
   'الخصم': 'Discount',
@@ -425,8 +450,6 @@ final Map<String, String> _en = {
   'منتج • … عميل • … فاتورة • …': 'product • ... customer • ... invoice • ...',
   'الصق النص الاحتياطي هنا...': 'Paste backup text here...',
   'تم الترحيل من نسخة احتياطية': 'Migrated from backup',
-  '-msl': '',
-  'msl-sdg': '',
   'الإصدار': 'Version',
   'مسح': 'Clear',
   'الميزات الجديدة': 'New Features',
@@ -440,7 +463,6 @@ final Map<String, String> _en = {
   'استلام دفعة': 'Receive Payment',
   'الزبون': 'Customer',
   'اختر الزبون': 'Select Customer',
-  'balancecustomers': 'Customer Balance',
   'توزيع المبلغ على الفواتير': 'Distribute amount across invoices',
   'حفظ دفعة مقدمة': 'Save Advance Payment',
   'توزيع على': 'Distribute to',
@@ -564,10 +586,11 @@ final Map<String, String> _en = {
   'قوالب محفوظة': 'Saved Templates',
   'تم تحميل القالب': 'Template loaded',
   'تم حذف القالب': 'Template deleted',
+  'تم حفظ القالب': 'Template saved',
+  'تم تغيير القالب الافتراضي': 'Default template changed',
   'حفظ كقالب': 'Save as Template',
   'حفظ القالب': 'Save Template',
   'اسم القالب': 'Template Name',
-  ' invoices': 'invoices',
   'مدفوع': 'Paid',
   'جزئي': 'Partial',
   'غير مدفوع': 'Unpaid',
@@ -2299,7 +2322,7 @@ class StatusBadge extends StatelessWidget {
 
     final color = isPaid ? AppColors.success : (isPartial ? AppColors.warning : AppColors.danger);
 
-    final label = isPaid ? 'مدفوع' : (isPartial ? 'جزئي' : 'غير مدفوع');
+    final label = isPaid ? tr('مدفوع', isEng: context.read<DataStore>().isEnglish) : (isPartial ? tr('جزئي', isEng: context.read<DataStore>().isEnglish) : tr('غير مدفوع', isEng: context.read<DataStore>().isEnglish));
 
     final icon = isPaid ? Icons.check_circle : (isPartial ? Icons.schedule : Icons.cancel);
 
@@ -4993,7 +5016,7 @@ const Map<String, Map<String, dynamic>> appChangelog = {
 
       'إصلاح نظام إشعارات التحديث',
 
-      'نظام تسويات م红楼梦ي بالكامل',
+      'نظام تسويات متكامل بالكامل',
 
       'تتبع دقيق للرصيد المقدم',
 
@@ -5231,7 +5254,7 @@ void _showWhatsNewDialog(BuildContext context, {VoidCallback? onDismissed}) {
 
           child: GradientButton(
 
-            label: 'تم',
+            label: tr('تم', isEng: context.read<DataStore>().isEnglish),
 
             icon: Icons.check,
 
@@ -6281,6 +6304,21 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
   final amtCtrl = TextEditingController();
   PaymentMethod selectedMethod = PaymentMethod.cash;
   Map<String, double> allocations = {};
+  Map<String, TextEditingController> _allocControllers = {};
+
+  TextEditingController _getAllocController(String invId, double remaining) {
+    if (!_allocControllers.containsKey(invId)) {
+      _allocControllers[invId] = TextEditingController();
+    }
+    return _allocControllers[invId]!;
+  }
+
+  @override
+  void dispose() {
+    amtCtrl.dispose();
+    for (final c in _allocControllers.values) { c.dispose(); }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -6420,7 +6458,7 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(inv.id, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
-                            Text('المتبقي: ${inv.remaining.toStringAsFixed(2)}', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
+                            Text('${tr('المتبقي', isEng: store.isEnglish)}: ${inv.remaining.toStringAsFixed(2)}', style: TextStyle(fontSize: 11, color: Colors.grey[600])),
                           ],
                         ),
                       ),
@@ -6435,7 +6473,8 @@ class _MultiInvoicePaymentSheetState extends State<_MultiInvoicePaymentSheet> {
                             isDense: true,
                             border: const OutlineInputBorder(),
                           ),
-                          controller: TextEditingController(text: alloc > 0 ? alloc.toStringAsFixed(2) : ''),
+                          controller: _getAllocController(inv.id, inv.remaining)
+                            ..text = alloc > 0 ? alloc.toStringAsFixed(2) : '',
                           onChanged: (v) {
                             final amt = double.tryParse(v) ?? 0;
                             setState(() => allocations[inv.id] = amt);
@@ -7534,7 +7573,7 @@ class _PaymentsScreenState extends State<PaymentsScreen> {
 
                     decoration: BoxDecoration(color: AppColors.danger.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
 
-                    child: Text('المتبقي: ${inv.remaining.toStringAsFixed(2)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.danger, fontWeight: FontWeight.bold)),
+                    child: Text('${tr('المتبقي', isEng: context.read<DataStore>().isEnglish)}: ${inv.remaining.toStringAsFixed(2)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.danger, fontWeight: FontWeight.bold)),
 
                   ),
 
@@ -9698,7 +9737,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
       if (widget.editIndex != null) {
         _editIndex = widget.editIndex;
       } else {
-        _editIndex = store.invoices.length - 1;
+        _editIndex = 0;
       }
     });
 
@@ -10731,7 +10770,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                     decoration: BoxDecoration(color: AppColors.danger.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
 
-                    child: Text('المتبقي: ${invoice.remaining.toStringAsFixed(2)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.danger, fontWeight: FontWeight.bold)),
+                    child: Text('${tr('المتبقي', isEng: ctx.read<DataStore>().isEnglish)}: ${invoice.remaining.toStringAsFixed(2)} د.ل', style: const TextStyle(fontSize: 12, color: AppColors.danger, fontWeight: FontWeight.bold)),
 
                   ),
 
@@ -11089,7 +11128,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                         children: [
 
-                          Text('تاريخ الاستحقاق: ${invoice.dueDate}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                          Text('${tr('تاريخ الاستحقاق', isEng: context.read<DataStore>().isEnglish)}: ${invoice.dueDate}', style: const TextStyle(fontWeight: FontWeight.bold)),
 
                           const SizedBox(height: 4),
 
@@ -11097,13 +11136,13 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                             invoice.isOverdue
 
-                                ? '⚠️ متأخر ${-invoice.daysUntilDue} يوم'
+                                ? '${tr('متأخر', isEng: context.read<DataStore>().isEnglish)} ${-invoice.daysUntilDue} ${tr('يوم', isEng: context.read<DataStore>().isEnglish)}'
 
                                 : invoice.status == 'paid'
 
-                                    ? '✅ تم السداد'
+                                    ? tr('✅ تم السداد', isEng: context.read<DataStore>().isEnglish)
 
-                                    : '⏰ متبقي ${invoice.daysUntilDue} يوم',
+                                    : '${tr('متبقي', isEng: context.read<DataStore>().isEnglish)} ${invoice.daysUntilDue} ${tr('يوم', isEng: context.read<DataStore>().isEnglish)}',
 
                             style: TextStyle(
 
@@ -11221,7 +11260,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                     const Spacer(),
 
-                    Text('${invoice.payments.length} دفعة', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                    Text('${invoice.payments.length} ${tr('دفعة', isEng: context.read<DataStore>().isEnglish)}', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
 
                   ]),
 
@@ -11411,7 +11450,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
               const SizedBox(height: 4),
 
-              Text('المتبقي: ${invoice.remaining.toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
+              Text('${tr('المتبقي', isEng: store.isEnglish)}: ${invoice.remaining.toStringAsFixed(2)} د.ل', style: TextStyle(fontSize: 13, color: Colors.grey[600])),
 
               const SizedBox(height: 16),
 
@@ -11443,7 +11482,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                         transitionDuration: const Duration(milliseconds: 400),
 
-                        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: store.invoices.firstWhere((i) => i.id == invoice.id), index: store.invoices.indexWhere((i) => i.id == invoice.id)),
+                        pageBuilder: (_, _, _) { final idx2 = store.invoices.indexWhere((i) => i.id == invoice.id); return InvoiceDetailScreen(invoice: idx2 >= 0 ? store.invoices[idx2] : invoice, index: idx2 >= 0 ? idx2 : 0); },
 
                         transitionsBuilder: (_, anim, __, child) => FadeTransition(opacity: anim, child: child),
 
@@ -11601,7 +11640,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
                       backgroundColor: AppColors.primary.withValues(alpha: 0.1),
 
-                      child: Text(customerName.substring(0, 1), style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                      child: Text(customerName.isNotEmpty ? customerName.substring(0, 1) : '?', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary)),
 
                     ),
 
@@ -11732,7 +11771,7 @@ class CustomerStatementScreen extends StatelessWidget {
     return GlassCard(
 
       onTap: () => Navigator.push(context, PageRouteBuilder(
-        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: inv, index: context.read<DataStore>().invoices.indexOf(inv)),
+        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: inv, index: max(0, context.read<DataStore>().invoices.indexOf(inv))),
         transitionsBuilder: (_, anim, _, child) => FadeTransition(
           opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
           child: SlideTransition(
@@ -11820,7 +11859,7 @@ class CustomerStatementScreen extends StatelessWidget {
     return GlassCard(
 
       onTap: linkedInv != null ? () => Navigator.push(context, PageRouteBuilder(
-        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: linkedInv, index: store.invoices.indexOf(linkedInv)),
+        pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: linkedInv!, index: max(0, store.invoices.indexOf(linkedInv))),
         transitionsBuilder: (_, anim, _, child) => FadeTransition(
           opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
           child: SlideTransition(
@@ -12452,7 +12491,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
                       },
 
-                      onDismissed: (_) { store.deleteProduct(idx); showAppToast(context, '${tr('تم حذف', isEng: store.isEnglish)} ${p.name}', icon: Icons.delete, color: AppColors.danger); },
+                      onDismissed: (_) { final idx2 = store.products.indexWhere((x) => x.id == p.id); if (idx2 >= 0) { store.deleteProduct(idx2); } showAppToast(context, '${tr('تم حذف', isEng: store.isEnglish)} ${p.name}', icon: Icons.delete, color: AppColors.danger); },
 
                       background: Container(
 
@@ -13186,7 +13225,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
 
                                   },
 
-                                  onDismissed: (_) { store.deleteCustomer(actualIndex); showAppToast(context, '${tr('تم حذف', isEng: store.isEnglish)} ${c.name}', icon: Icons.delete, color: AppColors.danger); },
+                                  onDismissed: (_) { final idx2 = store.customers.indexOf(c); if (idx2 >= 0) { store.deleteCustomer(idx2); } showAppToast(context, '${tr('تم حذف', isEng: store.isEnglish)} ${c.name}', icon: Icons.delete, color: AppColors.danger); },
 
                                   background: Container(
 
@@ -13597,7 +13636,7 @@ class StatsScreen extends StatelessWidget {
                           trailing: const Icon(Icons.chevron_left, color: AppColors.danger),
 
                           onTap: () => Navigator.push(context, PageRouteBuilder(
-                            pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: inv, index: store.invoices.indexOf(inv)),
+                            pageBuilder: (_, _, _) => InvoiceDetailScreen(invoice: inv, index: max(0, store.invoices.indexOf(inv))),
                             transitionsBuilder: (_, anim, _, child) => FadeTransition(
                               opacity: CurvedAnimation(parent: anim, curve: Curves.easeInOut),
                               child: SlideTransition(
@@ -15044,7 +15083,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                     s.loadTemplate(i);
 
-                    showAppToast(context, 'تم تحميل القالب', icon: Icons.check, color: AppColors.success);
+                    showAppToast(context, tr('تم تحميل القالب', isEng: context.read<DataStore>().isEnglish), icon: Icons.check, color: AppColors.success);
 
                   },
 
@@ -15064,7 +15103,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                           s.deleteTemplate(i);
 
-                          showAppToast(context, 'تم حذف القالب', icon: Icons.delete, color: AppColors.danger);
+                          showAppToast(context, tr('تم حذف القالب', isEng: context.read<DataStore>().isEnglish), icon: Icons.delete, color: AppColors.danger);
 
                         }),
 
@@ -15102,7 +15141,7 @@ class _InvoiceSettingsScreenState extends State<InvoiceSettingsScreen> {
 
                           Navigator.pop(context);
 
-                          showAppToast(context, 'تم حفظ القالب: ${ctrl.text}', icon: Icons.check, color: AppColors.success);
+                          showAppToast(context, '${tr('تم حفظ القالب', isEng: context.read<DataStore>().isEnglish)}: ${ctrl.text}', icon: Icons.check, color: AppColors.success);
 
                         }
 
@@ -15432,7 +15471,7 @@ class SettingsScreen extends StatelessWidget {
 
                                 store.updateInvoiceSetting('defaultTemplate', t.id);
 
-                                showAppToast(context, 'تم تغيير القالب الافتراضي', icon: Icons.check, color: AppColors.success);
+                                showAppToast(context, tr('تم تغيير القالب الافتراضي', isEng: context.read<DataStore>().isEnglish), icon: Icons.check, color: AppColors.success);
 
                               },
 
@@ -15739,7 +15778,7 @@ class SettingsScreen extends StatelessWidget {
 
                                       const SizedBox(height: 8),
 
-                                      const Text('نسخة احتياطية', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                      Text(tr('نسخة احتياطية', isEng: context.read<DataStore>().isEnglish), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                                       Text('${store.products.length} منتج • ${store.customers.length} عميل • ${store.invoices.length} فاتورة • ${sizeKb}KB', style: TextStyle(fontSize: 12, color: Colors.grey[500])),
 
@@ -15789,7 +15828,7 @@ class SettingsScreen extends StatelessWidget {
 
                                       Navigator.pop(ctx);
 
-                                      showAppToast(context, 'تم نسخ النص', icon: Icons.check, color: AppColors.success);
+                                      showAppToast(context, tr('تم نسخ النص', isEng: context.read<DataStore>().isEnglish), icon: Icons.check, color: AppColors.success);
 
                                     },
 
@@ -15827,7 +15866,7 @@ class SettingsScreen extends StatelessWidget {
 
                       title: Text(tr('استرجاع نسخة احتياطية', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                      subtitle: const Text('استيراد البيانات من ملف .abk'),
+                      subtitle: Text(tr('استيراد البيانات من ملف .abk', isEng: context.read<DataStore>().isEnglish)),
 
                       trailing: const Icon(Icons.chevron_left),
 
@@ -15841,7 +15880,7 @@ class SettingsScreen extends StatelessWidget {
 
                           builder: (ctx) => AlertDialog(
 
-                            title: const Text('استرجاع نسخة احتياطية'),
+                            title: Text(tr('استرجاع نسخة احتياطية', isEng: context.read<DataStore>().isEnglish)),
 
                             content: TextField(
 
@@ -15849,9 +15888,9 @@ class SettingsScreen extends StatelessWidget {
 
                               maxLines: 8,
 
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
 
-                                hintText: 'الصق النص الاحتياطي هنا...',
+                                hintText: tr('الصق النص الاحتياطي هنا...', isEng: context.read<DataStore>().isEnglish),
 
                                 border: OutlineInputBorder(),
 
@@ -15861,9 +15900,9 @@ class SettingsScreen extends StatelessWidget {
 
                             actions: [
 
-                              TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('إلغاء')),
+                              TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr('إلغاء', isEng: context.read<DataStore>().isEnglish))),
 
-                              TextButton(onPressed: () => Navigator.pop(ctx, ctrl.text), child: const Text('استرجاع')),
+                              TextButton(onPressed: () => Navigator.pop(ctx, ctrl.text), child: Text(tr('استرجاع', isEng: context.read<DataStore>().isEnglish))),
 
                             ],
 
@@ -16063,7 +16102,7 @@ class SettingsScreen extends StatelessWidget {
 
                             if (context.mounted) {
 
-                              showAppToast(context, 'تم الاسترجاع - ${data['i']?.length ?? 0} فاتورة', icon: Icons.check_circle, color: AppColors.success);
+                              showAppToast(context, '${tr('تم الاسترجاع', isEng: context.read<DataStore>().isEnglish)} - ${data['i']?.length ?? 0} ${tr('فاتورة', isEng: context.read<DataStore>().isEnglish)}', icon: Icons.check_circle, color: AppColors.success);
 
                             }
 
@@ -16071,7 +16110,7 @@ class SettingsScreen extends StatelessWidget {
 
                             if (context.mounted) {
 
-                              showAppToast(context, 'خطأ في البيانات', icon: Icons.error, color: AppColors.danger);
+                              showAppToast(context, tr('خطأ في البيانات', isEng: context.read<DataStore>().isEnglish), icon: Icons.error, color: AppColors.danger);
 
                             }
 
@@ -16175,7 +16214,7 @@ class SettingsScreen extends StatelessWidget {
 
                       title: Text(tr('ما الجديد في هذا الإصدار', isEng: store.isEnglish), style: const TextStyle(fontWeight: FontWeight.w600)),
 
-                      subtitle: Text('الإصدار $appVersion'),
+                      subtitle: Text('${tr('الإصدار', isEng: context.read<DataStore>().isEnglish)} $appVersion'),
 
                       trailing: const Icon(Icons.chevron_left),
 
@@ -16213,9 +16252,9 @@ class SettingsScreen extends StatelessWidget {
 
                           builder: (_) => AlertDialog(
 
-                            title: const Text('مسح جميع البيانات'),
+                            title: Text(tr('مسح جميع البيانات', isEng: context.read<DataStore>().isEnglish)),
 
-                            content: const Text('هل أنت متأكد؟ لا يمكن التراجع.'),
+                            content: Text(tr('هل أنت متأكد؟ لا يمكن التراجع.', isEng: context.read<DataStore>().isEnglish)),
 
                             actions: [
 
@@ -16229,11 +16268,11 @@ class SettingsScreen extends StatelessWidget {
 
                                   store.save(); Navigator.pop(context);
 
-                                  showAppToast(context, 'تم مسح جميع البيانات', icon: Icons.delete, color: AppColors.danger);
+                                  showAppToast(context, tr('تم مسح جميع البيانات', isEng: context.read<DataStore>().isEnglish), icon: Icons.delete, color: AppColors.danger);
 
                                 },
 
-                                child: const Text('مسح', style: TextStyle(color: AppColors.danger)),
+                                child: Text(tr('مسح', isEng: context.read<DataStore>().isEnglish), style: TextStyle(color: AppColors.danger)),
 
                               ),
 
