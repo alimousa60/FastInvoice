@@ -487,6 +487,8 @@ final Map<String, String> _en = {
   '💳 ائتمان': '💳 Card',
   'لا نتائج': 'No results',
   'التنبيهات': 'Notifications',
+  'لا يوجد مخزون كافٍ': 'Insufficient stock',
+  'أدخل مبلغ صحيح': 'Enter a valid amount',
   'انتهى من المخزون': 'Out of stock',
   'متبقي فقط': 'only left',
   'فلتر': 'Filter',
@@ -3853,7 +3855,7 @@ class EmptyState extends StatelessWidget {
 
 // ==================== HELPERS ====================
 
-Future<void> shareWhatsApp(String phone, Invoice inv, {bool sharePdf = false}) async {
+Future<void> shareWhatsApp(String phone, Invoice inv, {bool sharePdf = false, bool isEnglish = false}) async {
 
   if (sharePdf) {
 
@@ -3863,7 +3865,7 @@ Future<void> shareWhatsApp(String phone, Invoice inv, {bool sharePdf = false}) a
 
   }
 
-  final msg = '🧾 ${"فاتورة رقم"}: ${inv.id}\n👤 ${"العميل"}: ${inv.buyerName}\n💰 ${"الإجمالي"}: ${inv.total.toStringAsFixed(2)} د.ل\n📅 ${"التاريخ"}: ${inv.date}${inv.remaining > 0 ? '\n⏳ ${"المتبقي"}: ${inv.remaining.toStringAsFixed(2)} د.ل' : ''}';
+  final msg = '🧾 ${tr('فاتورة رقم', isEng: isEnglish)}: ${inv.id}\n👤 ${tr('العميل', isEng: isEnglish)}: ${inv.buyerName}\n💰 ${tr('الإجمالي', isEng: isEnglish)}: ${inv.total.toStringAsFixed(2)} د.ل\n📅 ${tr('التاريخ', isEng: isEnglish)}: ${inv.date}${inv.remaining > 0 ? '\n⏳ ${tr('المتبقي', isEng: isEnglish)}: ${inv.remaining.toStringAsFixed(2)} د.ل' : ''}';
 
   final cleanPhone = phone.replaceAll(RegExp(r'[\s\-\+]'), '');
 
@@ -3891,9 +3893,9 @@ Future<void> shareWhatsApp(String phone, Invoice inv, {bool sharePdf = false}) a
 
 
 
-Future<void> shareTelegram(Invoice inv) async {
+Future<void> shareTelegram(Invoice inv, {bool isEnglish = false}) async {
 
-  final msg = '🧾 ${"فاتورة رقم"}: ${inv.id}\n👤 ${"العميل"}: ${inv.buyerName}\n💰 ${"الإجمالي"}: ${inv.total.toStringAsFixed(2)} د.ل\n📅 ${"التاريخ"}: ${inv.date}${inv.remaining > 0 ? '\n⏳ ${"المتبقي"}: ${inv.remaining.toStringAsFixed(2)} د.ل' : ''}';
+  final msg = '🧾 ${tr('فاتورة رقم', isEng: isEnglish)}: ${inv.id}\n👤 ${tr('العميل', isEng: isEnglish)}: ${inv.buyerName}\n💰 ${tr('الإجمالي', isEng: isEnglish)}: ${inv.total.toStringAsFixed(2)} د.ل\n📅 ${tr('التاريخ', isEng: isEnglish)}: ${inv.date}${inv.remaining > 0 ? '\n⏳ ${tr('المتبقي', isEng: isEnglish)}: ${inv.remaining.toStringAsFixed(2)} د.ل' : ''}';
 
   final url = Uri.parse('https://t.me/share/url?text=${Uri.encodeComponent(msg)}');
 
@@ -4434,7 +4436,7 @@ pw.Widget _receiptRow(String label, String value, pw.Font font, pw.Font fontBold
 
 
 
-void _buildClassicTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold) {
+void _buildClassicTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold, {bool isEnglish = false}) {
 
   pdf.addPage(pw.MultiPage(
 
@@ -4482,7 +4484,7 @@ void _buildClassicTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
       pw.SizedBox(height: 16),
 
-      _buildTotalSection(inv, font, fontBold),
+      _buildTotalSection(inv, font, fontBold, isEnglish: isEnglish),
 
     ],
 
@@ -4492,7 +4494,7 @@ void _buildClassicTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
 
 
-void _buildModernTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold) {
+void _buildModernTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold, {bool isEnglish = false}) {
 
   pdf.addPage(pw.MultiPage(
 
@@ -4552,7 +4554,7 @@ void _buildModernTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template
 
       pw.SizedBox(height: 16),
 
-      _buildTotalSection(inv, font, fontBold),
+      _buildTotalSection(inv, font, fontBold, isEnglish: isEnglish),
 
     ],
 
@@ -4620,7 +4622,7 @@ void _buildMinimalTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templat
 
       pw.SizedBox(height: 16),
 
-      _buildTotalSection(inv, font, fontBold),
+      _buildTotalSection(inv, font, fontBold, isEnglish: isEnglish),
 
     ],
 
@@ -4690,7 +4692,7 @@ void _buildCorporateTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templ
 
       pw.SizedBox(height: 16),
 
-      _buildTotalSection(inv, font, fontBold),
+      _buildTotalSection(inv, font, fontBold, isEnglish: isEnglish),
 
     ],
 
@@ -4700,7 +4702,7 @@ void _buildCorporateTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templ
 
 
 
-void _buildColorfulTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold) {
+void _buildColorfulTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold, {bool isEnglish = false}) {
 
   pdf.addPage(pw.MultiPage(
 
@@ -4746,7 +4748,7 @@ void _buildColorfulTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templa
 
       pw.SizedBox(height: 16),
 
-      _buildTotalSection(inv, font, fontBold),
+      _buildTotalSection(inv, font, fontBold, isEnglish: isEnglish),
 
     ],
 
@@ -4756,7 +4758,7 @@ void _buildColorfulTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate templa
 
 
 
-void _buildDarkTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold) {
+void _buildDarkTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, pw.Font font, pw.Font fontBold, {bool isEnglish = false}) {
 
   pdf.addPage(pw.MultiPage(
 
@@ -4802,7 +4804,7 @@ void _buildDarkTemplate(pw.Document pdf, Invoice inv, InvoiceTemplate template, 
 
       pw.SizedBox(height: 16),
 
-      _buildTotalSection(inv, font, fontBold),
+      _buildTotalSection(inv, font, fontBold, isEnglish: isEnglish),
 
     ],
 
@@ -4910,7 +4912,7 @@ pw.Widget _buildItemsTable(Invoice inv, pw.Font font, pw.Font fontBold) {
 
 
 
-pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold) {
+pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold, {bool isEnglish = false}) {
 
   return pw.Container(
 
@@ -4932,7 +4934,7 @@ pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold) {
 
         pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
 
-          pdfText('الإجمالي الفرعي:', style: pw.TextStyle(font: font, fontSize: 12)),
+          pdfText(tr('الإجمالي الفرعي', isEng: isEnglish), style: pw.TextStyle(font: font, fontSize: 12)),
 
           pdfText('${inv.subtotal.toStringAsFixed(2)} د.ل', style: pw.TextStyle(font: font, fontSize: 12)),
 
@@ -4944,7 +4946,7 @@ pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold) {
 
           pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
 
-            pdfText('الخصم:', style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.red)),
+            pdfText(tr('الخصم', isEng: isEnglish), style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.red)),
 
             pdfText('${(inv.discountAmt + inv.subtotal * inv.discountPct / 100).toStringAsFixed(2)} د.ل', style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.red)),
 
@@ -4956,7 +4958,7 @@ pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold) {
 
         pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
 
-          pdfText('المجموع:', style: pw.TextStyle(font: fontBold, fontSize: 18)),
+          pdfText(tr('المجموع', isEng: isEnglish), style: pw.TextStyle(font: fontBold, fontSize: 18)),
 
           pdfText('${inv.total.toStringAsFixed(2)} د.ل', style: pw.TextStyle(font: fontBold, fontSize: 18)),
 
@@ -4968,7 +4970,7 @@ pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold) {
 
           pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
 
-            pdfText('المدفوع:', style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.green)),
+            pdfText(tr('المدفوع', isEng: isEnglish), style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.green)),
 
             pdfText('${inv.totalPaid.toStringAsFixed(2)} د.ل', style: pw.TextStyle(font: font, fontSize: 12, color: PdfColors.green)),
 
@@ -4976,7 +4978,7 @@ pw.Widget _buildTotalSection(Invoice inv, pw.Font font, pw.Font fontBold) {
 
           pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, children: [
 
-            pdfText('المتبقي:', style: pw.TextStyle(font: fontBold, fontSize: 14, color: PdfColors.red)),
+            pdfText(tr('المتبقي', isEng: isEnglish), style: pw.TextStyle(font: fontBold, fontSize: 14, color: PdfColors.red)),
 
             pdfText('${inv.remaining.toStringAsFixed(2)} د.ل', style: pw.TextStyle(font: fontBold, fontSize: 14, color: PdfColors.red)),
 
@@ -9029,7 +9031,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
   double get _discAmt => double.tryParse(_discountAmtController.text) ?? 0;
 
-  double get _total => _subtotal - _discAmt - (_subtotal * _discPct / 100);
+  double get _total => max(0, _subtotal - _discAmt - (_subtotal * _discPct / 100));
 
 
 
@@ -9290,11 +9292,15 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                                       if (ctx.mounted) Navigator.pop(ctx);
 
-                                    }
+                      }
 
-                                  }
+                    } else {
 
-                                },
+                      showAppToast(ctx, tr('أدخل مبلغ صحيح', isEng: store.isEnglish), icon: Icons.warning, color: AppColors.warning);
+
+                    }
+
+                  },
 
                               ),
 
@@ -9782,15 +9788,15 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
               _shareOption(Icons.chat, AppColors.whatsapp, 'واتساب PDF', () { Navigator.pop(context); shareWhatsApp(_phoneController.text, inv, sharePdf: true); }),
 
-              _shareOption(Icons.chat, AppColors.whatsapp, 'واتساب ${tr('نص', isEng: context.read<DataStore>().isEnglish)}', () { Navigator.pop(context); shareWhatsApp(_phoneController.text, inv); }),
+              _shareOption(Icons.chat, AppColors.whatsapp, 'واتساب ${tr('نص', isEng: context.read<DataStore>().isEnglish)}', () { Navigator.pop(context); shareWhatsApp(_phoneController.text, inv, isEnglish: context.read<DataStore>().isEnglish); }),
 
-              _shareOption(Icons.send, Colors.blue, tr('تيليجرام', isEng: context.read<DataStore>().isEnglish), () { Navigator.pop(context); shareTelegram(inv); }),
+              _shareOption(Icons.send, Colors.blue, tr('تيليجرام', isEng: context.read<DataStore>().isEnglish), () { Navigator.pop(context); shareTelegram(inv, isEnglish: context.read<DataStore>().isEnglish); }),
 
               _shareOption(Icons.content_copy, Colors.grey, tr('نسخ النص', isEng: context.read<DataStore>().isEnglish), () {
 
                 Navigator.pop(context);
 
-                SharePlus.instance.share(ShareParams(text: 'فاتورة: ${inv.id} | العميل: ${inv.buyerName} | الإجمالي: ${inv.total.toStringAsFixed(2)} د.ل'));
+                SharePlus.instance.share(ShareParams(text: '${tr('فاتورة', isEng: context.read<DataStore>().isEnglish)}: ${inv.id} | ${tr('العميل', isEng: context.read<DataStore>().isEnglish)}: ${inv.buyerName} | ${tr('الإجمالي', isEng: context.read<DataStore>().isEnglish)}: ${inv.total.toStringAsFixed(2)} د.ل'));
 
               }),
 
@@ -10218,6 +10224,12 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                               onPressed: () {
 
+                                final prod = context.read<DataStore>().products.where((p) => p.id == item.productId).toList();
+                                if (prod.isNotEmpty && prod.first.quantity > 0 && item.quantity >= prod.first.quantity) {
+                                  showAppToast(context, tr('لا يوجد مخزون كافٍ', isEng: context.read<DataStore>().isEnglish), icon: Icons.warning, color: AppColors.warning);
+                                  return;
+                                }
+
                                 setState(() => _items[i] = InvoiceItem(
 
                                   productId: item.productId, name: item.name, price: item.price,
@@ -10364,7 +10376,7 @@ class _CreateInvoiceScreenState extends State<CreateInvoiceScreen> {
 
                           lastDate: DateTime.now().add(const Duration(days: 365)),
 
-                          locale: const Locale('ar'),
+                          locale: context.read<DataStore>().isEnglish ? const Locale('en') : const Locale('ar'),
 
                         );
 
@@ -10635,7 +10647,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                 trailing: const Icon(Icons.chevron_left),
 
-                onTap: () { Navigator.pop(context); shareWhatsApp(invoice.buyerPhone, invoice, sharePdf: true); },
+                onTap: () { Navigator.pop(context); shareWhatsApp(invoice.buyerPhone, invoice, sharePdf: true, isEnglish: eng); },
 
               ),
 
@@ -10649,7 +10661,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                 trailing: const Icon(Icons.chevron_left),
 
-                onTap: () { Navigator.pop(context); shareWhatsApp(invoice.buyerPhone, invoice); },
+                onTap: () { Navigator.pop(context); shareWhatsApp(invoice.buyerPhone, invoice, isEnglish: eng); },
 
               ),
 
@@ -10661,7 +10673,7 @@ class InvoiceDetailScreen extends StatelessWidget {
 
                 trailing: const Icon(Icons.chevron_left),
 
-                onTap: () { Navigator.pop(context); shareTelegram(invoice); },
+                onTap: () { Navigator.pop(context); shareTelegram(invoice, isEnglish: eng); },
 
               ),
 
