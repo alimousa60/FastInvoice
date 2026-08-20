@@ -11936,7 +11936,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
 
 
-  void _printStatement(BuildContext context) {
+  void _printStatement(BuildContext context, {bool isEnglish = false}) {
 
     final store = context.read<DataStore>();
 
@@ -11956,13 +11956,13 @@ class CustomerStatementScreen extends StatelessWidget {
 
       build: (_) => [
 
-        pw.Header(level: 0, child: pdfText('كشف حساب العميل', style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold))),
+        pw.Header(level: 0, child: pdfText(isEnglish ? 'Customer Statement' : 'كشف حساب العميل', style: pw.TextStyle(fontSize: 20, fontWeight: pw.FontWeight.bold))),
 
         pw.SizedBox(height: 8),
 
-        pdfText('العميل: $customerName'),
+        pdfText(isEnglish ? 'Customer: $customerName' : 'العميل: $customerName'),
 
-        pdfText('التاريخ: ${DateFormat('yyyy-MM-dd').format(DateTime.now())}'),
+        pdfText(isEnglish ? 'Date: ${DateFormat('yyyy-MM-dd').format(DateTime.now())}' : 'التاريخ: ${DateFormat('yyyy-MM-dd').format(DateTime.now())}'),
 
         pw.Divider(),
 
@@ -11970,9 +11970,9 @@ class CustomerStatementScreen extends StatelessWidget {
 
         pw.TableHelper.fromTextArray(
 
-          headers: ['الفاتورة', 'التاريخ', 'المبلغ', 'المدفوع', 'المتبقي'].map((h) => fixPdfArabic(h)).toList(),
+          headers: isEnglish ? ['Invoice', 'Date', 'Amount', 'Paid', 'Remaining'] : ['الفاتورة', 'التاريخ', 'المبلغ', 'المدفوع', 'المتبقي'].map((h) => fixPdfArabic(h)).toList(),
 
-          data: customerInvoices.map((inv) => [inv.id, inv.date, fixPdfArabic('${inv.total.toStringAsFixed(2)} د.ل'), fixPdfArabic('${inv.totalPaid.toStringAsFixed(2)} د.ل'), fixPdfArabic('${inv.remaining.toStringAsFixed(2)} د.ل')]).toList(),
+          data: customerInvoices.map((inv) => [inv.id, inv.date, fixPdfArabic(isEnglish ? '${inv.total.toStringAsFixed(2)} LYD' : '${inv.total.toStringAsFixed(2)} د.ل'), fixPdfArabic(isEnglish ? '${inv.totalPaid.toStringAsFixed(2)} LYD' : '${inv.totalPaid.toStringAsFixed(2)} د.ل'), fixPdfArabic(isEnglish ? '${inv.remaining.toStringAsFixed(2)} LYD' : '${inv.remaining.toStringAsFixed(2)} د.ل')]).toList(),
 
           headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
 
@@ -11982,17 +11982,17 @@ class CustomerStatementScreen extends StatelessWidget {
 
         pw.SizedBox(height: 8),
 
-        pdfText('إجمالي المشتريات: ${totalPurchased.toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+        pdfText(isEnglish ? 'Total Purchases: ${totalPurchased.toStringAsFixed(2)} LYD' : 'إجمالي المشتريات: ${totalPurchased.toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
 
-        pdfText('إجمالي المدفوعات: ${totalPaid.toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
+        pdfText(isEnglish ? 'Total Paid: ${totalPaid.toStringAsFixed(2)} LYD' : 'إجمالي المدفوعات: ${totalPaid.toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold)),
 
-        pdfText('المتبقي: ${(totalPurchased - totalPaid).toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.red)),
+        pdfText(isEnglish ? 'Remaining: ${(totalPurchased - totalPaid).toStringAsFixed(2)} LYD' : 'المتبقي: ${(totalPurchased - totalPaid).toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.red)),
 
         if (store.getCustomerAdvanceBalance(customerName) > 0) ...[
 
           pw.SizedBox(height: 4),
 
-          pdfText('الرصيد المقدم: ${store.getCustomerAdvanceBalance(customerName).toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.green)),
+          pdfText(isEnglish ? 'Advance Balance: ${store.getCustomerAdvanceBalance(customerName).toStringAsFixed(2)} LYD' : 'الرصيد المقدم: ${store.getCustomerAdvanceBalance(customerName).toStringAsFixed(2)} د.ل', style: pw.TextStyle(fontWeight: pw.FontWeight.bold, color: PdfColors.green)),
 
         ],
 
@@ -12006,7 +12006,7 @@ class CustomerStatementScreen extends StatelessWidget {
 
 
 
-  void _shareStatement(BuildContext context) {
+  void _shareStatement(BuildContext context, {bool isEnglish = false}) {
 
     final store = context.read<DataStore>();
 
@@ -12018,11 +12018,11 @@ class CustomerStatementScreen extends StatelessWidget {
 
 
 
-    var text = '📋 كشف حساب: $customerName\n━━━━━━━━━━━━━━━━━━━━\n';
+    var text = isEnglish ? '📋 Customer Statement: $customerName' : '📋 كشف حساب: $customerName\n━━━━━━━━━━━━━━━━━━━━\n';
 
     for (final inv in customerInvoices) {
 
-      text += '${inv.id} | ${inv.date} | ${inv.total.toStringAsFixed(2)} د.ل | ${inv.status == 'paid' ? '✅ مدفوع' : '⏳ ${inv.remaining.toStringAsFixed(2)} متبقي'}\n';
+      text += isEnglish ? '${inv.id} | ${inv.date} | ${inv.total.toStringAsFixed(2)} LYD | ${inv.status == 'paid' ? '✅ Paid' : '⏳ ${inv.remaining.toStringAsFixed(2)} Remaining'}' : '${inv.id} | ${inv.date} | ${inv.total.toStringAsFixed(2)} د.ل | ${inv.status == 'paid' ? '✅ مدفوع' : '⏳ ${inv.remaining.toStringAsFixed(2)} متبقي'}\n';
 
       for (final p in inv.payments) {
 
@@ -12032,21 +12032,15 @@ class CustomerStatementScreen extends StatelessWidget {
 
     }
 
-    text += '━━━━━━━━━━━━━━━━━━━━\n';
-
-    text += 'المشتريات: ${totalPurchased.toStringAsFixed(2)} د.ل\n';
-
-    text += 'المدفوعات: ${totalPaid.toStringAsFixed(2)} د.ل\n';
-
-    text += 'المتبقي: ${(totalPurchased - totalPaid).toStringAsFixed(2)} د.ل\n';
+    text += isEnglish ? '━━━━━━━━━━━━━━━━━━━━\nTotal Purchases: ${totalPurchased.toStringAsFixed(2)} LYD\nTotal Paid: ${totalPaid.toStringAsFixed(2)} LYD\nRemaining: ${(totalPurchased - totalPaid).toStringAsFixed(2)} LYD\n' : '━━━━━━━━━━━━━━━━━━━━\nالمشتريات: ${totalPurchased.toStringAsFixed(2)} د.ل\nالمدفوعات: ${totalPaid.toStringAsFixed(2)} د.ل\nالمتبقي: ${(totalPurchased - totalPaid).toStringAsFixed(2)} د.ل\n';
 
     final adv = store.getCustomerAdvanceBalance(customerName);
 
-    if (adv > 0) text += 'الرصيد المقدم: ${adv.toStringAsFixed(2)} د.ل';
+    if (adv > 0) text += isEnglish ? 'Advance Balance: ${adv.toStringAsFixed(2)} LYD' : 'الرصيد المقدم: ${adv.toStringAsFixed(2)} د.ل';
 
 
 
-    SharePlus.instance.share(ShareParams(text: text, subject: 'كشف حساب $customerName'));
+    SharePlus.instance.share(ShareParams(text: text, subject: isEnglish ? 'Customer Statement $customerName' : 'كشف حساب $customerName'));
 
   }
 
